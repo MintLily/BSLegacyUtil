@@ -12,7 +12,7 @@ namespace BSLegacyUtil
     public class BuildInfo
     {
         public const string Name = "BSLegacyUtil";
-        public const string Version = "0.0.3";
+        public const string Version = "0.0.4";
         public const string Author = "Korty";
     }
 

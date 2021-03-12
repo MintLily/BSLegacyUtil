@@ -2,3 +2,5 @@
 bin/
 obj/
 .vs/
+VS_SignPass.txt
+BSLegacyUtil.pfx
