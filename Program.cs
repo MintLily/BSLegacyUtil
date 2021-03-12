@@ -435,7 +435,6 @@ namespace BSLegacyUtil
             else
                 Process.GetCurrentProcess().Kill();
         }
-
         #endregion
     }
 }
