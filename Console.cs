@@ -7,11 +7,14 @@ using static BSLegacyUtil.BuildInfo;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Security;
+using System.Runtime.InteropServices;
+using System.Windows.Forms;
 
 namespace BSLegacyUtil
 {
     class Con
     {
+
 		private static int errorCount = 0;
 		private static StreamWriter log;
 		private static string fileprefix = BuildInfo.Name + "_";
@@ -81,7 +84,7 @@ namespace BSLegacyUtil
 			Console.WriteLine("");
 		}
 
-		public static void Log(string s)
+		public static void Log(string s, string extra = null)
 		{
 			ResetColors();
 			ConsoleColor foregroundColor = Console.ForegroundColor;
@@ -99,7 +102,14 @@ namespace BSLegacyUtil
 			Console.ForegroundColor = ConsoleColor.Cyan;
 			Console.Write(Name);
 			Console.ForegroundColor = foregroundColor;
-			Console.WriteLine("] " + s);
+			if (extra != null)
+			{
+				Console.Write("] " + s);
+				Console.ForegroundColor = ConsoleColor.Red;
+				Console.WriteLine(" " + extra);
+			}
+			else
+				Console.WriteLine("] " + s);
 			if (log != null) { log.WriteLine("[" + timestamp + "] [" + Name + "] " + s); }
 		}
 
@@ -161,7 +171,7 @@ namespace BSLegacyUtil
 			Console.ForegroundColor = ConsoleColor.White;
 		}
 
-		public static void InputOption(string num, string s)
+		public static void InputOption(string num, string s, bool useable = true)
 		{
 			ConsoleColor foregroundColor = Console.ForegroundColor;
 			string timestamp = Con.GetTimestamp();
@@ -182,7 +192,15 @@ namespace BSLegacyUtil
 			Console.ForegroundColor = ConsoleColor.Red;
 			Console.Write(num);
 			Console.ForegroundColor = foregroundColor;
-			Console.WriteLine("] " + s);
+			Console.Write("] ");
+			if (useable)
+				Console.WriteLine(s);
+			else
+            {
+				Console.ForegroundColor = ConsoleColor.Red;
+				Console.WriteLine(s);
+			}
+			Console.ForegroundColor = foregroundColor;
 			if (log != null) { log.WriteLine("[" + timestamp + "] [" + Name + "] " + s); }
 		}
 
@@ -209,12 +227,12 @@ namespace BSLegacyUtil
 			Console.Write("UserName");
 			Console.ForegroundColor = foregroundColor;
 			Console.Write("] ");
-			Console.ForegroundColor = foregroundColor;
 			if (log != null) { log.Write(""); }
 		}
 
 		public static void SteamPW()
 		{
+			Utilities.Utilities.GetPassword();
 			ResetColors();
 			ConsoleColor foregroundColor = Console.ForegroundColor;
 			string timestamp = GetTimestamp();
@@ -236,8 +254,7 @@ namespace BSLegacyUtil
 			Console.Write("Password");
 			Console.ForegroundColor = foregroundColor;
 			Console.Write("] ");
-			Console.ForegroundColor = foregroundColor;
-			Utilities.Utilities.SecurePassword();
+			//Utilities.Utilities.SecurePassword();
 			if (log != null) { log.Write(""); }
 		}
 

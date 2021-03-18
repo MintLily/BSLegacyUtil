@@ -5,19 +5,20 @@ using System.Threading;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using BSLegacyUtil.Utilities;
+using Microsoft.VisualBasic.FileIO;
 
 namespace BSLegacyUtil
 {
     public class BuildInfo
     {
         public const string Name = "BSLegacyUtil";
-        public const string Version = "0.0.4";
+        public const string Version = "0.0.5";
         public const string Author = "Korty";
     }
 
     class Program
     {
+
         public static bool isDebug;
 
         static string steamUsername;
@@ -25,7 +26,8 @@ namespace BSLegacyUtil
         static string stepInput;
         static string versionInput;
 
-        static string gamePath = "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Beat Saber";
+        static string gamePath = string.Empty; //"C:\\Program Files (x86)\\Steam\\steamapps\\common\\Beat Saber";
+        static FolderDialog.Bll.FolderDialog.ISelect FolderSelect = new FolderDialog.Bll.FolderDialog.Select();
 
         static void Main(string[] args)
         {
@@ -41,10 +43,16 @@ namespace BSLegacyUtil
             Con.Log("Welcome to our easy installation of Archived Beat Saber versions!");
             Con.Log("Brought to you by the Beat Saber Legacy Group.");
             Con.Space();
-            Con.Log("Please be sure you have extracted the files before running this!");
-            Con.Space();
 
-            BeginInputOption();
+            if (File.Exists(Environment.CurrentDirectory + "Resources") && File.Exists(Environment.CurrentDirectory + "Depotdownloader"))
+            {
+                Con.Error("Please be sure you have extracted the files before running this!");
+                Con.Error("Program will not run until you have extracted all the contents out of the ZIP file.");
+                Thread.Sleep(10000);
+                Utilities.Utilities.Kill();
+            }
+            else
+                BeginInputOption();
         }
 
         #region Main Functions
@@ -55,7 +63,7 @@ namespace BSLegacyUtil
             Con.InputOption("1", "\tDownload a version of Beat Saber");
             Con.InputOption("2", "\tInstall to default Steam directory");
             Con.InputOption("3", "\tMod current install");
-            Con.InputOption("4", "\tConvert Songs");
+            Con.InputOption("4", "\tConvert Songs", false);
             Con.Space();
             Con.InputOption("5", "\tExit Program");
             Con.Space();
@@ -80,6 +88,10 @@ namespace BSLegacyUtil
                     break;
                 case "5":
                     Process.GetCurrentProcess().Kill();
+                    break;
+                case "6":
+                    if (isDebug)
+                        inputSteamLogin();
                     break;
                 default:
                     Con.Error("Invalid input, please select 1 - 4");
@@ -122,10 +134,28 @@ namespace BSLegacyUtil
         static void InstallGame()
         {
             if (!Directory.Exists(Environment.CurrentDirectory + "/Beat Saber"))
+            {
                 Con.Error("Folder does not exist, cannot move nothing.");
+                BeginInputOption();
+            }
             else
             {
-                Utilities.Utilities.DirectoryCopy("Beat Saber", gamePath, true, true);
+                try
+                {
+                    FolderSelect.InitialFolder = "C:\\Program Files (x86)\\Steam\\steamapps\\common\\";
+                    FolderSelect.ShowDialog();
+                    gamePath = FolderSelect.Folder;
+                }
+                catch { Con.Error("Select Folder Failed"); BeginInputOption(); }
+
+                try { 
+                    FileSystem.MoveDirectory("Beat Saber", gamePath, true);
+                    Con.Space();
+                    Con.LogSuccess("Finished moving Files");
+                    Con.Space();
+                    BeginInputOption();
+                }
+                catch { Con.Error("Move Directory Failed"); BeginInputOption(); }
                 Con.Log("If you need any help, join the Beat Saber Legacy Group discord.");
                 Con.Log("Find more information on our website: https://bslegacy.com");
                 Con.Space();
@@ -137,56 +167,71 @@ namespace BSLegacyUtil
 
         static void modGame(string gameVersion)
         {
+            try
+            {
+                if (FolderSelect == null)
+                {
+                    FolderSelect.InitialFolder = "C:\\Program Files (x86)\\Steam\\steamapps\\common\\";
+                    FolderSelect.ShowDialog();
+                    gamePath = FolderSelect.Folder;
+                }
+            }
+            catch { Con.Error("Select Folder Failed"); BeginInputOption(); }
+
             if (!Directory.Exists(Environment.CurrentDirectory + "/Resources"))
+            {
                 Con.Error("Folder does not exist, cannot move nothing.");
+                Con.Space();
+                BeginInputOption();
+            }
             else
             {
                 switch (gameVersion)
                 {
                     case "0.10.0":
-                        Utilities.Utilities.DirectoryCopy("Resources/Beat Saber 0.10.0", gamePath, true, true);
-                        Utilities.Utilities.DirectoryCopy("Resources/CustomSongs", gamePath + "/CustomSongs", true, true);
+                        FileSystem.MoveDirectory("Resources/Beat Saber 0.10.0", gamePath, true);
+                        FileSystem.MoveDirectory("Resources/CustomSongs", gamePath + "/CustomSongs", true);
                         Process.Start(gamePath + "IPA.exe", gamePath + "Beat Saber.exe");
-                        Con.Log("Finished modding game");
+                        Con.LogSuccess("Finished modding game");
                         break;
                     case "0.10.1":
-                        Utilities.Utilities.DirectoryCopy("Resources/Beat Saber 0.10.0", gamePath, true, true);
-                        Utilities.Utilities.DirectoryCopy("Resources/CustomSongs", gamePath + "/CustomSongs", true, true);
+                        FileSystem.MoveDirectory("Resources/Beat Saber 0.10.0", gamePath, true);
+                        FileSystem.MoveDirectory("Resources/CustomSongs", gamePath + "/CustomSongs", true);
                         Process.Start(gamePath + "IPA.exe", gamePath + "Beat Saber.exe");
-                        Con.Log("Finished modding game");
+                        Con.LogSuccess("Finished modding game");
                         break;
                     case "0.10.2":
-                        Utilities.Utilities.DirectoryCopy("Resources/Beat Saber 0.10.0", gamePath, true, true);
-                        Utilities.Utilities.DirectoryCopy("Resources/CustomSongs", gamePath + "/CustomSongs", true, true);
+                        FileSystem.MoveDirectory("Resources/Beat Saber 0.10.0", gamePath, true);
+                        FileSystem.MoveDirectory("Resources/CustomSongs", gamePath + "/CustomSongs", true);
                         Process.Start(gamePath + "IPA.exe", gamePath + "Beat Saber.exe");
-                        Con.Log("Finished modding game");
+                        Con.LogSuccess("Finished modding game");
                         break;
                     case "0.10.2p2":
-                        Utilities.Utilities.DirectoryCopy("Resources/Beat Saber 0.10.0", gamePath, true, true);
-                        Utilities.Utilities.DirectoryCopy("Resources/CustomSongs", gamePath + "/CustomSongs", true, true);
+                        FileSystem.MoveDirectory("Resources/Beat Saber 0.10.0", gamePath, true);
+                        FileSystem.MoveDirectory("Resources/CustomSongs", gamePath + "/CustomSongs", true);
                         Process.Start(gamePath + "IPA.exe", gamePath + "Beat Saber.exe");
-                        Con.Log("Finished modding game");
+                        Con.LogSuccess("Finished modding game");
                         break;
                     case "0.11.1":
-                        Utilities.Utilities.DirectoryCopy("Resources/Beat Saber 0.11.1", gamePath, true, true);
-                        Utilities.Utilities.DirectoryCopy("Resources/CustomSongs", gamePath + "/CustomSongs", true, true);
+                        FileSystem.MoveDirectory("Resources/Beat Saber 0.11.1", gamePath, true);
+                        FileSystem.MoveDirectory("Resources/CustomSongs", gamePath + "/CustomSongs", true);
                         Process.Start(gamePath + "IPA.exe", gamePath + "Beat Saber.exe");
-                        Con.Log("Finished modding game");
+                        Con.LogSuccess("Finished modding game");
                         break;
                     case "0.11.2":
-                        Utilities.Utilities.DirectoryCopy("Resources/Beat Saber 0.11.2", gamePath, true, true);
-                        Utilities.Utilities.DirectoryCopy("Resources/CustomSongs", gamePath + "/CustomSongs", true, true);
+                        FileSystem.MoveDirectory("Resources/Beat Saber 0.11.2", gamePath, true);
+                        FileSystem.MoveDirectory("Resources/CustomSongs", gamePath + "/CustomSongs", true);
                         Process.Start(gamePath + "IPA.exe", gamePath + "Beat Saber.exe");
-                        Con.Log("Finished modding game");
+                        Con.LogSuccess("Finished modding game");
                         break;
                     case "0.12.2":
-                        Utilities.Utilities.DirectoryCopy("Resources/Beat Saber 0.12.2", gamePath, true, true);
-                        Utilities.Utilities.DirectoryCopy("Resources/CustomSongs", gamePath + "/CustomSongs", true, true);
+                        FileSystem.MoveDirectory("Resources/Beat Saber 0.12.2", gamePath, true);
+                        FileSystem.MoveDirectory("Resources/CustomSongs", gamePath + "/CustomSongs", true);
                         Process.Start(gamePath + "IPA.exe", gamePath + "Beat Saber.exe");
-                        Con.Log("Finished modding game");
+                        Con.LogSuccess("Finished modding game");
                         break;
                     default:
-                        Utilities.Utilities.DirectoryCopy("Resources/Beat Saber_Data", gamePath + "/Beat Saber_Data", true, true);
+                        FileSystem.MoveDirectory("Resources/Beat Saber_Data", gamePath + "/Beat Saber_Data", true);
                         Process.Start("Resources/ModAssistant.exe");
                         Con.Log("If you need any help, join the Beat Saber Legacy Group discord.");
                         Con.Log("Find more information on our website: https://bslegacy.com");
@@ -196,6 +241,8 @@ namespace BSLegacyUtil
                         Con.Log("\t\t - RiskiVR (Risk#3904)");
                         break;
                 }
+                Con.Space();
+                BeginInputOption();
             }
         }
 
@@ -208,12 +255,18 @@ namespace BSLegacyUtil
 
         static void inputSteamLogin()
         {
-            Con.Log("Steam Username (not display name)");
+            Con.Log("Steam Username", "(not display name)");
             Con.SteamUN();
             steamUsername = Console.ReadLine();
-            Con.Log("Steam Password (press enter twice)");
+            Con.Log("Steam Password");//, "(press enter once before you start typing)");
             Con.SteamPW();
             steamPassword = Console.ReadLine();
+
+            if (isDebug)
+            {
+                Con.Log("password is: ", steamPassword);
+                BeginInputOption();
+            }
         }
         #endregion
 
@@ -423,7 +476,7 @@ namespace BSLegacyUtil
                     {
                         Con.Space();
                         Con.Error("InvalidPassword, please try again");
-                        
+
                         BeginInputOption();
                     }
                 }
@@ -433,7 +486,7 @@ namespace BSLegacyUtil
                 }
             }
             else
-                Process.GetCurrentProcess().Kill();
+                Utilities.Utilities.Kill();
         }
         #endregion
     }

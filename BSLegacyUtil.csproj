@@ -28,4 +28,10 @@
     </None>
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Include="System.Windows.Forms">
+      <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\VRChat\MelonLoader\Managed\System.Windows.Forms.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>

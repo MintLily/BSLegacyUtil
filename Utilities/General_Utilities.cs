@@ -4,11 +4,19 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Security;
 using System.Windows;
+using System.Runtime.InteropServices;
+using System.Windows.Forms;
+using System.Text;
 
 namespace BSLegacyUtil.Utilities
 {
     class Utilities
     {
+        public static void Kill()
+        {
+            Process.GetCurrentProcess().Kill();
+        }
+
         public static void DirectoryCopy(string sourceDirName, string destDirName, bool copySubDirs, bool overwrite)
         {
             // Get the subdirectories for the specified directory.
@@ -79,6 +87,40 @@ namespace BSLegacyUtil.Utilities
             while (key.Key != ConsoleKey.Enter & securePwd.Length < 99);
             securePwd.MakeReadOnly();
             securePwd.Dispose();
+            Console.WriteLine();
+        }
+
+        /// <summary>
+        /// Gets the console secure password.
+        /// </summary>
+        /// <returns></returns>
+        public static string GetPassword()
+        {
+            StringBuilder input = new StringBuilder();
+            while (true)
+            {
+                int x = Console.CursorLeft;
+                int y = Console.CursorTop;
+                ConsoleKeyInfo key = Console.ReadKey(true);
+                if (key.Key == ConsoleKey.Enter)
+                {
+                    Console.WriteLine();
+                    break;
+                }
+                if (key.Key == ConsoleKey.Backspace && input.Length > 0)
+                {
+                    input.Remove(input.Length - 1, 1);
+                    Console.SetCursorPosition(x - 1, y);
+                    Console.Write(" ");
+                    Console.SetCursorPosition(x - 1, y);
+                }
+                else if (key.Key != ConsoleKey.Backspace)
+                {
+                    input.Append(key.KeyChar);
+                    Console.Write("*");
+                }
+            }
+            return input.ToString();
         }
     }
 }
