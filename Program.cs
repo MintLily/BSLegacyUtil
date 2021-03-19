@@ -461,24 +461,13 @@ namespace BSLegacyUtil
                 {
                     Process downgrade = Process.Start("dotnet", "Depotdownloader\\DepotDownloader.dll -app 620980 -depot 620981 -manifest " + manifestID +
                         " -username " + steamUsername + " -password " + steamPassword + " -dir \"Beat Saber\" -validate");
-                    try
-                    {
-                        downgrade.WaitForExit();
-                        downgrade.BeginOutputReadLine();
-                        string processOutput = downgrade.StandardOutput.ReadToEnd();
-                        if (processOutput.Contains("InvalidPassword"))
-                            Con.Error("InvalidPassword, try again");
-                        else
-                            Con.LogSuccess("Finished downloading Beat Saber " + gameVersion);
-                        Con.Space();
-                        BeginInputOption();
-                    }
-                    catch (Exception e)
-                    {
-                        Con.Error(e.ToString());
 
-                        BeginInputOption();
-                    }
+                    if (string.IsNullOrWhiteSpace(gameVersion))
+                        Con.LogSuccess("Finished downloading Beat Saber");
+                    else
+                        Con.LogSuccess("Finished downloading Beat Saber " + gameVersion);
+                    Con.Space();
+                    BeginInputOption();
                 }
                 catch (Exception downgrade)
                 {
