@@ -25,7 +25,6 @@ namespace BSLegacyUtil
 			{
 				string text = Environment.CurrentDirectory + "\\Logs\\" + 
 					fileprefix + DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss-fff") + ".log";
-				//string text = Path.Combine(Environment.CurrentDirectory, "Logs/" + Logger.fileprefix + DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss-fff") + ".log");
 				FileInfo fileInfo = new FileInfo(text);
 				DirectoryInfo directoryInfo = new DirectoryInfo(fileInfo.DirectoryName);
 				if (!directoryInfo.Exists)
@@ -322,7 +321,7 @@ namespace BSLegacyUtil
 		{
 			var foreColor = Console.ForegroundColor;
 
-			Console.Title = BuildInfo.Name + " v" + BuildInfo.Version + " - Built by " + BuildInfo.Author;
+			Console.Title = BuildInfo.Name + " (Console App) " + " v" + BuildInfo.Version + " - Built by " + BuildInfo.Author;
 
 			Console.ForegroundColor = logoColor;
 			WriteLinesCentered(logo);

@@ -12,7 +12,7 @@ namespace BSLegacyUtil
     public class BuildInfo
     {
         public const string Name = "BSLegacyUtil";
-        public const string Version = "0.0.6";
+        public const string Version = "1.0.0";
         public const string Author = "Korty";
     }
 
@@ -37,9 +37,8 @@ namespace BSLegacyUtil
                 Con.Init();
             }
             Con._Logo();
-            Con.Space();
-            Con.Log("Welcome to our easy installation of Archived Beat Saber versions!");
-            Con.Log("Brought to you by the Beat Saber Legacy Group.");
+            Con.Log("This tool will allow you to easily downgrade your Beat Saber.");
+            Con.Log("Brought to you by the", "Beat Saber Legacy Group", ConsoleColor.DarkCyan);
             Con.Space();
 
             if (!Directory.Exists(Environment.CurrentDirectory + "\\Resources") || !Directory.Exists(Environment.CurrentDirectory + "\\Depotdownloader"))
@@ -60,7 +59,7 @@ namespace BSLegacyUtil
             Con.InputOption("1", "\tDownload a version of Beat Saber");
             Con.InputOption("2", "\tInstall to default Steam directory");
             Con.InputOption("3", "\tMod current install");
-            Con.InputOption("4", "\tConvert Songs", false);
+            Con.InputOption("4", "\tConvert Songs");
             Con.Space();
             Con.InputOption("5", "\tExit Program");
             Con.Space();
