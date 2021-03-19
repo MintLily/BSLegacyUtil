@@ -84,7 +84,7 @@ namespace BSLegacyUtil
 			Console.WriteLine("");
 		}
 
-		public static void Log(string s, string extra = null)
+		public static void Log(string s, string extra = null, ConsoleColor color = ConsoleColor.Red)
 		{
 			ResetColors();
 			ConsoleColor foregroundColor = Console.ForegroundColor;
@@ -105,11 +105,12 @@ namespace BSLegacyUtil
 			if (extra != null)
 			{
 				Console.Write("] " + s);
-				Console.ForegroundColor = ConsoleColor.Red;
+				Console.ForegroundColor = color;
 				Console.WriteLine(" " + extra);
 			}
 			else
 				Console.WriteLine("] " + s);
+			Console.ForegroundColor = foregroundColor;
 			if (log != null) { log.WriteLine("[" + timestamp + "] [" + Name + "] " + s); }
 		}
 
@@ -154,7 +155,7 @@ namespace BSLegacyUtil
 			}
 			else
 				Console.Write("[");
-			Console.ForegroundColor = ConsoleColor.Yellow;
+			Console.ForegroundColor = ConsoleColor.Cyan;
 			Console.Write(Name);
 			Console.ForegroundColor = foregroundColor;
 			Console.Write("] [");
@@ -162,7 +163,7 @@ namespace BSLegacyUtil
 			Console.Write("INPUT");
 			Console.ForegroundColor = foregroundColor;
 			Console.Write("] ");
-			Console.ForegroundColor = ConsoleColor.Red;
+			Console.ForegroundColor = ConsoleColor.Yellow;
 			if (log != null) { log.WriteLine("[" + timestamp + "] [" + Name + "] "); }
 		}
 
@@ -232,7 +233,6 @@ namespace BSLegacyUtil
 
 		public static void SteamPW()
 		{
-			Utilities.Utilities.GetPassword();
 			ResetColors();
 			ConsoleColor foregroundColor = Console.ForegroundColor;
 			string timestamp = GetTimestamp();
@@ -318,20 +318,68 @@ namespace BSLegacyUtil
 			}
 		}
 
+		public static void WriteHeader(IList<string> logo, ConsoleColor logoColor, IList<string> credits)
+		{
+			var foreColor = Console.ForegroundColor;
+
+			Console.Title = BuildInfo.Name + " v" + BuildInfo.Version + " - Built by " + BuildInfo.Author;
+
+			Console.ForegroundColor = logoColor;
+			WriteLinesCentered(logo);
+
+			Console.WriteLine();
+
+			Console.ForegroundColor = ConsoleColor.White;
+			WriteLinesCentered(credits);
+
+			Console.ForegroundColor = foreColor;
+
+			WriteSeperator();
+		}
+
+		private static void WriteLinesCentered(IList<string> lines)
+		{
+			var longestLine = lines.Max(a => a.Length);
+			foreach (var line in lines)
+				WriteLineCentered(line, longestLine);
+		}
+
+		private static void WriteLineCentered(string line, int referenceLength = -1)
+		{
+			if (referenceLength < 0)
+				referenceLength = line.Length;
+
+			Console.WriteLine(line.PadLeft(line.Length + Console.WindowWidth / 2 - referenceLength / 2));
+		}
+
 		public static void _Logo()
         {
-			if (!Program.isDebug)
-            {
-				string title = @"
-                   ____ _____ __                               
-                  / __ ) ___// /   ___  ____ _____ ________  __
-                 / __  \__ \/ /   / _ \/ __ `/ __ `/ ___/ / / /
-                / /_/ /__/ / /___/  __/ /_/ / /_/ / /__/ /_/ / 
-               /_____/____/_____/\___/\__, /\__,_/\___/\__, /  
-                                     /____/           /____/   
-";
-				Console.WriteLine(title);
-            }
-        }
+			List<string> title = new List<string>() { 
+"    ____ _____ __                               ",
+"   / __ ) ___// /   ___  ____ _____ ________  __",
+"  / __  \\__ \\/ /   / _ \\/ __ `/ __ `/ ___/ / / /",
+" / /_/ /__/ / /___/  __/ /_/ / /_/ / /__/ /_/ / ",
+"/_____/____/_____/\\___/\\__, /\\__,_/\\___/\\__, /  ",
+"                      /____/           /____/   "};
+			WriteHeader(title, ConsoleColor.Cyan, new List<string>() { "Created by Korty" });
+		}
+
+		public static void WriteSeperator()
+		{
+			Console.WriteLine("".PadLeft(Console.WindowWidth, '='));
+		}
+
+		public static void Exit(int exitCode = 0)
+		{
+			Log("Press Enter to exit.");
+			Console.ReadLine();
+			Environment.Exit(exitCode);
+		}
+
+		public static void Continue()
+		{
+			Log("Press Enter to contiue . . .");
+			Console.ReadLine();
+		}
 	}
 }
