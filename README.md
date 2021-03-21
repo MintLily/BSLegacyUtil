@@ -35,6 +35,7 @@ This project contains code from the following Users and Their projects: _(All ri
 * exectails - [Yggdrasil](https://github.com/exectails/Yggdrasil)
 * Assistant - [ModAssistant](https://github.com/Assistant/ModAssistant) _(we provide their app to mod certain versions)_
 * lolPants - [songe-converter](https://github.com/lolPants/songe-converter) _(we provide a modified app called songe-unconverter)_
+* bsmg - [IPA](https://github.com/bsmg/BeatSaber-IPA-Reloaded)
 
 ### App Version Logic
 ```
