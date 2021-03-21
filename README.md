@@ -7,7 +7,7 @@ Need to Download Utility? [Go here](https://github.com/KortyBoi/BSLegacyUtil/rel
 
 ## Available Downgrades
 |           |           |          |          |
-| --------- | ----------| -------- |          |
+|-----------|-----------|----------|----------|
 | 0.10.1    | 0.10.2    | 0.10.2p1 |
 | 0.11.0    | 0.11.1    | 0.11.2   |
 | 0.12.0    | 0.12.0p1  | 0.12.1   |
