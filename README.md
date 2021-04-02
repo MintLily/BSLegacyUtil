@@ -34,7 +34,7 @@ This project contains code from the following Users and Their projects: _(All ri
 * Slaynash - [VRCModInstaller](https://github.com/Slaynash/VRChatModInstaller)
 * exectails - [Yggdrasil](https://github.com/exectails/Yggdrasil)
 * Assistant - [ModAssistant](https://github.com/Assistant/ModAssistant) _(we provide their app to mod certain versions)_
-* lolPants - [songe-converter](https://github.com/lolPants/songe-converter) _(we provide a modified app called songe-unconverter)_
+* Teuflum - [songe-unconverter](https://github.com/Teuflum/songe-unconverter)
 * bsmg - [IPA](https://github.com/bsmg/BeatSaber-IPA-Reloaded)
 
 ### App Version Logic
@@ -45,5 +45,5 @@ v1.2.3 build 123 type-beta
 ```
 **Current Version**
 ```
-v1.0.0 - build 54 type Release
+v1.1.0 - build 56 type Release
 ```
