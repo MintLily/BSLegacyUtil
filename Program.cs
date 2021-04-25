@@ -6,13 +6,15 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.VisualBasic.FileIO;
+using System.Threading.Tasks;
+using BSLegacyUtil.Utilities;
 
 namespace BSLegacyUtil
 {
     public class BuildInfo
     {
         public const string Name = "BSLegacyUtil";
-        public const string Version = "1.2.0";
+        public const string Version = "1.2.1";
         public const string Author = "Korty";
     }
 
@@ -276,9 +278,12 @@ namespace BSLegacyUtil
 
         #region DL Game Versions
         static string manifestID = "";
+        static string gameVersion = string.Empty;
+        static Process download;
 
-        static void DLGame(string gameVersion)
+        static void DLGame(string gameVersionInput)
         {
+            gameVersion = gameVersionInput;
             bool faulted = false;
             if (!Directory.Exists(Environment.CurrentDirectory + "/Beat Saber"))
                 Directory.CreateDirectory(Environment.CurrentDirectory + "/Beat Saber");
@@ -461,28 +466,38 @@ namespace BSLegacyUtil
                 Con.Error(@switch.ToString());
             }
 
-            if (!faulted)
+            if (!faulted && !string.IsNullOrWhiteSpace(manifestID))
             {
                 inputSteamLogin();
                 try
                 {
-                    Process downgrade = Process.Start("dotnet", "Depotdownloader\\DepotDownloader.dll -app 620980 -depot 620981 -manifest " + manifestID +
-                        " -username " + steamUsername + " -password " + steamPassword + " -dir \"Beat Saber\" -validate");
-
-                    if (string.IsNullOrWhiteSpace(gameVersion))
-                        Con.LogSuccess("Finished downloading Beat Saber");
-                    else
-                        Con.LogSuccess("Finished downloading Beat Saber " + gameVersion);
                     Con.Space();
-                    BeginInputOption();
+                    download = Process.Start("dotnet", "Depotdownloader\\DepotDownloader.dll -app 620980 -depot 620981 -manifest " + manifestID +
+                        " -username " + steamUsername + " -password " + steamPassword + " -dir \"Beat Saber\" -validate");
+                    if (download != null)
+                    {
+                        download.WaitForExit();
+                        Con.Space();
+                        if (string.IsNullOrWhiteSpace(gameVersion))
+                            Con.LogSuccess("Finished downloading Beat Saber");
+                        else
+                            Con.LogSuccess("Finished downloading Beat Saber " + gameVersion);
+                        Con.Space();
+                        Con.Log("Would you like to continue? [Y/N]");
+                        Con.Input();
+                        string @continue = Console.ReadLine();
+
+                        if (@continue == "Y" || @continue == "y" || @continue == "YES" || @continue == "yes" || @continue == "Yes")
+                            BeginInputOption();
+                        else
+                            Utilities.Utilities.Kill();
+                    }
                 }
                 catch (Exception downgrade)
                 {
                     Con.Error(downgrade.ToString());
                 }
             }
-            else
-                Utilities.Utilities.Kill();
         }
         #endregion
 

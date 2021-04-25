@@ -40,10 +40,10 @@ This project contains code from the following Users and Their projects: _(All ri
 ### App Version Logic
 ```
 1.2.3 - b 123 t beta
-Major.Minor.Hotfix[build][type]
-v1.2.3 build 123 type-beta
+Major.Minor.Hotfix [build] [type]
+v1.2.3 build 123 type beta
 ```
 **Current Version**
 ```
-v1.1.0 - build 56 type Release
+v1.2.1 - build 62 type Release
 ```
