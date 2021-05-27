@@ -28,6 +28,7 @@ Need to Download Utility? [Go here](https://github.com/KortyBoi/BSLegacyUtil/rel
 | 1.13.0    | 1.13.1    | 1.13.4   | 1.13.5
 | 1.14.0    |
 | 1.15.0    |
+| 1.16.0    |
 
 # Contributors / Credits
 This project contains code from the following Users and Their projects: _(All rights and credit goes to them)_
@@ -46,5 +47,5 @@ v1.2.3 build 123 type beta
 ```
 **Current Version**
 ```
-v1.3.0 - build 63 type Release
+v1.3.1 - build 64 type Release
 ```
