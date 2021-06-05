@@ -14,8 +14,8 @@ namespace BSLegacyUtil
     public class BuildInfo
     {
         public const string Name = "BSLegacyUtil";
-        public const string Version = "1.3.1";
-        public const string Author = "Korty";
+        public const string Version = "1.4.0";
+        public const string Author = "MintLily";
     }
 
     class Program
@@ -43,14 +43,15 @@ namespace BSLegacyUtil
             Con.Log("Brought to you by the", "Beat Saber Legacy Group", ConsoleColor.DarkCyan);
             Con.Space();
 
+            UpdateCheck.CheckForUpdates();
+
             if (!Directory.Exists(Environment.CurrentDirectory + "\\Resources") || !Directory.Exists(Environment.CurrentDirectory + "\\Depotdownloader"))
             {
                 Con.Error("Please be sure you have extracted the files before running this!");
                 Con.Error("Program will not run until you have extracted all the contents out of the ZIP file.");
                 Con.Exit();
             }
-            else
-                BeginInputOption();
+            else BeginInputOption();
         }
 
         #region Main Functions
@@ -89,13 +90,8 @@ namespace BSLegacyUtil
                     Process.GetCurrentProcess().Kill();
                     break;
                 case "6":
-                    if (isDebug)
-                        inputSteamLogin();
-                    else
-                    {
-                        Con.Error("Invalid input, please select 1 - 4");
-                        BeginInputOption();
-                    }
+                    if (isDebug) inputSteamLogin();
+                    else goto default;
                     break;
                 default:
                     Con.Error("Invalid input, please select 1 - 4");
@@ -127,7 +123,7 @@ namespace BSLegacyUtil
             Con.Log("\t1.13.0 \t1.13.2   \t1.13.4   \t1.13.5");
             Con.Log("\t1.14.0");
             Con.Log("\t1.15.0");
-            Con.Log("\t1.16.0");
+            Con.Log("\t1.16.0 \t1.16.1");
             Con.Input();
             versionInput = Console.ReadLine();
             Con.ResetColors();
@@ -169,7 +165,12 @@ namespace BSLegacyUtil
                     Con.Space();
                     BeginInputOption();
                 }
-                catch { Con.Space(); Con.Error("Move Directory Failed or operation was canceled"); Con.Space(); BeginInputOption(); }
+                catch { 
+                    Con.Space(); 
+                    Con.Error("Move Directory Failed or operation was canceled"); 
+                    Con.Space(); 
+                    BeginInputOption(); 
+                }
             }
         }
 
@@ -462,6 +463,10 @@ namespace BSLegacyUtil
                         manifestID = "3667184295685865706";
                         faulted = false;
                         break;
+                    case "1.16.1":
+                        manifestID = "9201874499606445062";
+                        faulted = false;
+                        break;
                     default:
                         manifestID = "";
                         faulted = true;
@@ -473,7 +478,8 @@ namespace BSLegacyUtil
             }
             catch (Exception @switch)
             {
-                Con.Error(@switch.ToString());
+                //Con.Error(@switch.ToString());
+                Con.ErrorException(@switch.StackTrace.ToString(), @switch.ToString());
             }
 
             if (!faulted && !string.IsNullOrWhiteSpace(manifestID))
@@ -505,7 +511,8 @@ namespace BSLegacyUtil
                 }
                 catch (Exception downgrade)
                 {
-                    Con.Error(downgrade.ToString());
+                    //Con.Error(downgrade.ToString());
+                    Con.ErrorException(downgrade.StackTrace.ToString(), downgrade.ToString());
                 }
             }
         }
