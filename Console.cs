@@ -317,11 +317,71 @@ namespace BSLegacyUtil
 			}
 		}
 
+		public static void ErrorException(string stack, string error)
+        {
+			ResetColors();
+			ConsoleColor foregroundColor = Console.ForegroundColor;
+			if (errorCount < 255)
+			{
+				string timestamp = GetTimestamp();
+				if (Program.isDebug)
+				{
+					Console.Write("[");
+					Console.ForegroundColor = ConsoleColor.Green;
+					Console.Write(timestamp);
+					Console.ForegroundColor = foregroundColor;
+					Console.Write("] [");
+				}
+				else
+					Console.Write("[");
+				Console.ForegroundColor = ConsoleColor.Cyan;
+				Console.Write(Name);
+				Console.ForegroundColor = foregroundColor;
+				Console.Write("] [");
+				Console.ForegroundColor = ConsoleColor.Red;
+				Console.Write("Error");
+				Console.ForegroundColor = foregroundColor;
+				Console.Write("] ");
+				Console.ForegroundColor = ConsoleColor.Red;
+				Console.WriteLine("====== STACK =====\n" + stack + "\n ===== ERROR =====\n" + error);
+				Console.ForegroundColor = foregroundColor;
+				if (log != null) { log.WriteLine("[" + timestamp + "] [" + Name + "] " + "====== STACK =====\n" + stack + "\n ===== ERROR =====\n" + error); }
+				errorCount++;
+			}
+			if (errorCount == 255)
+			{
+				string timestamp2 = GetTimestamp();
+				if (Program.isDebug)
+				{
+					Console.Write("[");
+					Console.ForegroundColor = ConsoleColor.Green;
+					Console.Write(timestamp2);
+					Console.ForegroundColor = foregroundColor;
+					Console.Write("] [");
+				}
+				else
+					Console.Write("[");
+				Console.ForegroundColor = ConsoleColor.Cyan;
+				Console.Write(Name);
+				Console.ForegroundColor = foregroundColor;
+				Console.Write("] [");
+				Console.ForegroundColor = ConsoleColor.Red;
+				Console.Write("Error");
+				Console.ForegroundColor = foregroundColor;
+				Console.Write("] ");
+				Console.ForegroundColor = ConsoleColor.Red;
+				Console.WriteLine("The console error limit has been reached.");
+				Console.ForegroundColor = foregroundColor;
+				if (log != null) { log.WriteLine("[" + timestamp2 + "] [" + Name + "] " + "====== STACK =====\n" + stack + "\n ===== ERROR =====\n" + error); }
+				errorCount++;
+			}
+		}
+
 		public static void WriteHeader(IList<string> logo, ConsoleColor logoColor, IList<string> credits)
 		{
 			var foreColor = Console.ForegroundColor;
 
-			Console.Title = BuildInfo.Name + " (Console App) " + " v" + BuildInfo.Version + " - Built by " + BuildInfo.Author;
+			Console.Title = Name + " (Console App) " + " v" + BuildInfo.Version + " - Built by " + Author;
 
 			Console.ForegroundColor = logoColor;
 			WriteLinesCentered(logo);
@@ -351,6 +411,16 @@ namespace BSLegacyUtil
 			Console.WriteLine(line.PadLeft(line.Length + Console.WindowWidth / 2 - referenceLength / 2));
 		}
 
+		public static void SendUpdateNotice()
+        {
+			var foreColor = Console.ForegroundColor;
+			Console.ForegroundColor = ConsoleColor.Red;
+			WriteSeperator(ConsoleColor.Red);
+			WriteLineCentered("A newer version of " + Name + " is avaiable!");
+			WriteSeperator(ConsoleColor.Red);
+			Console.ForegroundColor = foreColor;
+		}
+
 		public static void _Logo()
         {
 			List<string> title = new List<string>() { 
@@ -360,12 +430,15 @@ namespace BSLegacyUtil
 " / /_/ /__/ / /___/  __/ /_/ / /_/ / /__/ /_/ / ",
 "/_____/____/_____/\\___/\\__, /\\__,_/\\___/\\__, /  ",
 "                      /____/           /____/   "};
-			WriteHeader(title, ConsoleColor.Cyan, new List<string>() { "Created by Korty" });
+			WriteHeader(title, ConsoleColor.Cyan, new List<string>() { "Created by " + Author });
 		}
 
-		public static void WriteSeperator()
+		public static void WriteSeperator(ConsoleColor color = ConsoleColor.White)
 		{
+			var foreColor = Console.ForegroundColor;
+			Console.ForegroundColor = color;
 			Console.WriteLine("".PadLeft(Console.WindowWidth, '='));
+			Console.ForegroundColor = foreColor;
 		}
 
 		public static void Exit(int exitCode = 0)
