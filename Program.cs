@@ -14,7 +14,7 @@ namespace BSLegacyUtil
     public class BuildInfo
     {
         public const string Name = "BSLegacyUtil";
-        public const string Version = "1.4.0";
+        public const string Version = "1.5.0";
         public const string Author = "MintLily";
     }
 
@@ -123,7 +123,7 @@ namespace BSLegacyUtil
             Con.Log("\t1.13.0 \t1.13.2   \t1.13.4   \t1.13.5");
             Con.Log("\t1.14.0");
             Con.Log("\t1.15.0");
-            Con.Log("\t1.16.0 \t1.16.1");
+            Con.Log("\t1.16.0 \t1.16.1 \t1.16.2");
             Con.Input();
             versionInput = Console.ReadLine();
             Con.ResetColors();
@@ -464,7 +464,11 @@ namespace BSLegacyUtil
                         faulted = false;
                         break;
                     case "1.16.1":
-                        manifestID = "9201874499606445062";
+                        manifestID = "9201874499606445062 3692829915208062825";
+                        faulted = false;
+                        break;
+                    case "1.16.2":
+                        manifestID = "3692829915208062825";
                         faulted = false;
                         break;
                     default:
