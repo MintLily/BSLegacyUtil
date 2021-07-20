@@ -14,7 +14,7 @@ namespace BSLegacyUtil
     public class BuildInfo
     {
         public const string Name = "BSLegacyUtil";
-        public const string Version = "1.5.0";
+        public const string Version = "1.6.0";
         public const string Author = "MintLily";
     }
 
@@ -33,8 +33,7 @@ namespace BSLegacyUtil
         [STAThread]
         static void Main(string[] args)
         {
-            if (Environment.CommandLine.Contains("debug"))
-            {
+            if (Environment.CommandLine.Contains("debug")) {
                 isDebug = true;
                 Con.Init();
             }
@@ -123,7 +122,7 @@ namespace BSLegacyUtil
             Con.Log("\t1.13.0 \t1.13.2   \t1.13.4   \t1.13.5");
             Con.Log("\t1.14.0");
             Con.Log("\t1.15.0");
-            Con.Log("\t1.16.0 \t1.16.1 \t1.16.2");
+            Con.Log("\t1.16.0 \t1.16.1 \t1.16.2 \t1.16.3");
             Con.Input();
             versionInput = Console.ReadLine();
             Con.ResetColors();
@@ -140,13 +139,10 @@ namespace BSLegacyUtil
 
         static void InstallGame()
         {
-            if (!Directory.Exists(Environment.CurrentDirectory + "\\Beat Saber"))
-            {
+            if (!Directory.Exists(Environment.CurrentDirectory + "\\Beat Saber")) {
                 Con.Error("Folder does not exist, cannot move nothing.");
                 BeginInputOption();
-            }
-            else
-            {
+            } else {
                 AskForPath();
 
                 try {
@@ -176,27 +172,20 @@ namespace BSLegacyUtil
 
         static void modGame(string gameVersion)
         {
-            try
-            {
-                if (FolderSelect == null)
-                {
+            try {
+                if (FolderSelect == null) {
                     FolderSelect.InitialFolder = "C:\\Program Files (x86)\\Steam\\steamapps\\common\\";
                     FolderSelect.ShowDialog();
                     gamePath = FolderSelect.Folder;
                 }
-            }
-            catch { Con.Error("Select Folder Failed"); BeginInputOption(); }
+            } catch { Con.Error("Select Folder Failed"); BeginInputOption(); }
 
-            if (!Directory.Exists(Environment.CurrentDirectory + "\\Resources"))
-            {
+            if (!Directory.Exists(Environment.CurrentDirectory + "\\Resources")) {
                 Con.Error("Folder does not exist, cannot move nothing.");
                 Con.Space();
                 BeginInputOption();
-            }
-            else
-            {
-                switch (gameVersion)
-                {
+            } else {
+                switch (gameVersion) {
                     case "0.10.0":
                         FileSystem.CopyDirectory("Resources\\Beat Saber 0.10.0", gamePath, true);
                         FileSystem.CopyDirectory("Resources\\CustomSongs", gamePath + "\\CustomSongs", true);
@@ -271,8 +260,7 @@ namespace BSLegacyUtil
             Con.SteamPW();
             steamPassword = Console.ReadLine();
 
-            if (isDebug)
-            {
+            if (isDebug) {
                 Con.Log("password is: ", steamPassword);
                 BeginInputOption();
             }
@@ -291,10 +279,8 @@ namespace BSLegacyUtil
             if (!Directory.Exists(Environment.CurrentDirectory + "/Beat Saber"))
                 Directory.CreateDirectory(Environment.CurrentDirectory + "/Beat Saber");
             
-            try
-            {
-                switch (gameVersion)
-                {
+            try {
+                switch (gameVersion) {
                     case "0.10.1":
                         manifestID = "6316038906315325420";
                         //faulted = false;
@@ -464,11 +450,15 @@ namespace BSLegacyUtil
                         faulted = false;
                         break;
                     case "1.16.1":
-                        manifestID = "9201874499606445062 3692829915208062825";
+                        manifestID = "9201874499606445062";
                         faulted = false;
                         break;
                     case "1.16.2":
                         manifestID = "3692829915208062825";
+                        faulted = false;
+                        break;
+                    case "1.16.3":
+                        manifestID = "6392596175313869009";
                         faulted = false;
                         break;
                     default:
@@ -479,23 +469,19 @@ namespace BSLegacyUtil
                         SelectGameVersion(true);
                         break;
                 }
-            }
-            catch (Exception @switch)
-            {
+            } catch (Exception @switch) {
                 //Con.Error(@switch.ToString());
                 Con.ErrorException(@switch.StackTrace.ToString(), @switch.ToString());
             }
 
-            if (!faulted && !string.IsNullOrWhiteSpace(manifestID))
-            {
+            if (!faulted && !string.IsNullOrWhiteSpace(manifestID)) {
                 inputSteamLogin();
-                try
-                {
+                try {
                     Con.Space();
                     download = Process.Start("dotnet", "Depotdownloader\\DepotDownloader.dll -app 620980 -depot 620981 -manifest " + manifestID +
                         " -username " + steamUsername + " -password " + steamPassword + " -dir \"Beat Saber\" -validate");
-                    if (download != null)
-                    {
+
+                    if (download != null) {
                         download.WaitForExit();
                         Con.Space();
                         if (string.IsNullOrWhiteSpace(gameVersion))
@@ -512,9 +498,7 @@ namespace BSLegacyUtil
                         else
                             Utilities.Utilities.Kill();
                     }
-                }
-                catch (Exception downgrade)
-                {
+                } catch (Exception downgrade) {
                     //Con.Error(downgrade.ToString());
                     Con.ErrorException(downgrade.StackTrace.ToString(), downgrade.ToString());
                 }
@@ -530,18 +514,14 @@ namespace BSLegacyUtil
             Con.Input();
             string changeLocalation = Console.ReadLine();
 
-            if (changeLocalation == "Y" || changeLocalation == "y" || changeLocalation == "YES" || changeLocalation == "yes" || changeLocalation == "Yes")
-            {
-                try
-                {
+            if (changeLocalation == "Y" || changeLocalation == "y" || changeLocalation == "YES" || changeLocalation == "yes" || changeLocalation == "Yes") {
+                try {
                     FolderSelect.InitialFolder = Utilities.PathLogic.GetInstallLocation();
                     FolderSelect.ShowDialog();
                     gamePath = FolderSelect.Folder;
                 }
                 catch { Con.Error("Select Folder Failed"); BeginInputOption(); }
-            }
-            else
-                gamePath = Utilities.PathLogic.GetInstallLocation();
+            } else  gamePath = Utilities.PathLogic.GetInstallLocation();
         }
 
         static void convertSongs()
@@ -558,10 +538,8 @@ namespace BSLegacyUtil
 
             Process yeet = null;
             foreach (var Directories in array)
-            {
                 if (!Directories.Contains("Flygplan") && !Directories.Contains("Middle Milk - Beards"))
                     yeet = Process.Start(gamePath + "\\CustomSongs\\songe-unconverter.exe", $"\"{Directories}\"");
-            }
 
             if (yeet != null)
                 yeet.WaitForExit();
