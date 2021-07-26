@@ -47,5 +47,5 @@ v1.2.3 build 123 type beta
 ```
 **Current Version**
 ```
-v1.6.0 - build 69 type Release
+v2.0.0 - build 78 type Release
 ```
