@@ -12,10 +12,7 @@ namespace BSLegacyUtil.Utilities
 {
     class Utilities
     {
-        public static void Kill()
-        {
-            Process.GetCurrentProcess().Kill();
-        }
+        public static void Kill() => Process.GetCurrentProcess().Kill();
 
         public static void DirectoryCopy(string sourceDirName, string destDirName, bool copySubDirs, bool overwrite)
         {

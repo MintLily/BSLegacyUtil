@@ -15,7 +15,7 @@ namespace BSLegacyUtil.Utilities
             try {
                 WebClient web = new WebClient();
                 web.Headers["Content-Type"] = "application/json"; // Looks for JSON format
-                web.Headers.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:87.0) Gecko/20100101 Firefox/87.0"); // Adds a "fake" client response
+                web.Headers.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:87.0) Gecko/20100101 Firefox/87.0"); // Adds a "fake" client request
                 web.Encoding = Encoding.UTF8; // Get as plain text (No Special characters)
                 incomingData = web.DownloadString(GitHub);
 
