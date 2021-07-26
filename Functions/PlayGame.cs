@@ -8,6 +8,7 @@ using static BSLegacyUtil.Program;
 
 namespace BSLegacyUtil.Functions
 {
+    //Came from https://github.com/RiskiVR/BSLegacyLauncher/blob/master/Assets/Scripts/LaunchBS.cs
     class PlayGame
     {
         static bool oculus, verbose, fpfc;
