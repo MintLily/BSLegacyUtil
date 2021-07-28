@@ -6,8 +6,8 @@ Issues, Bug Reports, Support? [Go here](https://github.com/KortyBoi/BSLegacyUtil
 Need to Download Utility? [Go here](https://github.com/KortyBoi/BSLegacyUtil/releases/latest) and downlaod latest version
 
 ## Available Downgrades
-|           |           |          |          |
-|-----------|-----------|----------|----------|
+|           |           |          |          |          |
+|-----------|-----------|----------|----------|----------|
 | 0.10.1    | 0.10.2    | 0.10.2p1 |
 | 0.11.0    | 0.11.1    | 0.11.2   |
 | 0.12.0    | 0.12.0p1  | 0.12.1   |
@@ -25,10 +25,10 @@ Need to Download Utility? [Go here](https://github.com/KortyBoi/BSLegacyUtil/rel
 | 1.10.0    |
 | 1.11.0    | 1.11.1    |
 | 1.12.0    | 1.12.2    |
-| 1.13.0    | 1.13.1    | 1.13.4   | 1.13.5
+| 1.13.0    | 1.13.1    | 1.13.4   | 1.13.5   |
 | 1.14.0    |
 | 1.15.0    |
-| 1.16.0    | 1.16.1    | 1.16.2   | 1.16.3   |
+| 1.16.0    | 1.16.1    | 1.16.2   | 1.16.3   | 1.16.4  |
 
 # Contributors / Credits
 This project contains code from the following Users and Their projects: _(All rights and credit goes to them)_
@@ -47,5 +47,5 @@ v1.2.3 build 123 type beta
 ```
 **Current Version**
 ```
-v2.0.0 - build 78 type Release
+v2.0.1 - build 79 type Release
 ```
