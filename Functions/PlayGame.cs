@@ -5,13 +5,40 @@ using System.IO;
 using System.Text;
 using BSLegacyUtil.Utilities;
 using static BSLegacyUtil.Program;
+using Newtonsoft.Json;
 
 namespace BSLegacyUtil.Functions
 {
+    public class Values
+    {
+        public bool RemeberOptions { get; set; } = false;
+        public bool oculus { get; set; } = false;
+        public bool verbose { get; set; } = false;
+        public bool fpfc { get; set; } = false;
+    }
+
+    public class JSONSetup
+    {
+        static readonly string path = Environment.CurrentDirectory + "PlayVals.json";
+
+        private static Values conf { get; set; }
+
+        public static void Save() => File.WriteAllText(path, JsonConvert.SerializeObject(conf, Formatting.Indented));
+
+        public static void Load()
+        {
+            if (!File.Exists(path)) File.WriteAllText(path, JsonConvert.SerializeObject(new Values(), Formatting.Indented));
+            conf = JsonConvert.DeserializeObject<Values>(File.ReadAllText(path));
+        }
+
+        public static Values get() => conf;
+    }
+
     //Came from https://github.com/RiskiVR/BSLegacyLauncher/blob/master/Assets/Scripts/LaunchBS.cs
     class PlayGame
     {
-        static bool oculus, verbose, fpfc;
+        static Values get = JSONSetup.get();
+
         public static void Play()
         {
             if (!Directory.Exists(Environment.CurrentDirectory + "\\Beat Saber")) {
@@ -20,42 +47,56 @@ namespace BSLegacyUtil.Functions
                 BeginInputOption();
             }
 
-            string soculus, sverbose, sfpfc;
 
-            #region Ouclus Mode
-            Con.Log("Run in Oculus mode?");
-            Con.Input();
-            soculus = Console.ReadLine();
-            Con.ResetColors();
-            Con.Space();
+            string sRem, soculus, sverbose, sfpfc;
 
-            if (soculus == "y" || soculus == "Y" || soculus == "yes" || soculus == "Yes" || soculus == "YES") oculus = true;
-            #endregion
+            if (!get.RemeberOptions) {
+                #region Remeber Options
+                Con.Log("Let the program remember your options?");
+                Con.Input();
+                sRem = Console.ReadLine();
+                Con.ResetColors();
+                Con.Space();
 
-            #region Verbose Mode
-            Con.Log("Run in Verbose mode? (BSIPA Debug mode)");
-            Con.Input();
-            sverbose = Console.ReadLine();
-            Con.ResetColors();
-            Con.Space();
+                if (sRem == "y" || sRem == "Y" || sRem == "yes" || sRem == "Yes" || sRem == "YES") get.RemeberOptions = true;
+                #endregion
 
-            if (sverbose == "y" || sverbose == "Y" || sverbose == "yes" || sverbose == "Yes" || sverbose == "YES") verbose = true;
-            #endregion
+                #region Ouclus Mode
+                Con.Log("Run in Oculus mode?");
+                Con.Input();
+                soculus = Console.ReadLine();
+                Con.ResetColors();
+                Con.Space();
 
-            #region Ouclus Mode
-            Con.Log("Run in FPFC mode? (Desktop Control (noVR))");
-            Con.Input();
-            sfpfc = Console.ReadLine();
-            Con.ResetColors();
-            Con.Space();
+                if (soculus == "y" || soculus == "Y" || soculus == "yes" || soculus == "Yes" || soculus == "YES") get.oculus = true;
+                #endregion
 
-            if (sfpfc == "y" || sfpfc == "Y" || sfpfc == "yes" || sfpfc == "Yes" || sfpfc == "YES") fpfc = true;
-            #endregion
+                #region Verbose Mode
+                Con.Log("Run in Verbose mode? (BSIPA Debug mode)");
+                Con.Input();
+                sverbose = Console.ReadLine();
+                Con.ResetColors();
+                Con.Space();
 
+                if (sverbose == "y" || sverbose == "Y" || sverbose == "yes" || sverbose == "Yes" || sverbose == "YES") get.verbose = true;
+                #endregion
+
+                #region Ouclus Mode
+                Con.Log("Run in FPFC mode? (Desktop Control (noVR))");
+                Con.Input();
+                sfpfc = Console.ReadLine();
+                Con.ResetColors();
+                Con.Space();
+
+                if (sfpfc == "y" || sfpfc == "Y" || sfpfc == "yes" || sfpfc == "Yes" || sfpfc == "YES") get.fpfc = true;
+                #endregion
+
+                JSONSetup.Save();
+            }
 
             Process p = new Process();
             p.StartInfo = new ProcessStartInfo($"{Environment.CurrentDirectory}\\Beat Saber\\Beat Saber.exe",
-                (oculus ? "-vrmode oculus " : "") + (verbose ? "--verbose" : "") + (fpfc ? "fpfc" : "")) {
+                (get.oculus ? "-vrmode oculus " : "") + (get.verbose ? "--verbose" : "") + (get.fpfc ? "fpfc" : "")) {
                 UseShellExecute = false,
                 WorkingDirectory = $"{Environment.CurrentDirectory}\\Beat Saber",
             };

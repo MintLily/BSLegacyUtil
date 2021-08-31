@@ -17,7 +17,7 @@ namespace BSLegacyUtil
 
 		private static int errorCount = 0;
 		private static StreamWriter log;
-		private static string fileprefix = BuildInfo.Name + "_";
+		private static readonly string fileprefix = BuildInfo.Name + "_";
 
 		internal static void Init()
 		{
@@ -421,7 +421,7 @@ namespace BSLegacyUtil
 			Console.ForegroundColor = foreColor;
 		}
 
-		public static void _Logo()
+		public static void BSL_Logo()
         {
 			List<string> title = new List<string>() { 
 "    ____ _____ __                               ",

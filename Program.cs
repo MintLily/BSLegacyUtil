@@ -11,7 +11,7 @@ namespace BSLegacyUtil
     public class BuildInfo
     {
         public const string Name = "BSLegacyUtil";
-        public const string Version = "2.0.1";
+        public const string Version = "2.1.0";
         public const string Author = "MintLily";
     }
 
@@ -30,10 +30,11 @@ namespace BSLegacyUtil
                 isDebug = true;
                 Con.Init();
             }
-            Con._Logo();
+            Con.BSL_Logo();
             Con.Log("This tool will allow you to easily downgrade your Beat Saber.");
             Con.Log("Brought to you by the", "Beat Saber Legacy Group", ConsoleColor.DarkCyan);
             Con.Space();
+            JSONSetup.Load();
 
             if (!isDebug) UpdateCheck.CheckForUpdates();
 
@@ -118,7 +119,8 @@ namespace BSLegacyUtil
             Con.Log("\t1.13.0 \t1.13.2   \t1.13.4   \t1.13.5");
             Con.Log("\t1.14.0");
             Con.Log("\t1.15.0");
-            Con.Log("\t1.16.0 \t1.16.1 \t1.16.2 \t1.16.3");
+            Con.Log("\t1.16.0 \t1.16.1 \t1.16.2 \t1.16.3\t1.16.4");
+            Con.Log("\t1.17.0");
             Con.Input();
             versionInput = Console.ReadLine();
             Con.ResetColors();

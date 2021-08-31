@@ -4,3 +4,4 @@ obj/
 .vs/
 VS_SignPass.txt
 BSLegacyUtil.pfx
+Resources/System.Windows.Forms.dll

@@ -207,6 +207,10 @@ namespace BSLegacyUtil.Functions
                         manifestID = "8820433629543698585";
                         faulted = false;
                         break;
+                    case "1.17.0":
+                        manifestID = "7826684224434229804";
+                        faulted = false;
+                        break;
                     default:
                         manifestID = "";
                         faulted = true;
