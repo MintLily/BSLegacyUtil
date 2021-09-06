@@ -6,7 +6,7 @@ namespace BSLegacyUtil.Utilities
 {
     class UpdateCheck
     {
-        private static string lazyTag = "\"tag_name\": \"v" + Version + "\"";
+        private static string lazyTag = "\"tag_name\": \"" + Version + "\"";
         private static string incomingData = string.Empty;
         private static string GitHub = "https://api.github.com/repos/" + Author + "/BSLegacyUtil/releases";
 
