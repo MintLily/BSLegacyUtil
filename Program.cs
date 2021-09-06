@@ -11,7 +11,7 @@ namespace BSLegacyUtil
     public class BuildInfo
     {
         public const string Name = "BSLegacyUtil";
-        public const string Version = "2.1.0";
+        public const string Version = "2.1.1";
         public const string Author = "MintLily";
     }
 
@@ -34,6 +34,7 @@ namespace BSLegacyUtil
             Con.Log("This tool will allow you to easily downgrade your Beat Saber.");
             Con.Log("Brought to you by the", "Beat Saber Legacy Group", ConsoleColor.DarkCyan);
             Con.Space();
+            JSONSetup.FixMyMistake();
             JSONSetup.Load();
 
             if (!isDebug) UpdateCheck.CheckForUpdates();
@@ -52,7 +53,7 @@ namespace BSLegacyUtil
             Con.WriteSeperator();
             Con.Log("Select a step to get started");
             Con.InputOption("1", "\tDownload a version of Beat Saber");
-            Con.InputOption("2", "\tInstall to default Steam directory");
+            Con.InputOption("2", "\tInstall to default Steam directory", ConsoleColor.Red, "Option Removed", ConsoleColor.DarkRed);
             Con.InputOption("3", "\tMod current install");
             Con.InputOption("4", "\tConvert Songs");
             Con.InputOption("5", "\tPlay Game");
@@ -90,7 +91,7 @@ namespace BSLegacyUtil
                     else goto default;
                     break;
                 default:
-                    Con.Error("Invalid input, please select 1 - 5");
+                    Con.Error("Invalid input, please select 1 - 6");
                     BeginInputOption();
                     break;
             }

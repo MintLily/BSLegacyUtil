@@ -12,6 +12,18 @@ namespace BSLegacyUtil.Functions
     {
         public static void InstallGame()
         {
+            Con.Space();
+            ConsoleColor foregroundColor = Console.ForegroundColor;
+            Con.Log("This Feature has been removed from the program");
+            Con.Log("This was removed due to steam always auto-updating the game and causing frustrations within the community");
+            Con.Log("Once you download the game, you can then press", "option 5", ConsoleColor.Cyan,
+                $"and the run the game from within the {BuildInfo.Name} Folder", foregroundColor);
+            Con.Space();
+            BeginInputOption();
+        }
+        
+        /*public static void InstallGame()
+        {
             if (!Directory.Exists(Environment.CurrentDirectory + "\\Beat Saber")) {
                 Con.Error("Folder does not exist, cannot move nothing.");
                 BeginInputOption();
@@ -43,7 +55,7 @@ namespace BSLegacyUtil.Functions
                     BeginInputOption();
                 }
             }
-        }
+        }*/
 
         public static void AskForPath()
         {
