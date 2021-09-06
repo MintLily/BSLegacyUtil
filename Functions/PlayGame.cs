@@ -19,7 +19,7 @@ namespace BSLegacyUtil.Functions
 
     public class JSONSetup
     {
-        static readonly string path = Environment.CurrentDirectory + "PlayVals.json";
+        static readonly string path = Environment.CurrentDirectory + "\\PlayVals.json";
 
         private static Values conf { get; set; }
 
@@ -32,6 +32,12 @@ namespace BSLegacyUtil.Functions
         }
 
         public static Values get() => conf;
+
+        public static void FixMyMistake()
+        {
+            string oops = Environment.CurrentDirectory + "PlayVals.json";
+            if (File.Exists(oops) && !File.Exists(path)) File.Move(oops, path);
+        }
     }
 
     //Came from https://github.com/RiskiVR/BSLegacyLauncher/blob/master/Assets/Scripts/LaunchBS.cs
