@@ -27,23 +27,11 @@ namespace BSLegacyUtil
 					fileprefix + DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss-fff") + ".log";
 				FileInfo fileInfo = new FileInfo(text);
 				DirectoryInfo directoryInfo = new DirectoryInfo(fileInfo.DirectoryName);
-				if (!directoryInfo.Exists)
-				{
-					directoryInfo.Create();
-				}
-				else
-				{
-					CleanOld(directoryInfo);
-				}
+				if (!directoryInfo.Exists) directoryInfo.Create();
+				else CleanOld(directoryInfo);
 				FileStream stream;
-				if (!fileInfo.Exists)
-				{
-					stream = fileInfo.Create();
-				}
-				else
-				{
-					stream = new FileStream(text, FileMode.Open, FileAccess.Write, FileShare.Read);
-				}
+				if (!fileInfo.Exists) stream = fileInfo.Create();
+				else stream = new FileStream(text, FileMode.Open, FileAccess.Write, FileShare.Read);
 				log = new StreamWriter(stream);
 				log.AutoFlush = true;
 			}
@@ -52,10 +40,7 @@ namespace BSLegacyUtil
 
 		internal static void Stop()
 		{
-			if (log != null)
-			{
-				log.Close();
-			}
+			if (log != null) log.Close();
 		}
 
 		internal static void CleanOld(DirectoryInfo logDirInfo)
@@ -66,28 +51,19 @@ namespace BSLegacyUtil
 				List<FileInfo> list = (from x in files.ToList<FileInfo>()
 									   orderby x.LastWriteTime
 									   select x).ToList<FileInfo>();
-				for (int i = list.Count - 10; i > -1; i--)
-				{
-					list[i].Delete();
-				}
+				for (int i = list.Count - 10; i > -1; i--) list[i].Delete();
 			}
 		}
 
-		internal static string GetTimestamp()
-        {
-            return DateTime.Now.ToString("HH:mm:ss.fff");
-        }
-		
-		public static void Space()
-		{
-			Console.WriteLine("");
-		}
+		internal static string GetTimestamp() => DateTime.Now.ToString("HH:mm:ss.fff");
 
-		public static void Log(string s, string extra = null, ConsoleColor color = ConsoleColor.Red)
+		public static void Space() => Console.WriteLine("");
+
+		public static void Log(string s)
 		{
 			ResetColors();
 			ConsoleColor foregroundColor = Console.ForegroundColor;
-			string timestamp = Con.GetTimestamp();
+			string timestamp = GetTimestamp();
 			if (Program.isDebug)
             {
 				Console.Write("[");
@@ -101,14 +77,59 @@ namespace BSLegacyUtil
 			Console.ForegroundColor = ConsoleColor.Cyan;
 			Console.Write(Name);
 			Console.ForegroundColor = foregroundColor;
-			if (extra != null)
+			Console.WriteLine("] " + s);
+			Console.ForegroundColor = foregroundColor;
+			if (log != null) { log.WriteLine("[" + timestamp + "] [" + Name + "] " + s); }
+		}
+
+		public static void Log(string s, string extra, ConsoleColor color = ConsoleColor.Red)
+		{
+			ResetColors();
+			ConsoleColor foregroundColor = Console.ForegroundColor;
+			string timestamp = GetTimestamp();
+			if (Program.isDebug)
 			{
-				Console.Write("] " + s);
-				Console.ForegroundColor = color;
-				Console.WriteLine(" " + extra);
+				Console.Write("[");
+				Console.ForegroundColor = ConsoleColor.Green;
+				Console.Write(timestamp);
+				Console.ForegroundColor = foregroundColor;
+				Console.Write("] [");
 			}
 			else
-				Console.WriteLine("] " + s);
+				Console.Write("[");
+			Console.ForegroundColor = ConsoleColor.Cyan;
+			Console.Write(Name);
+			Console.ForegroundColor = foregroundColor;
+			Console.Write("] " + s);
+			Console.ForegroundColor = color;
+			Console.WriteLine(" " + extra);
+			Console.ForegroundColor = foregroundColor;
+			if (log != null) { log.WriteLine("[" + timestamp + "] [" + Name + "] " + s); }
+		}
+
+		public static void Log(string s, string s2, ConsoleColor s2color, string s3, ConsoleColor s3color)
+		{
+			ResetColors();
+			ConsoleColor foregroundColor = Console.ForegroundColor;
+			string timestamp = GetTimestamp();
+			if (Program.isDebug)
+			{
+				Console.Write("[");
+				Console.ForegroundColor = ConsoleColor.Green;
+				Console.Write(timestamp);
+				Console.ForegroundColor = foregroundColor;
+				Console.Write("] [");
+			}
+			else
+				Console.Write("[");
+			Console.ForegroundColor = ConsoleColor.Cyan;
+			Console.Write(Name);
+			Console.ForegroundColor = foregroundColor;
+			Console.Write("] " + s);
+			Console.ForegroundColor = s2color;
+			Console.Write(" " + s2);
+			Console.ForegroundColor = s3color;
+			Console.WriteLine(" " + s3);
 			Console.ForegroundColor = foregroundColor;
 			if (log != null) { log.WriteLine("[" + timestamp + "] [" + Name + "] " + s); }
 		}
@@ -166,15 +187,12 @@ namespace BSLegacyUtil
 			if (log != null) { log.WriteLine("[" + timestamp + "] [" + Name + "] "); }
 		}
 
-		public static void ResetColors()
-        {
-			Console.ForegroundColor = ConsoleColor.White;
-		}
+		public static void ResetColors() => Console.ForegroundColor = ConsoleColor.White;
 
 		public static void InputOption(string num, string s, bool useable = true)
 		{
 			ConsoleColor foregroundColor = Console.ForegroundColor;
-			string timestamp = Con.GetTimestamp();
+			string timestamp = GetTimestamp();
 			if (Program.isDebug)
 			{
 				Console.Write("[");
@@ -200,6 +218,38 @@ namespace BSLegacyUtil
 				Console.ForegroundColor = ConsoleColor.Red;
 				Console.WriteLine(s);
 			}
+			Console.ForegroundColor = foregroundColor;
+			if (log != null) { log.WriteLine("[" + timestamp + "] [" + Name + "] " + s); }
+		}
+
+		public static void InputOption(string num, string s, ConsoleColor color, string s2, ConsoleColor s2color)
+		{
+			ConsoleColor foregroundColor = Console.ForegroundColor;
+			string timestamp = GetTimestamp();
+			if (Program.isDebug)
+			{
+				Console.Write("[");
+				Console.ForegroundColor = ConsoleColor.Green;
+				Console.Write(timestamp);
+				Console.ForegroundColor = foregroundColor;
+				Console.Write("] [");
+			}
+			else
+				Console.Write("[");
+			Console.ForegroundColor = ConsoleColor.Cyan;
+			Console.Write(Name);
+			Console.ForegroundColor = foregroundColor;
+			Console.Write("] [");
+			Console.ForegroundColor = ConsoleColor.Red;
+			Console.Write(num);
+			Console.ForegroundColor = foregroundColor;
+			Console.Write("] ");
+			Console.ForegroundColor = color;
+			Console.Write(s);
+			Console.ForegroundColor = ConsoleColor.Magenta;
+			Console.Write(" --- ");
+			Console.ForegroundColor = s2color;
+			Console.WriteLine(s2);
 			Console.ForegroundColor = foregroundColor;
 			if (log != null) { log.WriteLine("[" + timestamp + "] [" + Name + "] " + s); }
 		}

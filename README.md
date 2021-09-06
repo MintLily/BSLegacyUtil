@@ -42,11 +42,12 @@ This project contains code from the following Users and Their projects: _(All ri
 
 ### App Version Logic
 ```
-1.2.3 - b 123 t beta
-Major.Minor.Hotfix [build] [type]
-v1.2.3 build 123 type beta
+1.2.3.4 - b 123 t beta
+Major.Minor.Revision{.Hotfix} [build] [type]
+v1.2.3.4 build 123 type beta
+if Hotfix blank, then there is no hotfix
 ```
 **Current Version**
 ```
-v2.1.0 - build 108 type Release
+v2.1.1 - build 108 type Release
 ```
