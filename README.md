@@ -29,7 +29,7 @@ Need to Download Utility? [Go here](https://github.com/KortyBoi/BSLegacyUtil/rel
 | 1.14.0    |
 | 1.15.0    |
 | 1.16.0    | 1.16.1    | 1.16.2   | 1.16.3   | 1.16.4  |
-| 1.17.0    |
+| 1.17.0    | 1.17.1    |
 
 # Contributors / Credits
 This project contains code from the following Users and Their projects: _(All rights and credit goes to them)_
@@ -49,5 +49,5 @@ if Hotfix blank, then there is no hotfix
 ```
 **Current Version**
 ```
-v2.1.1 - build 114 type Release
+v2.1.2 - build 115 type Release
 ```
