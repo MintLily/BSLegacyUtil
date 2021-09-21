@@ -215,7 +215,11 @@ namespace BSLegacyUtil.Functions
                         manifestID = "4668547658954826996";
                         faulted = false;
                         break;
-                    default:
+                    case "1.18.0":
+                        manifestID = "5599254819160454367";
+                        faulted = false;
+                        break;
+                    default: // https://steamdb.info/app/620980/history/
                         manifestID = "";
                         faulted = true;
                         Con.Error("Invalid input. Please input a valid version number.");
