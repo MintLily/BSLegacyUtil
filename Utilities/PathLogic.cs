@@ -15,7 +15,7 @@ namespace BSLegacyUtil.Utilities
         private const int SteamAppId = 620980;
         private const string AppFileName = "Beat Saber.exe";
 
-        public static string GetInstallLocation()
+        /*public static string GetInstallLocation()
         {
             string steam = GetSteamLocation();
             if (steam != null)
@@ -56,34 +56,25 @@ namespace BSLegacyUtil.Utilities
                 return null;
             }
 
-        }
+        }*/
 
-        private static string NotFoundHandler()
-        {
+        public static string NotFoundHandler() {
             bool found = false;
-            while (found == false)
-            {
-                using (var folderDialog = new OpenFileDialog())
-                {
+            while (found == false) {
+                using (var folderDialog = new OpenFileDialog()) {
                     folderDialog.Title = "Select Beat Saber.exe";
                     folderDialog.FileName = "Beat Saber.exe";
                     folderDialog.Filter = "Beat Saber Executable|Beat Saber.exe";
-                    if (folderDialog.ShowDialog() == DialogResult.OK)
-                    {
+                    if (folderDialog.ShowDialog() == DialogResult.OK) {
                         string path = folderDialog.FileName;
-                        if (path.Contains("Beat Saber.exe"))
-                        {
+                        if (path.Contains("Beat Saber.exe")) {
                             string pathedited = path.Replace(@"\Beat Saber.exe", "");
                             installPath = pathedited;
                             return pathedited;
-                        }
-                        else
-                        {
+                        } else {
                             MessageBox.Show("The directory you selected doesn't contain Beat Saber.exe! please try again!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
-                    }
-                    else
-                    {
+                    } else {
                         return null;
                     }
                 }

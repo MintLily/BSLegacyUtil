@@ -1,4 +1,4 @@
-﻿using System;
+﻿/*using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -98,7 +98,7 @@ namespace BSLegacyUtil.Utilities
 
             steamLibraries.Add(steamDefaultLibrary);
 
-            /*
+            *
              * Get library folders paths from libraryfolders.vdf
              *
              * Libraries are listed like this:
@@ -107,7 +107,7 @@ namespace BSLegacyUtil.Utilities
              * Examples:
              *     "1"   "D:\\Games\\SteamLibraryOnD"
              *     "2"   "E:\\Games\\steam_games"
-             */
+             *
             var regex = new Regex(@"""\d+""\s+""(.+)""");
             var libraryFoldersFilePath = Path.Combine(steamDefaultLibrary, "libraryfolders.vdf");
             if (File.Exists(libraryFoldersFilePath))
@@ -205,3 +205,4 @@ namespace BSLegacyUtil.Utilities
         }
     }
 }
+*/
