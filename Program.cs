@@ -11,7 +11,7 @@ namespace BSLegacyUtil
     public class BuildInfo
     {
         public const string Name = "BSLegacyUtil";
-        public const string Version = "2.2.0";
+        public const string Version = "2.2.1";
         public const string Author = "MintLily";
     }
 
@@ -55,7 +55,7 @@ namespace BSLegacyUtil
             Con.InputOption("1", "\tDownload a version of Beat Saber");
             Con.InputOption("2", "\tInstall to default Steam directory", ConsoleColor.Red, "Option Removed", ConsoleColor.DarkRed);
             Con.InputOption("3", "\tMod current install");
-            Con.InputOption("4", "\tConvert Songs");
+            Con.InputOption("4", "\tConvert Songs (Change Newer songs to older format, for older games)");
             Con.InputOption("5", "\tPlay Game");
             Con.Space();
             Con.InputOption("6", "\tExit Program");
@@ -85,6 +85,10 @@ namespace BSLegacyUtil
                 case "6":
                 case "c":
                     Process.GetCurrentProcess().Kill();
+                    break;
+                case "path":
+                case "ask":
+                    Install.AskForPath(); // Added for debug and/or advanced usage
                     break;
                 case "7":
                     if (isDebug) inputSteamLogin();

@@ -241,8 +241,7 @@ namespace BSLegacyUtil.Functions
                     download = Process.Start("dotnet", "Depotdownloader\\DepotDownloader.dll -app 620980 -depot 620981 -manifest " + manifestID +
                         " -username " + steamUsername + " -password " + steamPassword + " -dir \"Beat Saber\" -validate");
 
-                    if (download != null)
-                    {
+                    if (download != null) {
                         download.WaitForExit();
                         Con.Space();
                         if (string.IsNullOrWhiteSpace(gameVersion))
@@ -260,11 +259,7 @@ namespace BSLegacyUtil.Functions
                             Utilities.Utilities.Kill();
                     }
                 }
-                catch (Exception downgrade)
-                {
-                    //Con.Error(downgrade.ToString());
-                    Con.ErrorException(downgrade.StackTrace.ToString(), downgrade.ToString());
-                }
+                catch (Exception downgrade) { Con.ErrorException(downgrade.StackTrace.ToString(), downgrade.ToString()); }
             }
         }
     }

@@ -60,7 +60,7 @@ namespace BSLegacyUtil.Functions
         public static void AskForPath()
         {
             Con.Space();
-            Con.Log("Current game path is ", Utilities.PathLogic.GetInstallLocation(), ConsoleColor.Yellow);
+            Con.Log("Current game path is ", PathLogic.NotFoundHandler(), ConsoleColor.Yellow);
             Con.Log("Would you like to change this?", " [Y/N]", ConsoleColor.Yellow);
             Con.Input();
             string changeLocalation = Console.ReadLine();
@@ -69,13 +69,13 @@ namespace BSLegacyUtil.Functions
             {
                 try
                 {
-                    FolderSelect.InitialFolder = Utilities.PathLogic.GetInstallLocation();
+                    FolderSelect.InitialFolder = PathLogic.NotFoundHandler();
                     FolderSelect.ShowDialog();
                     gamePath = FolderSelect.Folder;
                 }
                 catch { Con.Error("Select Folder Failed"); BeginInputOption(); }
             }
-            else gamePath = Utilities.PathLogic.GetInstallLocation();
+            else gamePath = PathLogic.NotFoundHandler();
         }
     }
 }

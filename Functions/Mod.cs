@@ -7,23 +7,13 @@ using BSLegacyUtil.Utilities;
 using Microsoft.VisualBasic.FileIO;
 using static BSLegacyUtil.Program;
 
-namespace BSLegacyUtil.Functions
-{
-    class Mod
-    {
-        public static void modGame(string gameVersion)
-        {
-            try {
-                if (FolderSelect == null) {
-                    FolderSelect.InitialFolder = "C:\\Program Files (x86)\\Steam\\steamapps\\common\\";
-                    FolderSelect.ShowDialog();
-                    gamePath = FolderSelect.Folder;
-                }
-            }
-            catch { Con.Error("Select Folder Failed"); BeginInputOption(); }
+namespace BSLegacyUtil.Functions {
+    class Mod {
+        public static void modGame(string gameVersion) {
+            gamePath = Environment.CurrentDirectory + "Beat Saber";
 
-            if (!Directory.Exists(Environment.CurrentDirectory + "\\Resources")) {
-                Con.Error("Folder does not exist, cannot move nothing.");
+            if (!Directory.Exists(Environment.CurrentDirectory + "\\Resources") || !Directory.Exists(gamePath)) {
+                Con.Error("Folder does not exist, cannot mod game.");
                 Con.Space();
                 BeginInputOption();
             } else {
@@ -78,7 +68,6 @@ namespace BSLegacyUtil.Functions
                         Con.LogSuccess("Finished modding game");
                         break;
                     default:
-                        FileSystem.MoveDirectory("Resources\\Beat Saber_Data", gamePath + "\\Beat Saber_Data", true);
                         Process.Start("Resources\\ModAssistant.exe");
                         Con.Log("If you need any help, join the Beat Saber Legacy Group discord.");
                         Con.Log("Find more information on our website:", "https://bslegacy.com", ConsoleColor.Green);
