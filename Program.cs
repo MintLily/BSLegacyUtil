@@ -11,8 +11,11 @@ namespace BSLegacyUtil
     public class BuildInfo
     {
         public const string Name = "BSLegacyUtil";
-        public const string Version = "2.2.1";
+        public const string Version = "2.2.2";
         public const string Author = "MintLily";
+
+        public static Version TargetDotNETVer = new Version("5.0.10");
+        //public static Version AcceptableDotNETVer = new Version("");
     }
 
     class Program
@@ -48,9 +51,14 @@ namespace BSLegacyUtil
             else BeginInputOption();
         }
 
-        public static void BeginInputOption()
-        {
+        public static void BeginInputOption() {
+            if (!isDebug) Con.Log($"Environment Version is v{Environment.Version.ToString()}");
             Con.WriteSeperator();
+            var ver = new Version(Environment.Version.ToString());
+            if (ver != BuildInfo.TargetDotNETVer) {
+                Con.Log("Please make sure you install this first before downgrading:", "https://dotnet.microsoft.com/download/dotnet/thank-you/runtime-5.0.10-windows-x64-installer", ConsoleColor.Green);
+                Con.WriteSeperator();
+            }
             Con.Log("Select a step to get started");
             Con.InputOption("1", "\tDownload a version of Beat Saber");
             Con.InputOption("2", "\tInstall to default Steam directory", ConsoleColor.Red, "Option Removed", ConsoleColor.DarkRed);

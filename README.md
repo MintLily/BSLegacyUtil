@@ -2,8 +2,9 @@
 Converted from windows batch to C# | Beat Saber Legacy Group's Beat Saber Downgrade utility that is using [Steam's Depotdownloader](https://github.com/SteamRE/DepotDownloader)
 
 ## Quick Links
-Issues, Bug Reports, Support? [Go here](https://github.com/KortyBoi/BSLegacyUtil/issues) and create an issue.<br>
-Need to Download Utility? [Go here](https://github.com/KortyBoi/BSLegacyUtil/releases/latest) and downlaod latest version
+Issues, Bug Reports, Support? [Go here](https://github.com/MintLily/BSLegacyUtil/issues) and create an issue.<br>
+Need to Download Utility? [Go here](https://github.com/MintLily/BSLegacyUtil/releases/latest) and downlaod latest version<br><br>
+Please install the [.NET Core v5.0.10+ Runtime](https://dotnet.microsoft.com/download/dotnet/thank-you/runtime-5.0.10-windows-x64-installer) library before using this utility.
 
 ## Available Downgrades
 |           |           |          |          |          |
@@ -50,5 +51,5 @@ if Hotfix blank, then there is no hotfix
 ```
 **Current Version**
 ```
-v2.2.1 - build 121 type Release
+v2.2.2 - build 125 type Release
 ```
