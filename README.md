@@ -4,7 +4,7 @@ Converted from windows batch to C# | Beat Saber Legacy Group's Beat Saber Downgr
 ## Quick Links
 Issues, Bug Reports, Support? [Go here](https://github.com/MintLily/BSLegacyUtil/issues) and create an issue.<br>
 Need to Download Utility? [Go here](https://github.com/MintLily/BSLegacyUtil/releases/latest) and downlaod latest version<br><br>
-Please install the [.NET Core v5.0.10+ Runtime](https://dotnet.microsoft.com/download/dotnet/thank-you/runtime-5.0.10-windows-x64-installer) and [.NET Runtime v3.1.16+ Runtime](https://dotnet.microsoft.com/download/dotnet/thank-you/runtime-3.1.16-windows-x64-installer) libraries before using this utility.
+Please install the [.NET Core v5.0.10+ Runtime](https://dotnet.microsoft.com/download/dotnet/thank-you/runtime-5.0.10-windows-x64-installer) and [.NET Runtime v3.1.16+](https://dotnet.microsoft.com/download/dotnet/thank-you/runtime-3.1.16-windows-x64-installer) libraries before using this utility.
 
 ## Available Downgrades
 |           |           |          |          |          |
