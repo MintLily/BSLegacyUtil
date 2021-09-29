@@ -19,7 +19,7 @@ namespace BSLegacyUtil.Functions
 
     public class JSONSetup
     {
-        static readonly string path = Environment.CurrentDirectory + "\\PlayVals.json";
+        static readonly string path = BuildInfo.isWindows ? Environment.CurrentDirectory + "\\PlayVals.json" : $"{AppDomain.CurrentDomain.BaseDirectory}PlayVals.json";
 
         private static Values conf { get; set; }
 
@@ -33,11 +33,12 @@ namespace BSLegacyUtil.Functions
 
         public static Values get() => conf;
 
-        public static void FixMyMistake()
-        {
-            string oops = Environment.CurrentDirectory + "PlayVals.json";
+        /*
+        public static void FixMyMistake() {
+            string oops = $"{AppDomain.CurrentDomain.BaseDirectory}PlayVals.json";
             if (File.Exists(oops) && !File.Exists(path)) File.Move(oops, path);
         }
+        */
     }
 
     //Came from https://github.com/RiskiVR/BSLegacyLauncher/blob/master/Assets/Scripts/LaunchBS.cs
@@ -47,7 +48,8 @@ namespace BSLegacyUtil.Functions
 
         public static void Play()
         {
-            if (!Directory.Exists(Environment.CurrentDirectory + "\\Beat Saber")) {
+            string temp = BuildInfo.isWindows ? Environment.CurrentDirectory + "\\Beat Saber" : $"{AppDomain.CurrentDomain.BaseDirectory}Beat Saber";
+            if (!Directory.Exists(temp)) {
                 Con.Error("Folder or Game does not exist in current Directory, cannot play Beat Saber.");
                 Con.Error("Please Install a version of Beat Saber.");
                 BeginInputOption();
@@ -101,17 +103,25 @@ namespace BSLegacyUtil.Functions
             }
 
             Process p = new Process();
-            p.StartInfo = new ProcessStartInfo($"{Environment.CurrentDirectory}\\Beat Saber\\Beat Saber.exe",
-                (get.oculus ? "-vrmode oculus " : "") + (get.verbose ? "--verbose" : "") + (get.fpfc ? "fpfc" : "")) {
-                UseShellExecute = false,
-                WorkingDirectory = $"{Environment.CurrentDirectory}\\Beat Saber",
-            };
+            if (BuildInfo.isWindows) {
+                p.StartInfo = new ProcessStartInfo($"{Environment.CurrentDirectory}\\Beat Saber\\Beat Saber.exe",
+                    (get.oculus ? "-vrmode oculus " : "") + (get.verbose ? "--verbose" : "") + (get.fpfc ? "fpfc" : "")) {
+                    UseShellExecute = false,
+                    WorkingDirectory = $"{Environment.CurrentDirectory}\\Beat Saber",
+                };
+            } else {
+                p.StartInfo = new ProcessStartInfo($"{AppDomain.CurrentDomain.BaseDirectory}Beat Saber\\Beat Saber.exe",
+                    (get.oculus ? "-vrmode oculus " : "") + (get.verbose ? "--verbose" : "") + (get.fpfc ? "fpfc" : "")) {
+                    UseShellExecute = false,
+                    WorkingDirectory = $"{AppDomain.CurrentDomain.BaseDirectory}Beat Saber",
+                };
+            }
 
             try {
                 p.StartInfo.Environment["SteamAppId"] = "620980";
                 p.Start();
             }
-            catch (Exception e) { Con.Error(e.ToString()); }
+            catch (Exception e) { Con.ErrorException(e.StackTrace.ToString(), e.ToString()); }
         }
     }
 }

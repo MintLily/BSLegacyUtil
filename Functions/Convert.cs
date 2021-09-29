@@ -13,7 +13,8 @@ namespace BSLegacyUtil.Functions
     {
         public static void convertSongs()
         {
-            if (gamePath != Environment.CurrentDirectory + "Beat Saber")
+            string temp = BuildInfo.isWindows ? $"{Environment.CurrentDirectory}\\Beat Saber" : $"{AppDomain.CurrentDomain.BaseDirectory}Beat Saber";
+            if (gamePath != temp)
                 Install.AskForPath();
             if (!Directory.Exists(gamePath + "\\CustomSongs"))
                 Directory.CreateDirectory(gamePath + "\\CustomSongs");

@@ -18,8 +18,13 @@ namespace BSLegacyUtil.Functions
         {
             gameVersion = gameVersionInput;
             bool faulted = false;
-            if (!Directory.Exists(Environment.CurrentDirectory + "/Beat Saber"))
-                Directory.CreateDirectory(Environment.CurrentDirectory + "/Beat Saber");
+            if (BuildInfo.isWindows) {
+                if (!Directory.Exists(Environment.CurrentDirectory + "/Beat Saber"))
+                    Directory.CreateDirectory(Environment.CurrentDirectory + "/Beat Saber");
+            } else {
+                if (!Directory.Exists($"{AppDomain.CurrentDomain.BaseDirectory}Beat Saber"))
+                    Directory.CreateDirectory($"{AppDomain.CurrentDomain.BaseDirectory}Beat Saber");
+            }
 
             try {
                 switch (gameVersion) {
@@ -238,8 +243,13 @@ namespace BSLegacyUtil.Functions
                 inputSteamLogin();
                 try {
                     Con.Space();
-                    download = Process.Start("dotnet", "Depotdownloader\\DepotDownloader.dll -app 620980 -depot 620981 -manifest " + manifestID +
-                        " -username " + steamUsername + " -password " + steamPassword + " -dir \"Beat Saber\" -validate");
+                    if (BuildInfo.isWindows) {
+                        download = Process.Start("dotnet", "Depotdownloader\\DepotDownloader.dll -app 620980 -depot 620981 -manifest " + manifestID +
+                            " -username " + steamUsername + " -password " + steamPassword + " -dir \"Beat Saber\" -validate");
+                    } else {
+                        download = Process.Start("dotnet", $"{AppDomain.CurrentDomain.BaseDirectory}Depotdownloader/DepotDownloader.dll -app 620980 -depot 620981 -manifest " + manifestID +
+                            " -username " + steamUsername + " -password " + steamPassword + " -dir \"Beat Saber\" -validate");
+                    }
 
                     if (download != null) {
                         download.WaitForExit();

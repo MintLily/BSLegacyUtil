@@ -11,11 +11,12 @@ namespace BSLegacyUtil
     public class BuildInfo
     {
         public const string Name = "BSLegacyUtil";
-        public const string Version = "2.2.2";
+        public const string Version = "2.2.3";
         public const string Author = "MintLily";
+        public static bool isWindows;
 
         public static Version TargetDotNETVer = new Version("5.0.10");
-        //public static Version AcceptableDotNETVer = new Version("");
+        public static Version AcceptableDotNETVer = new Version("3.1.16");
     }
 
     class Program
@@ -37,25 +38,39 @@ namespace BSLegacyUtil
             Con.Log("This tool will allow you to easily downgrade your Beat Saber.");
             Con.Log("Brought to you by the", "Beat Saber Legacy Group", ConsoleColor.DarkCyan);
             Con.Space();
-            JSONSetup.FixMyMistake();
+            //JSONSetup.FixMyMistake();
             JSONSetup.Load();
+
+            BuildInfo.isWindows = Environment.OSVersion.ToString().Contains("Windows");
+
+            if (isDebug) {
+                Con.Log($"Environment Version is v{Environment.Version}");
+                Con.Log($"OS is {Environment.OSVersion}");
+                Con.Log($"Debug: isWindows = {BuildInfo.isWindows}");
+            }
 
             if (!isDebug) UpdateCheck.CheckForUpdates();
 
-            if (!Directory.Exists(Environment.CurrentDirectory + "\\Resources") || !Directory.Exists(Environment.CurrentDirectory + "\\Depotdownloader"))
-            {
+            bool showError = false;
+            if (BuildInfo.isWindows) {
+                if (!Directory.Exists(Environment.CurrentDirectory + "\\Resources") || !Directory.Exists(Environment.CurrentDirectory + "\\Depotdownloader"))
+                    showError = true;
+            } else {
+                if (!Directory.Exists($"{AppDomain.CurrentDomain.BaseDirectory}Resources") || !Directory.Exists($"{AppDomain.CurrentDomain.BaseDirectory}Depotdownloader"))
+                    showError = true;
+            }
+
+            if (showError) {
                 Con.Error("Please be sure you have extracted the files before running this!");
                 Con.Error("Program will not run until you have extracted all the contents out of the ZIP file.");
                 Con.Exit();
-            }
-            else BeginInputOption();
+            } else BeginInputOption();
         }
 
         public static void BeginInputOption() {
-            if (!isDebug) Con.Log($"Environment Version is v{Environment.Version.ToString()}");
             Con.WriteSeperator();
             var ver = new Version(Environment.Version.ToString());
-            if (ver != BuildInfo.TargetDotNETVer) {
+            if ((ver != BuildInfo.TargetDotNETVer || ver != BuildInfo.AcceptableDotNETVer) && BuildInfo.isWindows) {
                 Con.Log("Please make sure you install this first before downgrading:", "https://dotnet.microsoft.com/download/dotnet/thank-you/runtime-5.0.10-windows-x64-installer", ConsoleColor.Green);
                 Con.WriteSeperator();
             }

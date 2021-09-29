@@ -50,7 +50,7 @@ namespace BSLegacyUtil.Utilities
             }
         }
 
-        public static void SecurePassword()
+        /*public static void SecurePassword()
         {
             SecureString securePwd = new SecureString();
             ConsoleKeyInfo key;
@@ -85,13 +85,13 @@ namespace BSLegacyUtil.Utilities
             securePwd.MakeReadOnly();
             securePwd.Dispose();
             Console.WriteLine();
-        }
+        }*/
 
         /// <summary>
         /// Gets the console secure password.
         /// </summary>
         /// <returns></returns>
-        public static string GetPassword()
+        /*public static string GetPassword()
         {
             StringBuilder input = new StringBuilder();
             while (true)
@@ -118,6 +118,6 @@ namespace BSLegacyUtil.Utilities
                 }
             }
             return input.ToString();
-        }
+        }*/
     }
 }
