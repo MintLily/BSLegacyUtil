@@ -31,7 +31,7 @@ Please install the [.NET Core v5.0.10+ Runtime](https://dotnet.microsoft.com/dow
 | 1.15.0    |
 | 1.16.0    | 1.16.1    | 1.16.2   | 1.16.3   | 1.16.4  |
 | 1.17.0    | 1.17.1    |
-| 1.18.0    |
+| 1.18.0    | 1.18.1    |
 
 # Contributors / Credits
 This project contains code from the following Users and Their projects: _(All rights and credit goes to them)_
@@ -51,5 +51,5 @@ if Hotfix blank, then there is no hotfix
 ```
 **Current Version**
 ```
-v2.2.3 - build 134 type Release
+v2.3.0 - build 136 type Release
 ```
