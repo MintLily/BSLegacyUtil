@@ -224,6 +224,10 @@ namespace BSLegacyUtil.Functions
                         manifestID = "5599254819160454367";
                         faulted = false;
                         break;
+                    case "1.18.1":
+                        manifestID = "8961661233382948062";
+                        faulted = false;
+                        break;
                     default: // https://steamdb.info/app/620980/history/
                         manifestID = "";
                         faulted = true;
