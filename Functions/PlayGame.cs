@@ -9,7 +9,7 @@ using Newtonsoft.Json;
 
 namespace BSLegacyUtil.Functions
 {
-    public class Values
+    /*public class Values
     {
         public bool RemeberOptions { get; set; } = false;
         public bool oculus { get; set; } = false;
@@ -32,19 +32,13 @@ namespace BSLegacyUtil.Functions
         }
 
         public static Values get() => conf;
-
-        /*
-        public static void FixMyMistake() {
-            string oops = $"{AppDomain.CurrentDomain.BaseDirectory}PlayVals.json";
-            if (File.Exists(oops) && !File.Exists(path)) File.Move(oops, path);
-        }
-        */
-    }
+        
+    }*/
 
     //Came from https://github.com/RiskiVR/BSLegacyLauncher/blob/master/Assets/Scripts/LaunchBS.cs
     class PlayGame
     {
-        static Values get = JSONSetup.get();
+        //static Values get = JSONSetup.get();
 
         public static void Play()
         {
@@ -55,7 +49,7 @@ namespace BSLegacyUtil.Functions
                 BeginInputOption();
             }
 
-
+            /*
             string sRem, soculus, sverbose, sfpfc;
 
             if (!get.RemeberOptions) {
@@ -100,18 +94,28 @@ namespace BSLegacyUtil.Functions
                 #endregion
 
                 JSONSetup.Save();
-            }
+            }*/
+
+            string soculus;
+            bool OculusMode = false;
+            Con.Log("Run in Oculus mode?");
+            Con.Input();
+            soculus = Console.ReadLine();
+            Con.ResetColors();
+            Con.Space();
+
+            if (soculus.ToLower() == "y" || soculus.ToLower() == "yes") OculusMode = true;
 
             Process p = new Process();
             if (BuildInfo.isWindows) {
                 p.StartInfo = new ProcessStartInfo($"{Environment.CurrentDirectory}\\Beat Saber\\Beat Saber.exe",
-                    (get.oculus ? "-vrmode oculus " : "") + (get.verbose ? "--verbose" : "") + (get.fpfc ? "fpfc" : "")) {
+                    (OculusMode ? "-vrmode oculus " : "")/* + (get.verbose ? "--verbose" : "") + (get.fpfc ? "fpfc" : "")*/) {
                     UseShellExecute = false,
                     WorkingDirectory = $"{Environment.CurrentDirectory}\\Beat Saber",
                 };
             } else {
                 p.StartInfo = new ProcessStartInfo($"{AppDomain.CurrentDomain.BaseDirectory}Beat Saber\\Beat Saber.exe",
-                    (get.oculus ? "-vrmode oculus " : "") + (get.verbose ? "--verbose" : "") + (get.fpfc ? "fpfc" : "")) {
+                    (OculusMode ? "-vrmode oculus " : "")/* + (get.verbose ? "--verbose" : "") + (get.fpfc ? "fpfc" : "")*/) {
                     UseShellExecute = false,
                     WorkingDirectory = $"{AppDomain.CurrentDomain.BaseDirectory}Beat Saber",
                 };

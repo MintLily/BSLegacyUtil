@@ -11,7 +11,7 @@ namespace BSLegacyUtil
     public class BuildInfo
     {
         public const string Name = "BSLegacyUtil";
-        public const string Version = "2.3.0";
+        public const string Version = "2.3.1";
         public const string Author = "MintLily";
         public static bool isWindows;
 
@@ -38,8 +38,8 @@ namespace BSLegacyUtil
             Con.Log("This tool will allow you to easily downgrade your Beat Saber.");
             Con.Log("Brought to you by the", "Beat Saber Legacy Group", ConsoleColor.DarkCyan);
             Con.Space();
-            //JSONSetup.FixMyMistake();
-            JSONSetup.Load();
+
+            //JSONSetup.Load();
 
             BuildInfo.isWindows = Environment.OSVersion.ToString().Contains("Windows");
 
