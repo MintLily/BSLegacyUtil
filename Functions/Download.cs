@@ -2,17 +2,63 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
+using System.Net;
+using System.Net.NetworkInformation;
 using System.Text;
+using System.Windows.Forms;
 using BSLegacyUtil.Utilities;
+using Newtonsoft.Json;
 using static BSLegacyUtil.Program;
 
 namespace BSLegacyUtil.Functions
 {
+    public class BSLegacyVersions {
+        public List<Versions> Versions { get; set; }
+    }
+
+    public class Versions {
+        public string Version { get; set; }
+        public string manifestID { get; set; }
+    }
+
+
     class Download
     {
+        static readonly string JSONURL = "https://raw.githubusercontent.com/MintLily/BSLegacyUtil/main/Resources/Versions.json";
+        static readonly string DebugJSONPath = $"{Environment.CurrentDirectory}{Path.DirectorySeparatorChar}Versions.json";
         static string manifestID = "";
         static string gameVersion = string.Empty;
         static Process download;
+
+        static BSLegacyVersions LoadJSON(string file) {
+            if (isDebug)
+                if (!File.Exists(file))
+                    File.Create(file);
+            try {
+                WebClient _file = new();
+                string f = _file.DownloadString(file);
+                var d = JsonConvert.DeserializeObject<BSLegacyVersions>(isDebug ? File.ReadAllText(DebugJSONPath) : f);
+                _file.Dispose();
+                if (d == null) throw new Exception();
+                return d;
+            }
+            catch (Exception e) {
+                if (isDebug)
+                    return new BSLegacyVersions() { Versions = new List<Versions>() };
+                Con.ErrorException(e.StackTrace, e.ToString());
+                return null;
+            }
+        }
+
+        static BSLegacyVersions Info { get; set; } = LoadJSON(JSONURL);
+
+        private static string getManifestFromVersion(string input) {
+            if (Info == null) Info = LoadJSON(JSONURL);
+            var _ = Info.Versions.FirstOrDefault(v => v.Version == input);
+            if (_ == null) return "";
+            return _.manifestID;
+        }
 
         public static void DLGame(string gameVersionInput)
         {
@@ -26,7 +72,14 @@ namespace BSLegacyUtil.Functions
                     Directory.CreateDirectory($"{AppDomain.CurrentDomain.BaseDirectory}Beat Saber");
             }
 
-            try {
+            try { // https://steamdb.info/app/620980/history/
+
+                manifestID = getManifestFromVersion(gameVersionInput);
+                faulted = false;
+
+                #region Old Switch Case
+
+                /*
                 switch (gameVersion) {
                     case "0.10.1":
                         manifestID = "6316038906315325420";
@@ -232,6 +285,10 @@ namespace BSLegacyUtil.Functions
                         manifestID = "6835596583028648427";
                         faulted = false;
                         break;
+                    case "1.18.3":
+                        manifestID = "6558821762131072991";
+                        faulted = false;
+                        break;
                     default: // https://steamdb.info/app/620980/history/
                         manifestID = "";
                         faulted = true;
@@ -240,16 +297,24 @@ namespace BSLegacyUtil.Functions
                         SelectGameVersion(true);
                         break;
                 }
-            }
-            catch (Exception @switch)
-            {
+                */
+
+                #endregion
+
+            } catch (Exception @switch) {
+                faulted = true;
                 //Con.Error(@switch.ToString());
                 Con.ErrorException(@switch.StackTrace.ToString(), @switch.ToString());
+                Con.Error("Invalid input. Please input a valid version number.");
+                Con.Space();
+                SelectGameVersion(true);
             }
+
+            Con.Log($"Game Version: {gameVersionInput} => [{manifestID}]");
 
             if (!faulted && !string.IsNullOrWhiteSpace(manifestID)) {
                 inputSteamLogin();
-                try {
+                try { // Program from https://github.com/SteamRE/DepotDownloader
                     Con.Space();
                     if (BuildInfo.isWindows) {
                         download = Process.Start("dotnet", "Depotdownloader\\DepotDownloader.dll -app 620980 -depot 620981 -manifest " + manifestID +
