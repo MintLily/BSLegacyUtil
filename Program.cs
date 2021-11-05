@@ -11,7 +11,7 @@ namespace BSLegacyUtil
     public class BuildInfo
     {
         public const string Name = "BSLegacyUtil";
-        public const string Version = "2.4.0";
+        public const string Version = "2.5.0";
         public const string Author = "MintLily";
         public static bool isWindows;
 
@@ -149,7 +149,7 @@ namespace BSLegacyUtil
             Con.Log("\t1.15.0");
             Con.Log("\t1.16.0 \t1.16.1 \t1.16.2 \t1.16.3\t1.16.4");
             Con.Log("\t1.17.0 \t1.17.1");
-            Con.Log("\t1.18.0 \t1.18.1 \t1.18.2");
+            Con.Log("\t1.18.0 \t1.18.1 \t1.18.2 \t1.18.3");
             Con.Input();
             versionInput = Console.ReadLine();
             Con.ResetColors();
