@@ -20,6 +20,7 @@ namespace BSLegacyUtil.Functions
     public class Versions {
         public string Version { get; set; }
         public string manifestID { get; set; }
+        public ushort year { get; set; }
     }
 
 
@@ -58,6 +59,15 @@ namespace BSLegacyUtil.Functions
             var _ = Info.Versions.FirstOrDefault(v => v.Version == input);
             if (_ == null) return "";
             return _.manifestID;
+        }
+
+        private static ushort getYearFromVersion(string input) {
+            if (Info == null)
+                Info = LoadJSON(JSONURL);
+            var _ = Info.Versions.FirstOrDefault(v => v.Version == input);
+            if (_ == null)
+                return 0;
+            return _.year;
         }
 
         public static void DLGame(string gameVersionInput)
@@ -310,7 +320,7 @@ namespace BSLegacyUtil.Functions
                 SelectGameVersion(true);
             }
 
-            Con.Log($"Game Version: {gameVersionInput} => [{manifestID}]");
+            Con.Log($"Game Version: {gameVersionInput} => [{manifestID}] from year {getYearFromVersion(gameVersionInput)}");
 
             if (!faulted && !string.IsNullOrWhiteSpace(manifestID)) {
                 inputSteamLogin();
