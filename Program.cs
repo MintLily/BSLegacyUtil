@@ -1,17 +1,24 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
+using System.Text;
+using System.Windows.Documents;
 using Microsoft.VisualBasic.FileIO;
 using BSLegacyUtil.Utilities;
 using BSLegacyUtil.Functions;
+using Ccr.Std.Core.Extensions;
+using Ccr.Std.Core.Extensions.Templates;
 using Convert = BSLegacyUtil.Functions.Convert;
+using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 
 namespace BSLegacyUtil
 {
     public class BuildInfo
     {
         public const string Name = "BSLegacyUtil";
-        public const string Version = "2.5.0";
+        public const string Version = "2.6.0";
         public const string Author = "MintLily";
         public static bool isWindows;
 
@@ -41,7 +48,7 @@ namespace BSLegacyUtil
 
             //JSONSetup.Load();
 
-            BuildInfo.isWindows = Environment.OSVersion.ToString().Contains("Windows");
+            BuildInfo.isWindows = Environment.OSVersion.ToString().ToLower().Contains("windows");
 
             if (isDebug) {
                 Con.Log($"Environment Version is v{Environment.Version}");
@@ -69,11 +76,21 @@ namespace BSLegacyUtil
 
         public static void BeginInputOption() {
             Con.WriteSeperator();
-            var ver = new Version(Environment.Version.ToString());
-            if ((ver != BuildInfo.TargetDotNETVer || ver != BuildInfo.AcceptableDotNETVer) && BuildInfo.isWindows) {
-                Con.Log("Please make sure you install this first before downgrading:", "https://dotnet.microsoft.com/download/dotnet/thank-you/runtime-5.0.10-windows-x64-installer", ConsoleColor.Green);
-                Con.WriteSeperator();
+
+            var sys = Environment.Version; // Gets Current Installed version
+            var tar = BuildInfo.AcceptableDotNETVer;
+
+            if (!(sys.Major == tar.Major && sys.Minor == tar.Minor && sys.Build >= tar.Build)) {
+                if (BuildInfo.isWindows)
+                    PopupMessageBox.ShowBox();
+                else {
+                    Con.Log("Make sure you have the required packages installed on your machine");
+                    Con.Log(".NET Runtime v3.1.16+:", "https://link.bslegacy.com/dotNET_3-1-16", ConsoleColor.Green);
+                    Con.Log(".NET Runtime v5.0.10+:", "https://link.bslegacy.com/dotNET_5-0-10", ConsoleColor.Green);
+                }
             }
+            
+
             Con.Log("Select a step to get started");
             Con.InputOption("1", "\tDownload a version of Beat Saber");
             Con.InputOption("2", "\tInstall to default Steam directory", ConsoleColor.Red, "Option Removed", ConsoleColor.DarkRed);
@@ -124,42 +141,47 @@ namespace BSLegacyUtil
             }
         }
 
-        public static void SelectGameVersion(bool dlGame)
-        {
+        public static void SelectGameVersion(bool dlGame) {
             Con.Log("Select which version you'd like to use", "- Type \'cancel\' to go back");
-            Con.Log("\t0.10.1 \t0.10.2   \t0.10.2p1");
-            Con.Log("\t0.11.0 \t0.11.1   \t0.11.2");
-            Con.Log("\t0.12.0 \t0.12.0p1 \t0.12.1   \t0.12.2");
-            Con.Log("\t0.13.0 \t0.13.0p1 \t0.13.1   \t0.13.2");
-            Con.Log("\t1.0.0  \t1.0.1");
-            Con.Log("\t1.1.0  \t1.1.0p1");
-            Con.Log("\t1.2.0");
-            Con.Log("\t1.3.0");
-            Con.Log("\t1.4.0  \t1.4.2");
-            Con.Log("\t1.5.0");
-            Con.Log("\t1.6.0  \t1.6.1");
-            Con.Log("\t1.7.0");
-            Con.Log("\t1.8.0");
-            Con.Log("\t1.9.0  \t1.9.1");
-            Con.Log("\t1.10.0");
-            Con.Log("\t1.11.0 \t1.11.1");
-            Con.Log("\t1.12.1 \t1.12.2");
-            Con.Log("\t1.13.0 \t1.13.2   \t1.13.4   \t1.13.5");
-            Con.Log("\t1.14.0");
-            Con.Log("\t1.15.0");
-            Con.Log("\t1.16.0 \t1.16.1 \t1.16.2 \t1.16.3\t1.16.4");
-            Con.Log("\t1.17.0 \t1.17.1");
-            Con.Log("\t1.18.0 \t1.18.1 \t1.18.2 \t1.18.3");
+
+            Dictionary<ushort, StringBuilder> sb = new();
+            string lastMajor = "-1", lastMinor = "-1";
+
+            foreach (var v in Download.Info.Versions) {
+                var s = $"  {v.Version}";
+                var tVer = v.Version.Split('.');
+
+                if (tVer.Length != 3)
+                    continue;
+
+                if (!sb.ContainsKey(v.year)) {
+                    lastMajor = tVer[0];
+                    lastMinor = tVer[1];
+                    sb.Add(v.year, new StringBuilder($"{v.year}:\n\t"));
+                }
+
+                if (tVer[0] != lastMajor || tVer[1] != lastMinor) {
+                    lastMajor = tVer[0];
+                    lastMinor = tVer[1];
+                    sb[v.year].Append($"\n\t{s}"); // AppendLine was borked
+                } else
+                    sb[v.year].Append(s);
+            }
+
+            Con.Space();
+            sb.Values.ForEach(v => Console.WriteLine(v.ToString()));
+            Con.Space();
+
             Con.Input();
             versionInput = Console.ReadLine();
             Con.ResetColors();
             Con.Space();
 
-            if (versionInput == "cancel" || versionInput == "CANCEL" || versionInput == "Cancel" || versionInput == "c")
+            if (versionInput.ToLower() == "cancel" || versionInput == "c")
                 BeginInputOption();
 
             if (dlGame)
-                Download.DLGame(versionInput);
+                Download.DLGameAsync(versionInput);
             else
                 Mod.modGame(versionInput);
         }
