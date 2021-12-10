@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Net.NetworkInformation;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using BSLegacyUtil.Utilities;
 using Newtonsoft.Json;
@@ -52,28 +53,26 @@ namespace BSLegacyUtil.Functions
             }
         }
 
-        static BSLegacyVersions Info { get; set; } = LoadJSON(JSONURL);
+        public static BSLegacyVersions Info { get; set; } = LoadJSON(isDebug ? DebugJSONPath : JSONURL);
 
         private static string getManifestFromVersion(string input) {
-            if (Info == null) Info = LoadJSON(JSONURL);
+            if (Info == null) Info = LoadJSON(isDebug ? DebugJSONPath : JSONURL);
             var _ = Info.Versions.FirstOrDefault(v => v.Version == input);
             if (_ == null) return "";
             return _.manifestID;
         }
 
-        private static ushort getYearFromVersion(string input) {
-            if (Info == null)
-                Info = LoadJSON(JSONURL);
+        public static ushort getYearFromVersion(string input) {
+            if (Info == null) Info = LoadJSON(isDebug ? DebugJSONPath : JSONURL);
             var _ = Info.Versions.FirstOrDefault(v => v.Version == input);
-            if (_ == null)
-                return 0;
+            if (_ == null) return 0;
             return _.year;
         }
 
-        public static void DLGame(string gameVersionInput)
+        public static void DLGameAsync(string gameVersionInput)
         {
             gameVersion = gameVersionInput;
-            bool faulted = false;
+            //bool faulted = false;
             if (BuildInfo.isWindows) {
                 if (!Directory.Exists(Environment.CurrentDirectory + "/Beat Saber"))
                     Directory.CreateDirectory(Environment.CurrentDirectory + "/Beat Saber");
@@ -85,11 +84,11 @@ namespace BSLegacyUtil.Functions
             try { // https://steamdb.info/app/620980/history/
 
                 manifestID = getManifestFromVersion(gameVersionInput);
-                faulted = false;
 
                 #region Old Switch Case
 
-                /*
+                /*faulted = false;
+                
                 switch (gameVersion) {
                     case "0.10.1":
                         manifestID = "6316038906315325420";
@@ -312,9 +311,9 @@ namespace BSLegacyUtil.Functions
                 #endregion
 
             } catch (Exception @switch) {
-                faulted = true;
+                //faulted = true;
                 //Con.Error(@switch.ToString());
-                Con.ErrorException(@switch.StackTrace.ToString(), @switch.ToString());
+                Con.ErrorException(@switch.StackTrace, @switch.ToString());
                 Con.Error("Invalid input. Please input a valid version number.");
                 Con.Space();
                 SelectGameVersion(true);
@@ -322,16 +321,23 @@ namespace BSLegacyUtil.Functions
 
             Con.Log($"Game Version: {gameVersionInput} => [{manifestID}] from year {getYearFromVersion(gameVersionInput)}");
 
-            if (!faulted && !string.IsNullOrWhiteSpace(manifestID)) {
+            if (/*!faulted && */!string.IsNullOrWhiteSpace(manifestID)) {
                 inputSteamLogin();
                 try { // Program from https://github.com/SteamRE/DepotDownloader
                     Con.Space();
                     if (BuildInfo.isWindows) {
-                        download = Process.Start("dotnet", "Depotdownloader\\DepotDownloader.dll -app 620980 -depot 620981 -manifest " + manifestID +
-                            " -username " + steamUsername + " -password " + steamPassword + " -dir \"Beat Saber\" -validate");
-                    } else {
-                        download = Process.Start("dotnet", $"{AppDomain.CurrentDomain.BaseDirectory}Depotdownloader/DepotDownloader.dll -app 620980 -depot 620981 -manifest " + manifestID +
-                            " -username " + steamUsername + " -password " + steamPassword + " -dir \"Beat Saber\" -validate");
+                        download = Process.Start("dotnet",
+                            "Depotdownloader\\DepotDownloader.dll -app 620980 -depot 620981 -manifest " + manifestID +
+                            " -username " + steamUsername + " -password " + steamPassword +
+                            " -dir \"Beat Saber\" -validate");
+                        //PopupMessageBox.ProgressWindow(gameVersionInput);
+                    }
+                    else {
+                        download = Process.Start("dotnet",
+                            $"{AppDomain.CurrentDomain.BaseDirectory}Depotdownloader/DepotDownloader.dll -app 620980 -depot 620981 -manifest " +
+                            manifestID +
+                            " -username " + steamUsername + " -password " + steamPassword +
+                            " -dir \"Beat Saber\" -validate");
                     }
 
                     if (download != null) {
@@ -339,20 +345,29 @@ namespace BSLegacyUtil.Functions
                         Con.Space();
                         if (string.IsNullOrWhiteSpace(gameVersion))
                             Con.LogSuccess("Finished downloading Beat Saber");
-                        else
-                            Con.LogSuccess("Finished downloading Beat Saber " + gameVersion);
+                        else {
+                            Con.LogSuccess($"Finished downloading Beat Saber {gameVersion}");
+                            //if (BuildInfo.isWindows)
+                            //    PopupMessageBox.ProgWinTextWithDelay($"Finished downloading Beat Saber {gameVersion}", 2000);
+                        }
+
                         Con.Space();
                         Con.Log("Would you like to continue? [Y/N]");
                         Con.Input();
                         string @continue = Console.ReadLine();
 
-                        if (@continue == "Y" || @continue == "y" || @continue == "YES" || @continue == "yes" || @continue == "Yes")
+                        if (@continue == "Y" || @continue == "y" || @continue == "YES" || @continue == "yes" ||
+                            @continue == "Yes")
                             BeginInputOption();
                         else
                             Utilities.Utilities.Kill();
                     }
                 }
-                catch (Exception downgrade) { Con.ErrorException(downgrade.StackTrace.ToString(), downgrade.ToString()); }
+                catch (Exception downgrade) {
+                    Con.ErrorException(downgrade.StackTrace, downgrade.ToString());
+                    //if (BuildInfo.isWindows)
+                    //    PopupMessageBox.ProgWinTextWithDelay("Operation Failed", 2000);
+                }
             }
         }
     }
