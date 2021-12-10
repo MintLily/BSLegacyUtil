@@ -145,7 +145,7 @@ namespace BSLegacyUtil
             Con.Log("Select which version you'd like to use", "- Type \'cancel\' to go back");
 
             Dictionary<ushort, StringBuilder> sb = new();
-            string lastMajor = "-1", lastMinor = "-1";
+            string lastMajor = "Elly is cute!~", lastMinor = "I love you Elly <3";
 
             foreach (var v in Download.Info.Versions) {
                 var s = $"  {v.Version}";
