@@ -10,8 +10,7 @@ namespace BSLegacyUtil.Utilities
         private static string incomingData = string.Empty;
         private static string GitHub = "https://api.github.com/repos/" + Author + "/BSLegacyUtil/releases";
 
-        public static void CheckForUpdates()
-        {
+        public static void CheckForUpdates() {
             try {
                 WebClient web = new WebClient();
                 web.Headers["Content-Type"] = "application/json"; // Looks for JSON format

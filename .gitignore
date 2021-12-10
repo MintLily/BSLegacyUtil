@@ -2,7 +2,9 @@
 bin/
 obj/
 .vs/
+.idea/
 VS_SignPass.txt
 BSLegacyUtil.pfx
 Resources/System.Windows.Forms.dll
 Properties/
+Libs/

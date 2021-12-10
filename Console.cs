@@ -161,6 +161,30 @@ namespace BSLegacyUtil
 			if (log != null) { log.WriteLine("[" + timestamp + "] [" + Name + "] " + s); }
 		}
 
+        public static void LogFail(string s) {
+            ResetColors();
+            ConsoleColor foregroundColor = Console.ForegroundColor;
+            string timestamp = GetTimestamp();
+            if (Program.isDebug) {
+                Console.Write("[");
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.Write(timestamp);
+                Console.ForegroundColor = foregroundColor;
+                Console.Write("] [");
+            } else
+                Console.Write("[");
+            Console.ForegroundColor = ConsoleColor.Magenta;
+            Console.Write(Name);
+            Console.ForegroundColor = foregroundColor;
+            Console.Write("] [");
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.Write("Failed");
+            Console.ForegroundColor = foregroundColor;
+            Console.WriteLine("] " + s);
+            Console.ForegroundColor = foregroundColor;
+            if (log != null) { log.WriteLine("[" + timestamp + "] [" + Name + "] " + s); }
+        }
+
 		public static void Input()
 		{
 			ConsoleColor foregroundColor = Console.ForegroundColor;

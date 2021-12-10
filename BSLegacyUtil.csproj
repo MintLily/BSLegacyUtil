@@ -21,7 +21,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Libs\**" />
+    <EmbeddedResource Remove="Libs\**" />
+    <None Remove="Libs\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Ccr.PresentationCore" Version="3.0.0" />
     <PackageReference Include="Microsoft.Win32.Registry" Version="5.0.0" />
+    <PackageReference Include="ModernMessageBoxLib" Version="1.3.1" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="System.Collections" Version="4.3.0" />
     <PackageReference Include="System.Security.Claims" Version="4.3.0" />
@@ -36,7 +44,7 @@
 
   <ItemGroup>
     <Reference Include="System.Windows.Forms">
-      <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\VRChat\MelonLoader\Managed\System.Windows.Forms.dll</HintPath>
+      <HintPath>Libs\System.Windows.Forms.dll</HintPath>
     </Reference>
   </ItemGroup>
 
