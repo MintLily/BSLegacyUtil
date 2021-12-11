@@ -2,7 +2,7 @@
 
   <PropertyGroup>
 	<Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <OutputType>Exe</OutputType>
+    <OutputType>WinExe</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <LangVersion>9.0</LangVersion>
     <SignAssembly>true</SignAssembly>
@@ -18,6 +18,7 @@
     <RepositoryType>GitHub</RepositoryType>
     <NeutralLanguage>en</NeutralLanguage>
     <PackageId />
+    <UseWindowsForms>True</UseWindowsForms>
   </PropertyGroup>
 
   <ItemGroup>
@@ -40,12 +41,6 @@
       <Pack>True</Pack>
       <PackagePath></PackagePath>
     </None>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Reference Include="System.Windows.Forms">
-      <HintPath>Libs\System.Windows.Forms.dll</HintPath>
-    </Reference>
   </ItemGroup>
 
 </Project>
