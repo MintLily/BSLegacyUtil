@@ -18,12 +18,12 @@ namespace BSLegacyUtil
     public class BuildInfo
     {
         public const string Name = "BSLegacyUtil";
-        public const string Version = "2.6.0";
+        public const string Version = "2.7.0";
         public const string Author = "MintLily";
         public static bool isWindows;
 
         public static Version TargetDotNETVer = new Version("5.0.10");
-        public static Version AcceptableDotNETVer = new Version("3.1.16");
+        public static Version AcceptableDotNETVer = new Version("3.1.21");
     }
 
     class Program
@@ -81,11 +81,18 @@ namespace BSLegacyUtil
             var tar = BuildInfo.AcceptableDotNETVer;
 
             if (!(sys.Major == tar.Major && sys.Minor == tar.Minor && sys.Build >= tar.Build)) {
-                if (BuildInfo.isWindows)
-                    PopupMessageBox.ShowBox();
+                if (BuildInfo.isWindows) {
+                    try {
+                        PopupMessageBox.ShowBox();
+                    } catch {
+                        Con.Log("Make sure you have the required packages installed on your machine");
+                        Con.Log(".NET Core Runtime v3.1.21+:", "https://link.bslegacy.com/dotNET_3-1-21", ConsoleColor.Green);
+                        Con.Log(".NET Runtime v5.0.10+:", "https://link.bslegacy.com/dotNET_5-0-10", ConsoleColor.Green);
+                    }
+                }
                 else {
                     Con.Log("Make sure you have the required packages installed on your machine");
-                    Con.Log(".NET Runtime v3.1.16+:", "https://link.bslegacy.com/dotNET_3-1-16", ConsoleColor.Green);
+                    Con.Log(".NET Core Runtime v3.1.21+:", "https://link.bslegacy.com/dotNET_3-1-21", ConsoleColor.Green);
                     Con.Log(".NET Runtime v5.0.10+:", "https://link.bslegacy.com/dotNET_5-0-10", ConsoleColor.Green);
                 }
             }
@@ -145,7 +152,7 @@ namespace BSLegacyUtil
             Con.Log("Select which version you'd like to use", "- Type \'cancel\' to go back");
 
             Dictionary<ushort, StringBuilder> sb = new();
-            string lastMajor = "Elly is cute!~", lastMinor = "I love you Elly <3";
+            string lastMajor = "Elly is cute!~", lastMinor = "I love you Elly~! <3";
 
             foreach (var v in Download.Info.Versions) {
                 var s = $"  {v.Version}";
@@ -177,7 +184,7 @@ namespace BSLegacyUtil
             Con.ResetColors();
             Con.Space();
 
-            if (versionInput.ToLower() == "cancel" || versionInput == "c")
+            if (versionInput.ToLower() == "cancel" || versionInput.ToLower() == "c")
                 BeginInputOption();
 
             if (dlGame)
