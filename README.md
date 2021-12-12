@@ -4,7 +4,9 @@ Converted from windows batch to C# | Beat Saber Legacy Group's Beat Saber Downgr
 ## Quick Links
 Issues, Bug Reports, Support? [Go here](https://github.com/MintLily/BSLegacyUtil/issues) and create an issue.<br>
 Need to Download Utility? [Go here](https://github.com/MintLily/BSLegacyUtil/releases/latest) and downlaod latest version<br><br>
-Please install the [.NET Core v5.0.10+ Runtime](http://link.bslegacy.com/dotNET_5-0-10) and [.NET Runtime v3.1.21+](http://link.bslegacy.com/dotNET_3-1-21) libraries before using this utility.
+You'll need to install the following:<br>
+To open the exe: [.NET Core Desktop Runtime v3.1.21+](https://link.bslegacy.com/dotNETDekstop_3-1-21)<br>
+To make internal functions work: [.NET Core v5.0.10+ Runtime](http://link.bslegacy.com/dotNET_5-0-10) and [.NET Core Runtime v3.1.21+](https://link.bslegacy.com/dotNET_3-1-21)
 
 ## Available Downgrades
 |           |           |          |          |          |
@@ -32,13 +34,13 @@ Please install the [.NET Core v5.0.10+ Runtime](http://link.bslegacy.com/dotNET_
 | 1.16.0    | 1.16.1    | 1.16.2   | 1.16.3   | 1.16.4  |
 | 1.17.0    | 1.17.1    |
 | 1.18.0    | 1.18.1    | 1.18.2   | 1.18.3   |
+| 1.19.0    |
 
 # Contributors / Credits
 This project contains code from the following Users and Their projects: _(All rights and credit goes to them)_
 * Steam - [DepotDownloader](https://github.com/SteamRE/DepotDownloader)
 * Slaynash - [VRCModInstaller](https://github.com/Slaynash/VRChatModInstaller)
 * exectails - [Yggdrasil](https://github.com/exectails/Yggdrasil)
-* Assistant - [ModAssistant](https://github.com/Assistant/ModAssistant) _(we provide their app to mod certain versions)_
 * Teuflum - [songe-unconverter](https://github.com/Teuflum/songe-unconverter)
 * bsmg - [IPA](https://github.com/bsmg/BeatSaber-IPA-Reloaded)
 
@@ -51,5 +53,5 @@ if Hotfix blank, then there is no hotfix
 ```
 **Current Version**
 ```
-v2.7.0 - build 185 type Release
+v2.8.0 - build 194 type Release
 ```

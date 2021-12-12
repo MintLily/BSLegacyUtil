@@ -330,7 +330,6 @@ namespace BSLegacyUtil.Functions
                             "Depotdownloader\\DepotDownloader.dll -app 620980 -depot 620981 -manifest " + manifestID +
                             " -username " + steamUsername + " -password " + steamPassword +
                             " -dir \"Beat Saber\" -validate");
-                        //PopupMessageBox.ProgressWindow(gameVersionInput);
                     }
                     else {
                         download = Process.Start("dotnet",
@@ -345,11 +344,8 @@ namespace BSLegacyUtil.Functions
                         Con.Space();
                         if (string.IsNullOrWhiteSpace(gameVersion))
                             Con.LogSuccess("Finished downloading Beat Saber");
-                        else {
+                        else
                             Con.LogSuccess($"Finished downloading Beat Saber {gameVersion}");
-                            //if (BuildInfo.isWindows)
-                            //    PopupMessageBox.ProgWinTextWithDelay($"Finished downloading Beat Saber {gameVersion}", 2000);
-                        }
 
                         Con.Space();
                         Con.Log("Would you like to continue? [Y/N]");
@@ -365,8 +361,6 @@ namespace BSLegacyUtil.Functions
                 }
                 catch (Exception downgrade) {
                     Con.ErrorException(downgrade.StackTrace, downgrade.ToString());
-                    //if (BuildInfo.isWindows)
-                    //    PopupMessageBox.ProgWinTextWithDelay("Operation Failed", 2000);
                 }
             }
         }
