@@ -3,22 +3,20 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Windows.Documents;
 using Microsoft.VisualBasic.FileIO;
 using BSLegacyUtil.Utilities;
 using BSLegacyUtil.Functions;
-using Ccr.Std.Core.Extensions;
-using Ccr.Std.Core.Extensions.Templates;
 using Convert = BSLegacyUtil.Functions.Convert;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using System.Windows.Forms;
 
 namespace BSLegacyUtil
 {
     public class BuildInfo
     {
         public const string Name = "BSLegacyUtil";
-        public const string Version = "2.7.0";
+        public const string Version = "2.8.0";
         public const string Author = "MintLily";
         public static bool isWindows;
 
@@ -82,18 +80,25 @@ namespace BSLegacyUtil
 
             if (!(sys.Major == tar.Major && sys.Minor == tar.Minor && sys.Build >= tar.Build)) {
                 if (BuildInfo.isWindows) {
-                    try {
-                        PopupMessageBox.ShowBox();
-                    } catch {
-                        Con.Log("Make sure you have the required packages installed on your machine");
-                        Con.Log(".NET Core Runtime v3.1.21+:", "https://link.bslegacy.com/dotNET_3-1-21", ConsoleColor.Green);
-                        Con.Log(".NET Runtime v5.0.10+:", "https://link.bslegacy.com/dotNET_5-0-10", ConsoleColor.Green);
-                    }
+                    MessageBox.Show("Make sure you have the required packages installed on your machine\n" +
+                                    ".NET Core Runtime v3.1.21+: https://link.bslegacy.com/dotNET_3-1-21 \n" +
+                                    ".NET Runtime v5.0.10+: https://link.bslegacy.com/dotNET_5-0-10 \n\n" +
+                                    "These MUST be installed in order to use this app properly.",
+                        "Required Libraries Needed", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation);
                 }
                 else {
-                    Con.Log("Make sure you have the required packages installed on your machine");
-                    Con.Log(".NET Core Runtime v3.1.21+:", "https://link.bslegacy.com/dotNET_3-1-21", ConsoleColor.Green);
-                    Con.Log(".NET Runtime v5.0.10+:", "https://link.bslegacy.com/dotNET_5-0-10", ConsoleColor.Green);
+                    try {
+                        var s = File.ReadAllLines($"{AppDomain.CurrentDomain.BaseDirectory}_INSTALL THIS FIRST.txt");
+                        foreach (var s1 in s) {
+                            Console.WriteLine(s1);
+                        }
+                    }
+                    catch {
+                        Con.Error("_INSTALL THIS FIRST.txt is null");
+                        Con.Space();
+                        Con.Log("Follow the instructions on the opened webpage");
+                        Process.Start("https://bslegacy.com/dl/CA-Utility/LinuxInstallGuide");
+                    }
                 }
             }
             
@@ -176,7 +181,8 @@ namespace BSLegacyUtil
             }
 
             Con.Space();
-            sb.Values.ForEach(v => Console.WriteLine(v.ToString()));
+            foreach (var stringBuilder in sb)
+                Console.WriteLine(stringBuilder.ToString());
             Con.Space();
 
             Con.Input();
