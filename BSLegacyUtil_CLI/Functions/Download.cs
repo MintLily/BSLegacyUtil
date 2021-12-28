@@ -28,7 +28,7 @@ namespace BSLegacyUtil.Functions
 
     class Download
     {
-        static readonly string JSONURL = "https://raw.githubusercontent.com/MintLily/BSLegacyUtil/main/Resources/Versions.json";
+        static readonly string JSONURL = "https://raw.githubusercontent.com/MintLily/BSLegacyUtil/main/BSLegacyUtil_CLI/Resources/Versions.json";
         static readonly string DebugJSONPath = $"{Environment.CurrentDirectory}{Path.DirectorySeparatorChar}Versions.json";
         static string manifestID = "";
         static string gameVersion = string.Empty;

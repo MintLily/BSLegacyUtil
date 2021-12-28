@@ -16,7 +16,7 @@ namespace BSLegacyUtil
     public class BuildInfo
     {
         public const string Name = "BSLegacyUtil";
-        public const string Version = "2.9.0";
+        public const string Version = "2.9.1";
         public const string Author = "MintLily";
         public static bool isWindows;
 
