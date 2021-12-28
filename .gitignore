@@ -1,10 +1,12 @@
 # folders
-bin/
-obj/
 .vs/
 .idea/
-VS_SignPass.txt
-BSLegacyUtil.pfx
-Resources/System.Windows.Forms.dll
-Properties/
-Libs/
+BSLegacyUtil_CLI/bin/
+BSLegacyUtil_CLI/obj/
+BSLegacyUtil_CLI/VS_SignPass.txt
+BSLegacyUtil_CLI/BSLegacyUtil.pfx
+BSLegacyUtil_CLI/Properties/
+BSLegacyUtil_CLI/Libs/
+
+# This prject is not ready, but here's a sneak peek of a name
+BSLegacyUtil_GUI/

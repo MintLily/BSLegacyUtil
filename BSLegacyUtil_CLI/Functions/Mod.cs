@@ -69,7 +69,7 @@ namespace BSLegacyUtil.Functions {
                         Con.LogSuccess("Finished modding game");
                         break;
                     default:
-                        Process.Start("https://github.com/Assistant/ModAssistant");
+                        Process.Start("cmd", "/C start https://github.com/Assistant/ModAssistant");
                         Con.Log("If you need any help, join the Beat Saber Legacy Group discord.");
                         Con.Log("Find more information on our website:", "https://bslegacy.com", ConsoleColor.Green);
                         Con.Space();
