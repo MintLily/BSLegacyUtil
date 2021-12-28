@@ -3,10 +3,10 @@ Converted from windows batch to C# | Beat Saber Legacy Group's Beat Saber Downgr
 
 ## Quick Links
 Issues, Bug Reports, Support? [Go here](https://github.com/MintLily/BSLegacyUtil/issues) and create an issue.<br>
-Need to Download Utility? [Go here](https://github.com/MintLily/BSLegacyUtil/releases/latest) and downlaod latest version<br><br>
+Need to Download Utility? [Go here](https://github.com/MintLily/BSLegacyUtil/releases/latest) and download latest version<br><br>
 You'll need to install the following:<br>
-To open the exe: [.NET Core Desktop Runtime v3.1.21+](https://link.bslegacy.com/dotNETDekstop_3-1-21)<br>
-To make internal functions work: [.NET Core v5.0.10+ Runtime](http://link.bslegacy.com/dotNET_5-0-10) and [.NET Core Runtime v3.1.21+](https://link.bslegacy.com/dotNET_3-1-21)
+To open the exe: [.NET Core Desktop Runtime v6.0.0+](https://link.bslegacy.com/dotNET_6-0-1)<br>
+To make DepotDownloader work: [.NET Core v5.0.10+ Runtime](https://link.bslegacy.com/dotNET_5-0-10)
 
 ## Available Downgrades
 |           |           |          |          |          |
@@ -53,5 +53,5 @@ if Hotfix blank, then there is no hotfix
 ```
 **Current Version**
 ```
-v2.8.0 - build 194 type Release
+v2.9.0 - build 204 type Release
 ```
