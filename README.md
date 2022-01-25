@@ -53,5 +53,5 @@ if Hotfix blank, then there is no hotfix
 ```
 **Current Version**
 ```
-v2.9.0 - build 204 type Release
+v2.10.0 - build 245 type Release
 ```

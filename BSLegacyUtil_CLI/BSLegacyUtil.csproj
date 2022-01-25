@@ -3,13 +3,12 @@
   <PropertyGroup>
 	<Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <OutputType>Exe</OutputType>
-    <TargetFramework>net6.0-windows10.0.17763.0</TargetFramework>
     <LangVersion>9.0</LangVersion>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>BSLegacyUtil.pfx</AssemblyOriginatorKeyFile>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <ApplicationIcon>icon.ico</ApplicationIcon>
-    <Version>2.9.1.0</Version>
+    <Version>2.10.0.0</Version>
     <Authors>Lily</Authors>
     <Company>Beat Saber Legacy Group</Company>
     <Description>Beat Saber Downgrade Utility using Steam's DepotDownloader</Description>
@@ -19,8 +18,17 @@
     <NeutralLanguage>en</NeutralLanguage>
     <PackageId />
     <UseWindowsForms>True</UseWindowsForms>
-    <AssemblyVersion>2.9.1</AssemblyVersion>
+    <AssemblyVersion>2.10.0</AssemblyVersion>
     <StartupObject />
+    <TargetFrameworks>net5.0-windows;net6.0-windows</TargetFrameworks>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net6.0-windows|AnyCPU'">
+    <WarningLevel>5</WarningLevel>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net6.0-windows|AnyCPU'">
+    <WarningLevel>5</WarningLevel>
   </PropertyGroup>
 
   <ItemGroup>
