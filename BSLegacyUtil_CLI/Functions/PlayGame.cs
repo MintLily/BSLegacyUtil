@@ -49,53 +49,6 @@ namespace BSLegacyUtil.Functions
                 BeginInputOption();
             }
 
-            /*
-            string sRem, soculus, sverbose, sfpfc;
-
-            if (!get.RemeberOptions) {
-                #region Remeber Options
-                Con.Log("Let the program remember your options?");
-                Con.Input();
-                sRem = Console.ReadLine();
-                Con.ResetColors();
-                Con.Space();
-
-                if (sRem == "y" || sRem == "Y" || sRem == "yes" || sRem == "Yes" || sRem == "YES") get.RemeberOptions = true;
-                #endregion
-
-                #region Ouclus Mode
-                Con.Log("Run in Oculus mode?");
-                Con.Input();
-                soculus = Console.ReadLine();
-                Con.ResetColors();
-                Con.Space();
-
-                if (soculus == "y" || soculus == "Y" || soculus == "yes" || soculus == "Yes" || soculus == "YES") get.oculus = true;
-                #endregion
-
-                #region Verbose Mode
-                Con.Log("Run in Verbose mode? (BSIPA Debug mode)");
-                Con.Input();
-                sverbose = Console.ReadLine();
-                Con.ResetColors();
-                Con.Space();
-
-                if (sverbose == "y" || sverbose == "Y" || sverbose == "yes" || sverbose == "Yes" || sverbose == "YES") get.verbose = true;
-                #endregion
-
-                #region Ouclus Mode
-                Con.Log("Run in FPFC mode? (Desktop Control (noVR))");
-                Con.Input();
-                sfpfc = Console.ReadLine();
-                Con.ResetColors();
-                Con.Space();
-
-                if (sfpfc == "y" || sfpfc == "Y" || sfpfc == "yes" || sfpfc == "Yes" || sfpfc == "YES") get.fpfc = true;
-                #endregion
-
-                JSONSetup.Save();
-            }*/
-
             string soculus;
             bool OculusMode = false;
             Con.Log("Run in Oculus mode?");
@@ -105,27 +58,25 @@ namespace BSLegacyUtil.Functions
             Con.Space();
 
             if (soculus.ToLower() == "y" || soculus.ToLower() == "yes") OculusMode = true;
+            
+            LaunchGame(OculusMode);
+        }
 
-            Process p = new Process();
-            if (BuildInfo.isWindows) {
-                p.StartInfo = new ProcessStartInfo($"{Environment.CurrentDirectory}\\Beat Saber\\Beat Saber.exe",
-                    (OculusMode ? "-vrmode oculus " : "")/* + (get.verbose ? "--verbose" : "") + (get.fpfc ? "fpfc" : "")*/) {
-                    UseShellExecute = false,
-                    WorkingDirectory = $"{Environment.CurrentDirectory}\\Beat Saber",
-                };
-            } else {
-                p.StartInfo = new ProcessStartInfo($"{AppDomain.CurrentDomain.BaseDirectory}Beat Saber\\Beat Saber.exe",
-                    (OculusMode ? "-vrmode oculus " : "")/* + (get.verbose ? "--verbose" : "") + (get.fpfc ? "fpfc" : "")*/) {
-                    UseShellExecute = false,
-                    WorkingDirectory = $"{AppDomain.CurrentDomain.BaseDirectory}Beat Saber",
-                };
-            }
+        public static void LaunchGame(bool oculusMode) {
+            var p = new Process();
+            var temp = BuildInfo.isWindows ? $"{Environment.CurrentDirectory}\\" : $"{AppDomain.CurrentDomain.BaseDirectory}";
+            p.StartInfo = new ProcessStartInfo($"{temp}Beat Saber\\Beat Saber.exe", oculusMode ? "-vrmode oculus " : "") {
+                UseShellExecute = false,
+                WorkingDirectory = $"{temp}Beat Saber",
+            };
 
             try {
                 p.StartInfo.Environment["SteamAppId"] = "620980";
                 p.Start();
             }
-            catch (Exception e) { Con.ErrorException(e.StackTrace.ToString(), e.ToString()); }
+            catch (Exception e) {
+                Con.ErrorException(e.StackTrace, e.ToString());
+            }
         }
     }
 }

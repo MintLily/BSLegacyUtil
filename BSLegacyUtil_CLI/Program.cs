@@ -9,23 +9,21 @@ using BSLegacyUtil.Functions;
 using Convert = BSLegacyUtil.Functions.Convert;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace BSLegacyUtil
-{
-    public class BuildInfo
-    {
+namespace BSLegacyUtil {
+    public class BuildInfo {
         public const string Name = "BSLegacyUtil";
-        public const string Version = "2.9.1";
+        public const string Version = "2.10.0";
         public const string Author = "MintLily";
-        public static bool isWindows;
+        public static bool isWindows; // Linux will be maintained by EllyVR, but I will keep this here to help her just a bit.
 
         public static Version DepotDLTargetDotNETVer = new Version("5.0.10");
         public static Version TargetDotNETVer = new Version("6.0.0");
     }
 
-    class Program
-    {
+    class Program {
         public static bool isDebug;
 
         internal static string steamUsername, steamPassword, stepInput, versionInput;
@@ -33,8 +31,18 @@ namespace BSLegacyUtil
         public static FolderDialog.Bll.FolderDialog.ISelect FolderSelect = new FolderDialog.Bll.FolderDialog.Select();
 
         [STAThread]
-        static void Main(string[] args)
-        {
+        static void Main(string[] args) {
+            BuildInfo.isWindows = Environment.OSVersion.ToString().ToLower().Contains("windows");
+
+            if ((Environment.CommandLine.Length >= 1 || args.Length >= 1) && Environment.CommandLine.Contains("--autostart")) {
+                if (Directory.Exists(BuildInfo.isWindows ? $"{Environment.CurrentDirectory}\\Beat Saber" : $"{AppDomain.CurrentDomain.BaseDirectory}Beat Saber")) {
+                    PlayGame.LaunchGame(Environment.CommandLine.Contains("oculus"));
+                    Task.Delay(1000);
+                    Process.GetCurrentProcess().Kill();
+                }
+                Con.Log("Game Not installed, running program like normal.");
+            }
+
             if (Environment.CommandLine.Contains("debug")) {
                 isDebug = true;
                 Con.Init();
@@ -45,8 +53,6 @@ namespace BSLegacyUtil
             Con.Space();
 
             //JSONSetup.Load();
-
-            BuildInfo.isWindows = Environment.OSVersion.ToString().ToLower().Contains("windows");
 
             if (isDebug) {
                 Con.Log($"Environment Version is v{Environment.Version}");
@@ -117,8 +123,7 @@ namespace BSLegacyUtil
             Con.ResetColors();
             Con.Space();
 
-            switch (stepInput)
-            {
+            switch (stepInput) {
                 case "1":
                     SelectGameVersion(true);
                     break;
@@ -199,8 +204,7 @@ namespace BSLegacyUtil
                 Mod.modGame(versionInput);
         }
 
-        public static void inputSteamLogin()
-        {
+        public static void inputSteamLogin() {
             Con.Log("Steam Username", "(not display name)");
             Con.SteamUN();
             steamUsername = Console.ReadLine();
