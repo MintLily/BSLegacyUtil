@@ -6,6 +6,7 @@ using System.Text;
 using BSLegacyUtil.Utilities;
 using static BSLegacyUtil.Program;
 using Newtonsoft.Json;
+using System.Linq;
 
 namespace BSLegacyUtil.Functions
 {
@@ -62,12 +63,32 @@ namespace BSLegacyUtil.Functions
             LaunchGame(OculusMode);
         }
 
-        public static void LaunchGame(bool oculusMode) {
+        public static void LaunchGame(bool oculusMode, bool newPath = false, string[] args = null) {
             var p = new Process();
-            var temp = BuildInfo.isWindows ? $"{Environment.CurrentDirectory}\\" : $"{AppDomain.CurrentDomain.BaseDirectory}";
-            p.StartInfo = new ProcessStartInfo($"{temp}Beat Saber\\Beat Saber.exe", oculusMode ? "-vrmode oculus " : "") {
+
+            var cl = Environment.CommandLine;
+            string temp = "";
+            bool temp_hasPath = false, final;
+
+            if (cl.Contains("--path=")) {
+                temp = args.Any(x => x.StartsWith("--path=")).ToString().Replace("--path=", "");
+                temp_hasPath = true;
+            }
+
+            if (temp_hasPath) {
+                if (Directory.Exists(temp.Replace("Beat Saber.exe", "")))
+                    final = Directory.Exists(temp.Replace("Beat Saber.exe", ""));
+                else
+                    final = Directory.Exists(BuildInfo.isWindows ? $"{Environment.CurrentDirectory}\\" : $"{AppDomain.CurrentDomain.BaseDirectory}");
+            } else
+                final = Directory.Exists(BuildInfo.isWindows ? $"{Environment.CurrentDirectory}\\" : $"{AppDomain.CurrentDomain.BaseDirectory}");
+
+            if (string.IsNullOrEmpty(temp))
+                temp = BuildInfo.isWindows ? $"{Environment.CurrentDirectory}\\Beat Saber" : $"{AppDomain.CurrentDomain.BaseDirectory}Beat Saber";
+
+            p.StartInfo = new ProcessStartInfo($"{temp}Beat Saber.exe", oculusMode ? "-vrmode oculus " : "") {
                 UseShellExecute = false,
-                WorkingDirectory = $"{temp}Beat Saber",
+                WorkingDirectory = temp,
             };
 
             try {

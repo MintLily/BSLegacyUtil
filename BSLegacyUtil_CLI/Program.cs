@@ -3,19 +3,17 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
-using Microsoft.VisualBasic.FileIO;
 using BSLegacyUtil.Utilities;
 using BSLegacyUtil.Functions;
 using Convert = BSLegacyUtil.Functions.Convert;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace BSLegacyUtil {
     public class BuildInfo {
         public const string Name = "BSLegacyUtil";
-        public const string Version = "2.10.0";
+        public const string Version = "2.11.0";
         public const string Author = "MintLily";
         public static bool isWindows; // Linux will be maintained by EllyVR, but I will keep this here to help her just a bit.
 
@@ -35,8 +33,26 @@ namespace BSLegacyUtil {
             BuildInfo.isWindows = Environment.OSVersion.ToString().ToLower().Contains("windows");
 
             if ((Environment.CommandLine.Length >= 1 || args.Length >= 1) && Environment.CommandLine.Contains("--autostart")) {
-                if (Directory.Exists(BuildInfo.isWindows ? $"{Environment.CurrentDirectory}\\Beat Saber" : $"{AppDomain.CurrentDomain.BaseDirectory}Beat Saber")) {
-                    PlayGame.LaunchGame(Environment.CommandLine.Contains("oculus"));
+                var cl = Environment.CommandLine;
+                string temp = "";
+                bool temp_hasPath = false, final;
+
+                if (cl.Contains("--path=")) {
+                    temp = args.Any(x => x.StartsWith("--path=")).ToString().Replace("--path=", "");
+                    temp_hasPath = true;
+                }
+
+                if (temp_hasPath) {
+                    if (Directory.Exists(temp.Replace("Beat Saber.exe", "")))
+                        final = Directory.Exists(temp.Replace("Beat Saber.exe", ""));
+                    else
+                        final = Directory.Exists(BuildInfo.isWindows ? $"{Environment.CurrentDirectory}\\Beat Saber" : $"{AppDomain.CurrentDomain.BaseDirectory}Beat Saber");
+                }
+                else
+                    final = Directory.Exists(BuildInfo.isWindows ? $"{Environment.CurrentDirectory}\\Beat Saber" : $"{AppDomain.CurrentDomain.BaseDirectory}Beat Saber");
+
+                if (final) {
+                    PlayGame.LaunchGame(Environment.CommandLine.Contains("--oculus"), final, args);
                     Task.Delay(1000);
                     Process.GetCurrentProcess().Kill();
                 }
@@ -87,9 +103,10 @@ namespace BSLegacyUtil {
             if (!(sys.Major == tar.Major && sys.Minor == tar.Minor && sys.Build >= tar.Build)) {
                 if (BuildInfo.isWindows) {
                     MessageBox.Show("Make sure you have the required packages installed on your machine\n" +
-                                    ".NET Desktop Runtime v6.0.0+: https://link.bslegacy.com/dotNET_6-0-1 \n" +
+                                    ".NET Desktop Runtime v6.0.0+: https://link.bslegacy.com/dotNET_6-0-3 \n" +
                                     "For DepotDownloader: .NET Runtime v5.0.10+: https://link.bslegacy.com/dotNET_5-0-10 \n\n" +
-                                    "These MUST be installed in order to use this app properly.",
+                                    "These MUST be installed in order to use this app properly.\n\n" +
+                                    "If you already have just installed these, Press \"OK\" and ignore this message.",
                         "Required Libraries Needed", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation);
                 }
                 else {

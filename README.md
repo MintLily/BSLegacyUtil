@@ -5,7 +5,7 @@ Converted from windows batch to C# | Beat Saber Legacy Group's Beat Saber Downgr
 Issues, Bug Reports, Support? [Go here](https://github.com/MintLily/BSLegacyUtil/issues) and create an issue.<br>
 Need to Download Utility? [Go here](https://github.com/MintLily/BSLegacyUtil/releases/latest) and download latest version<br><br>
 You'll need to install the following:<br>
-To open the exe: [.NET Core Desktop Runtime v6.0.0+](https://link.bslegacy.com/dotNET_6-0-1)<br>
+To open the exe: [.NET Core Desktop Runtime v6.0.3+](https://link.bslegacy.com/dotNET_6-0-3)<br>
 To make DepotDownloader work: [.NET Core v5.0.10+ Runtime](https://link.bslegacy.com/dotNET_5-0-10)
 
 ## Available Downgrades
@@ -35,6 +35,8 @@ To make DepotDownloader work: [.NET Core v5.0.10+ Runtime](https://link.bslegacy
 | 1.17.0    | 1.17.1    |
 | 1.18.0    | 1.18.1    | 1.18.2   | 1.18.3   |
 | 1.19.0    |
+| 1.20.0    |
+| 1.21.0    |
 
 # Contributors / Credits
 This project contains code from the following Users and Their projects: _(All rights and credit goes to them)_
@@ -53,5 +55,5 @@ if Hotfix blank, then there is no hotfix
 ```
 **Current Version**
 ```
-v2.10.0 - build 245 type Release
+v2.11.0 - build 250 type Release
 ```
