@@ -1,58 +1,40 @@
-﻿using System;
+﻿using BSLegacyUtil.Functions;
+using BSLegacyUtil.Utilities;
+using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
 using System.Text;
-using BSLegacyUtil.Utilities;
-using BSLegacyUtil.Functions;
-using Convert = BSLegacyUtil.Functions.Convert;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Convert = BSLegacyUtil.Functions.Convert;
 
 namespace BSLegacyUtil {
     public class BuildInfo {
         public const string Name = "BSLegacyUtil";
-        public const string Version = "2.11.0";
+        public const string Version = "2.12.0";
         public const string Author = "MintLily";
-        public static bool isWindows; // Linux will be maintained by EllyVR, but I will keep this here to help her just a bit.
+        public static bool IsWindows; // Linux will be maintained by EllyVR, but I will keep this here to help her just a bit.
 
-        public static Version DepotDLTargetDotNETVer = new Version("5.0.10");
-        public static Version TargetDotNETVer = new Version("6.0.0");
+        //public static Version DepotDLTargetDotNETVer = new("5.0.10");
+        public static Version TargetDotNetVer = new("6.0.0");
     }
 
-    class Program {
-        public static bool isDebug;
+    internal class Program {
+        public static bool IsDebug;
 
-        internal static string steamUsername, steamPassword, stepInput, versionInput;
-        public static string gamePath = string.Empty;
+        internal static string _steamUsername, _steamPassword;
+        private static string _stepInput, _versionInput;
+        public static string _gamePath = string.Empty;
         public static FolderDialog.Bll.FolderDialog.ISelect FolderSelect = new FolderDialog.Bll.FolderDialog.Select();
 
         [STAThread]
         static void Main(string[] args) {
-            BuildInfo.isWindows = Environment.OSVersion.ToString().ToLower().Contains("windows");
+            BuildInfo.IsWindows = Environment.OSVersion.ToString().ToLower().Contains("windows");
 
             if ((Environment.CommandLine.Length >= 1 || args.Length >= 1) && Environment.CommandLine.Contains("--autostart")) {
-                var cl = Environment.CommandLine;
-                string temp = "";
-                bool temp_hasPath = false, final;
-
-                if (cl.Contains("--path=")) {
-                    temp = args.Any(x => x.StartsWith("--path=")).ToString().Replace("--path=", "");
-                    temp_hasPath = true;
-                }
-
-                if (temp_hasPath) {
-                    if (Directory.Exists(temp.Replace("Beat Saber.exe", "")))
-                        final = Directory.Exists(temp.Replace("Beat Saber.exe", ""));
-                    else
-                        final = Directory.Exists(BuildInfo.isWindows ? $"{Environment.CurrentDirectory}\\Beat Saber" : $"{AppDomain.CurrentDomain.BaseDirectory}Beat Saber");
-                }
-                else
-                    final = Directory.Exists(BuildInfo.isWindows ? $"{Environment.CurrentDirectory}\\Beat Saber" : $"{AppDomain.CurrentDomain.BaseDirectory}Beat Saber");
-
-                if (final) {
-                    PlayGame.LaunchGame(Environment.CommandLine.Contains("--oculus"), final, args);
+                if (Directory.Exists(BuildInfo.IsWindows ? $"{Environment.CurrentDirectory}\\Beat Saber" : $"{AppDomain.CurrentDomain.BaseDirectory}Beat Saber")) {
+                    PlayGame.LaunchGame(Environment.CommandLine.Contains("oculus"));
                     Task.Delay(1000);
                     Process.GetCurrentProcess().Kill();
                 }
@@ -60,7 +42,7 @@ namespace BSLegacyUtil {
             }
 
             if (Environment.CommandLine.Contains("debug")) {
-                isDebug = true;
+                IsDebug = true;
                 Con.Init();
             }
             Con.BSL_Logo();
@@ -70,16 +52,16 @@ namespace BSLegacyUtil {
 
             //JSONSetup.Load();
 
-            if (isDebug) {
+            if (IsDebug) {
                 Con.Log($"Environment Version is v{Environment.Version}");
                 Con.Log($"OS is {Environment.OSVersion}");
-                Con.Log($"Debug: isWindows = {BuildInfo.isWindows}");
+                Con.Log($"Debug: IsWindows = {BuildInfo.IsWindows}");
             }
 
-            if (!isDebug) UpdateCheck.CheckForUpdates();
+            if (!IsDebug) UpdateCheck.CheckForUpdates();
 
-            bool showError = false;
-            if (BuildInfo.isWindows) {
+            var showError = false;
+            if (BuildInfo.IsWindows) {
                 if (!Directory.Exists(Environment.CurrentDirectory + "\\Resources") || !Directory.Exists(Environment.CurrentDirectory + "\\Depotdownloader"))
                     showError = true;
             } else {
@@ -98,14 +80,14 @@ namespace BSLegacyUtil {
             Con.WriteSeperator();
 
             var sys = Environment.Version; // Gets Current Installed version
-            var tar = BuildInfo.TargetDotNETVer;
+            var tar = BuildInfo.TargetDotNetVer;
 
             if (!(sys.Major == tar.Major && sys.Minor == tar.Minor && sys.Build >= tar.Build)) {
-                if (BuildInfo.isWindows) {
+                if (BuildInfo.IsWindows) {
                     MessageBox.Show("Make sure you have the required packages installed on your machine\n" +
                                     ".NET Desktop Runtime v6.0.0+: https://link.bslegacy.com/dotNET_6-0-3 \n" +
-                                    "For DepotDownloader: .NET Runtime v5.0.10+: https://link.bslegacy.com/dotNET_5-0-10 \n\n" +
-                                    "These MUST be installed in order to use this app properly.\n\n" +
+                                    //"For DepotDownloader: .NET Runtime v5.0.10+: https://link.bslegacy.com/dotNET_5-0-16 \n\n" +
+                                    "This MUST be installed in order to use this app properly.\n\n" +
                                     "If you already have just installed these, Press \"OK\" and ignore this message.",
                         "Required Libraries Needed", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation);
                 }
@@ -136,11 +118,11 @@ namespace BSLegacyUtil {
             Con.InputOption("6", "\tExit Program");
             Con.Space();
             Con.Input();
-            stepInput = Console.ReadLine();
+            _stepInput = Console.ReadLine();
             Con.ResetColors();
             Con.Space();
 
-            switch (stepInput) {
+            switch (_stepInput) {
                 case "1":
                     SelectGameVersion(true);
                     break;
@@ -165,7 +147,7 @@ namespace BSLegacyUtil {
                     Install.AskForPath(); // Added for debug and/or advanced usage
                     break;
                 case "7":
-                    if (isDebug) inputSteamLogin();
+                    if (IsDebug) InputSteamLogin();
                     else goto default;
                     break;
                 default:
@@ -208,31 +190,30 @@ namespace BSLegacyUtil {
             Con.Space();
 
             Con.Input();
-            versionInput = Console.ReadLine();
+            _versionInput = Console.ReadLine();
             Con.ResetColors();
             Con.Space();
 
-            if (versionInput.ToLower() == "cancel" || versionInput.ToLower() == "c")
+            if (_versionInput.ToLower() == "cancel" || _versionInput.ToLower() == "c")
                 BeginInputOption();
 
             if (dlGame)
-                Download.DLGameAsync(versionInput);
+                Download.DlGameAsync(_versionInput);
             else
-                Mod.modGame(versionInput);
+                Mod.modGame(_versionInput);
         }
 
-        public static void inputSteamLogin() {
+        public static void InputSteamLogin() {
             Con.Log("Steam Username", "(not display name)");
             Con.SteamUN();
-            steamUsername = Console.ReadLine();
+            _steamUsername = Console.ReadLine();
             Con.Log("Steam Password");//, "(press enter once before you start typing)");
             Con.SteamPW();
-            steamPassword = Console.ReadLine();
+            _steamPassword = Console.ReadLine();
 
-            if (isDebug) {
-                Con.Log("password is: ", steamPassword);
-                BeginInputOption();
-            }
+            if (!IsDebug) return;
+            Con.Log("password is: ", _steamPassword);
+            BeginInputOption();
         }
     }
 }

@@ -20,7 +20,7 @@ namespace BSLegacyUtil.Functions
 
     public class JSONSetup
     {
-        static readonly string path = BuildInfo.isWindows ? Environment.CurrentDirectory + "\\PlayVals.json" : $"{AppDomain.CurrentDomain.BaseDirectory}PlayVals.json";
+        static readonly string path = BuildInfo.IsWindows ? Environment.CurrentDirectory + "\\PlayVals.json" : $"{AppDomain.CurrentDomain.BaseDirectory}PlayVals.json";
 
         private static Values conf { get; set; }
 
@@ -37,13 +37,13 @@ namespace BSLegacyUtil.Functions
     }*/
 
     //Came from https://github.com/RiskiVR/BSLegacyLauncher/blob/master/Assets/Scripts/LaunchBS.cs
-    class PlayGame
+    internal class PlayGame
     {
         //static Values get = JSONSetup.get();
 
         public static void Play()
         {
-            string temp = BuildInfo.isWindows ? Environment.CurrentDirectory + "\\Beat Saber" : $"{AppDomain.CurrentDomain.BaseDirectory}Beat Saber";
+            var temp = BuildInfo.IsWindows ? Environment.CurrentDirectory + "\\Beat Saber" : $"{AppDomain.CurrentDomain.BaseDirectory}Beat Saber";
             if (!Directory.Exists(temp)) {
                 Con.Error("Folder or Game does not exist in current Directory, cannot play Beat Saber.");
                 Con.Error("Please Install a version of Beat Saber.");
@@ -63,32 +63,13 @@ namespace BSLegacyUtil.Functions
             LaunchGame(OculusMode);
         }
 
-        public static void LaunchGame(bool oculusMode, bool newPath = false, string[] args = null) {
+        public static void LaunchGame(bool oculusMode) {
             var p = new Process();
 
-            var cl = Environment.CommandLine;
-            string temp = "";
-            bool temp_hasPath = false, final;
-
-            if (cl.Contains("--path=")) {
-                temp = args.Any(x => x.StartsWith("--path=")).ToString().Replace("--path=", "");
-                temp_hasPath = true;
-            }
-
-            if (temp_hasPath) {
-                if (Directory.Exists(temp.Replace("Beat Saber.exe", "")))
-                    final = Directory.Exists(temp.Replace("Beat Saber.exe", ""));
-                else
-                    final = Directory.Exists(BuildInfo.isWindows ? $"{Environment.CurrentDirectory}\\" : $"{AppDomain.CurrentDomain.BaseDirectory}");
-            } else
-                final = Directory.Exists(BuildInfo.isWindows ? $"{Environment.CurrentDirectory}\\" : $"{AppDomain.CurrentDomain.BaseDirectory}");
-
-            if (string.IsNullOrEmpty(temp))
-                temp = BuildInfo.isWindows ? $"{Environment.CurrentDirectory}\\Beat Saber" : $"{AppDomain.CurrentDomain.BaseDirectory}Beat Saber";
-
-            p.StartInfo = new ProcessStartInfo($"{temp}Beat Saber.exe", oculusMode ? "-vrmode oculus " : "") {
+            var temp = BuildInfo.IsWindows ? $"{Environment.CurrentDirectory}\\" : $"{AppDomain.CurrentDomain.BaseDirectory}";
+            p.StartInfo = new ProcessStartInfo($"{temp}Beat Saber\\Beat Saber.exe", oculusMode ? "-vrmode oculus " : "") {
                 UseShellExecute = false,
-                WorkingDirectory = temp,
+                WorkingDirectory = $"{temp}Beat Saber",
             };
 
             try {
