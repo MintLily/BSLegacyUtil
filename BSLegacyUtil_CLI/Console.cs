@@ -64,7 +64,7 @@ namespace BSLegacyUtil
 			ResetColors();
 			ConsoleColor foregroundColor = Console.ForegroundColor;
 			string timestamp = GetTimestamp();
-			if (Program.isDebug)
+			if (Program.IsDebug)
             {
 				Console.Write("[");
 				Console.ForegroundColor = ConsoleColor.Green;
@@ -87,7 +87,7 @@ namespace BSLegacyUtil
 			ResetColors();
 			ConsoleColor foregroundColor = Console.ForegroundColor;
 			string timestamp = GetTimestamp();
-			if (Program.isDebug)
+			if (Program.IsDebug)
 			{
 				Console.Write("[");
 				Console.ForegroundColor = ConsoleColor.Green;
@@ -112,7 +112,7 @@ namespace BSLegacyUtil
 			ResetColors();
 			ConsoleColor foregroundColor = Console.ForegroundColor;
 			string timestamp = GetTimestamp();
-			if (Program.isDebug)
+			if (Program.IsDebug)
 			{
 				Console.Write("[");
 				Console.ForegroundColor = ConsoleColor.Green;
@@ -139,7 +139,7 @@ namespace BSLegacyUtil
 			ResetColors();
 			ConsoleColor foregroundColor = Console.ForegroundColor;
 			string timestamp = GetTimestamp();
-			if (Program.isDebug)
+			if (Program.IsDebug)
 			{
 				Console.Write("[");
 				Console.ForegroundColor = ConsoleColor.Green;
@@ -165,7 +165,7 @@ namespace BSLegacyUtil
             ResetColors();
             ConsoleColor foregroundColor = Console.ForegroundColor;
             string timestamp = GetTimestamp();
-            if (Program.isDebug) {
+            if (Program.IsDebug) {
                 Console.Write("[");
                 Console.ForegroundColor = ConsoleColor.Green;
                 Console.Write(timestamp);
@@ -189,7 +189,7 @@ namespace BSLegacyUtil
 		{
 			ConsoleColor foregroundColor = Console.ForegroundColor;
 			string timestamp = GetTimestamp();
-			if (Program.isDebug)
+			if (Program.IsDebug)
 			{
 				Console.Write("[");
 				Console.ForegroundColor = ConsoleColor.Green;
@@ -217,7 +217,7 @@ namespace BSLegacyUtil
 		{
 			ConsoleColor foregroundColor = Console.ForegroundColor;
 			string timestamp = GetTimestamp();
-			if (Program.isDebug)
+			if (Program.IsDebug)
 			{
 				Console.Write("[");
 				Console.ForegroundColor = ConsoleColor.Green;
@@ -250,7 +250,7 @@ namespace BSLegacyUtil
 		{
 			ConsoleColor foregroundColor = Console.ForegroundColor;
 			string timestamp = GetTimestamp();
-			if (Program.isDebug)
+			if (Program.IsDebug)
 			{
 				Console.Write("[");
 				Console.ForegroundColor = ConsoleColor.Green;
@@ -283,7 +283,7 @@ namespace BSLegacyUtil
 			ResetColors();
 			ConsoleColor foregroundColor = Console.ForegroundColor;
 			string timestamp = GetTimestamp();
-			if (Program.isDebug)
+			if (Program.IsDebug)
 			{
 				Console.Write("[");
 				Console.ForegroundColor = ConsoleColor.Green;
@@ -309,7 +309,7 @@ namespace BSLegacyUtil
 			ResetColors();
 			ConsoleColor foregroundColor = Console.ForegroundColor;
 			string timestamp = GetTimestamp();
-			if (Program.isDebug)
+			if (Program.IsDebug)
 			{
 				Console.Write("[");
 				Console.ForegroundColor = ConsoleColor.Green;
@@ -338,7 +338,7 @@ namespace BSLegacyUtil
 			if (errorCount < 255)
 			{
 				string timestamp = GetTimestamp();
-				if (Program.isDebug)
+				if (Program.IsDebug)
 				{
 					Console.Write("[");
 					Console.ForegroundColor = ConsoleColor.Green;
@@ -365,7 +365,7 @@ namespace BSLegacyUtil
 			if (errorCount == 255)
 			{
 				string timestamp2 = GetTimestamp();
-				if (Program.isDebug)
+				if (Program.IsDebug)
 				{
 					Console.Write("[");
 					Console.ForegroundColor = ConsoleColor.Green;
@@ -398,7 +398,7 @@ namespace BSLegacyUtil
 			if (errorCount < 255)
 			{
 				string timestamp = GetTimestamp();
-				if (Program.isDebug)
+				if (Program.IsDebug)
 				{
 					Console.Write("[");
 					Console.ForegroundColor = ConsoleColor.Green;
@@ -425,7 +425,7 @@ namespace BSLegacyUtil
 			if (errorCount == 255)
 			{
 				string timestamp2 = GetTimestamp();
-				if (Program.isDebug)
+				if (Program.IsDebug)
 				{
 					Console.Write("[");
 					Console.ForegroundColor = ConsoleColor.Green;
@@ -495,16 +495,15 @@ namespace BSLegacyUtil
 			Console.ForegroundColor = foreColor;
 		}
 
-		public static void BSL_Logo()
-        {
-			List<string> title = new List<string>() { 
-"    ____ _____ __                               ",
-"   / __ ) ___// /   ___  ____ _____ ________  __",
-"  / __  \\__ \\/ /   / _ \\/ __ `/ __ `/ ___/ / / /",
-" / /_/ /__/ / /___/  __/ /_/ / /_/ / /__/ /_/ / ",
-"/_____/____/_____/\\___/\\__, /\\__,_/\\___/\\__, /  ",
-"                      /____/           /____/   "};
-			WriteHeader(title, ConsoleColor.Cyan, new List<string>() { "Created by " + Author });
+		public static void BSL_Logo() {
+			var title = new List<string>() {
+                "    ____ _____ __                                __  ____  _ __",
+                "   / __ ) ___// /   ___  ____ _____ ________  __/ / / / /_(_) /",
+                "  / __  \\__ \\/ /   / _ \\/ __ `/ __ `/ ___/ / / / / / / __/ / / ",
+                " / /_/ /__/ / /___/  __/ /_/ / /_/ / /__/ /_/ / /_/ / /_/ / /  ",
+                "/_____/____/_____/\\___/\\__, /\\__,_/\\___/\\__, /\\____/\\__/_/_/   ",
+                "                      /____/           /____/                  ",};
+			WriteHeader(title, ConsoleColor.Cyan, new List<string> { "Created by " + Author });
 		}
 
 		public static void WriteSeperator(ConsoleColor color = ConsoleColor.White)
