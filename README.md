@@ -1,12 +1,11 @@
 # BSLegacyUtil
-Converted from windows batch to C# | Beat Saber Legacy Group's Beat Saber Downgrade utility that is using [Steam's Depotdownloader](https://github.com/SteamRE/DepotDownloader)
+Converted from windows batch to C# | Beat Saber Legacy Group's Beat Saber Downgrade utility that is using [Steam's DepotDownloader](https://github.com/SteamRE/DepotDownloader)
 
 ## Quick Links
 Issues, Bug Reports, Support? [Go here](https://github.com/MintLily/BSLegacyUtil/issues) and create an issue.<br>
-Need to Download Utility? [Go here](https://github.com/MintLily/BSLegacyUtil/releases/latest) and download latest version<br><br>
+Need to Download Utility? [Go here](https://github.com/MintLily/BSLegacyUtil/releases/latest) and download the latest version<br><br>
 You'll need to install the following:<br>
-To open the exe: [.NET Core Desktop Runtime v6.0.3+](https://link.bslegacy.com/dotNET_6-0-3)<br>
-To make DepotDownloader work: [.NET Core v5.0.10+ Runtime](https://link.bslegacy.com/dotNET_5-0-10)
+To open the exe: [.NET Core Desktop Runtime v6.0.3+](https://link.bslegacy.com/dotNET_6-0-3)
 
 ## Available Downgrades
 |           |           |          |          |          |
@@ -44,7 +43,7 @@ This project contains code from the following Users and Their projects: _(All ri
 * Slaynash - [VRCModInstaller](https://github.com/Slaynash/VRChatModInstaller)
 * exectails - [Yggdrasil](https://github.com/exectails/Yggdrasil)
 * Teuflum - [songe-unconverter](https://github.com/Teuflum/songe-unconverter)
-* bsmg - [IPA](https://github.com/bsmg/BeatSaber-IPA-Reloaded)
+* BSMG - [IPA](https://github.com/bsmg/BeatSaber-IPA-Reloaded)
 
 ### App Version Logic
 ```
@@ -55,5 +54,5 @@ if Hotfix blank, then there is no hotfix
 ```
 **Current Version**
 ```
-v2.11.0 - build 250 type Release
+v2.12.0 - build 252 type Release
 ```
