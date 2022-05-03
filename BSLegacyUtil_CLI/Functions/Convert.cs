@@ -13,21 +13,21 @@ namespace BSLegacyUtil.Functions
     {
         public static void convertSongs()
         {
-            string temp = BuildInfo.isWindows ? $"{Environment.CurrentDirectory}\\Beat Saber" : $"{AppDomain.CurrentDomain.BaseDirectory}Beat Saber";
-            if (gamePath != temp)
+            string temp = BuildInfo.IsWindows ? $"{Environment.CurrentDirectory}\\Beat Saber" : $"{AppDomain.CurrentDomain.BaseDirectory}Beat Saber";
+            if (_gamePath != temp)
                 Install.AskForPath();
-            if (!Directory.Exists(gamePath + "\\CustomSongs"))
-                Directory.CreateDirectory(gamePath + "\\CustomSongs");
+            if (!Directory.Exists(_gamePath + "\\CustomSongs"))
+                Directory.CreateDirectory(_gamePath + "\\CustomSongs");
 
-            try { FileSystem.CopyDirectory(gamePath + "\\Beat Saber_Data\\CustomLevels", gamePath + "\\CustomSongs", true); }
+            try { FileSystem.CopyDirectory(_gamePath + "\\Beat Saber_Data\\CustomLevels", _gamePath + "\\CustomSongs", true); }
             catch (Exception e) { Con.Error(e.ToString()); }
 
-            string[] array = Directory.GetDirectories(gamePath + "\\CustomSongs");
+            string[] array = Directory.GetDirectories(_gamePath + "\\CustomSongs");
 
             Process yeet = null;
             foreach (var Directories in array)
                 if (!Directories.Contains("Flygplan") && !Directories.Contains("Middle Milk - Beards"))
-                    yeet = Process.Start(gamePath + "\\CustomSongs\\songe-unconverter.exe", $"\"{Directories}\"");
+                    yeet = Process.Start(_gamePath + "\\CustomSongs\\songe-unconverter.exe", $"\"{Directories}\"");
 
             if (yeet != null)
                 yeet.WaitForExit();

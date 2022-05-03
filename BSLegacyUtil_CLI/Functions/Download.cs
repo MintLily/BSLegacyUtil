@@ -1,21 +1,14 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Net;
 using System.Net.Http;
-using System.Net.NetworkInformation;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using BSLegacyUtil.Utilities;
-using Newtonsoft.Json;
 using static BSLegacyUtil.Program;
 
-namespace BSLegacyUtil.Functions
-{
-    public class BSLegacyVersions {
+namespace BSLegacyUtil.Functions {
+    public class BsLegacyVersions {
         public List<Versions> Versions { get; set; }
     }
 
@@ -26,55 +19,53 @@ namespace BSLegacyUtil.Functions
     }
 
 
-    class Download
+    internal class Download
     {
-        static readonly string JSONURL = "https://raw.githubusercontent.com/MintLily/BSLegacyUtil/main/BSLegacyUtil_CLI/Resources/Versions.json";
-        static readonly string DebugJSONPath = $"{Environment.CurrentDirectory}{Path.DirectorySeparatorChar}Versions.json";
-        static string manifestID = "";
-        static string gameVersion = string.Empty;
-        static Process download;
+        private static readonly string Jsonurl = "https://raw.githubusercontent.com/MintLily/BSLegacyUtil/main/BSLegacyUtil_CLI/Resources/Versions.json";
+        private static readonly string DebugJsonPath = $"{Environment.CurrentDirectory}{Path.DirectorySeparatorChar}Versions.json";
+        private static string _manifestId = "";
+        private static string _gameVersion = string.Empty;
+        private static Process _download;
 
-        static BSLegacyVersions LoadJSON(string file) {
-            if (isDebug)
+        private static BsLegacyVersions LoadJson(string file) {
+            if (IsDebug)
                 if (!File.Exists(file))
                     File.Create(file);
             try {
-                var _file = new HttpClient();
-                string f = _file.GetStringAsync(file).GetAwaiter().GetResult();
-                var d = JsonConvert.DeserializeObject<BSLegacyVersions>(isDebug ? File.ReadAllText(DebugJSONPath) : f);
-                _file.Dispose();
+                var client = new HttpClient();
+                var f = client.GetStringAsync(file).GetAwaiter().GetResult();
+                var d = JsonConvert.DeserializeObject<BsLegacyVersions>(IsDebug ? File.ReadAllText(DebugJsonPath) : f);
+                client.Dispose();
                 if (d == null) throw new Exception();
                 return d;
             }
             catch (Exception e) {
-                if (isDebug)
-                    return new BSLegacyVersions() { Versions = new List<Versions>() };
+                if (IsDebug)
+                    return new BsLegacyVersions() { Versions = new List<Versions>() };
                 Con.ErrorException(e.StackTrace, e.ToString());
                 return null;
             }
         }
 
-        public static BSLegacyVersions Info { get; set; } = LoadJSON(isDebug ? DebugJSONPath : JSONURL);
+        public static BsLegacyVersions Info { get; set; } = LoadJson(IsDebug ? DebugJsonPath : Jsonurl);
 
-        private static string getManifestFromVersion(string input) {
-            if (Info == null) Info = LoadJSON(isDebug ? DebugJSONPath : JSONURL);
+        private static string GetManifestFromVersion(string input) {
+            Info ??= LoadJson(IsDebug ? DebugJsonPath : Jsonurl);
             var _ = Info.Versions.FirstOrDefault(v => v.Version == input);
-            if (_ == null) return "";
-            return _.manifestID;
+            return _ == null ? "" : _.manifestID;
         }
 
-        public static ushort getYearFromVersion(string input) {
-            if (Info == null) Info = LoadJSON(isDebug ? DebugJSONPath : JSONURL);
+        public static ushort GetYearFromVersion(string input) {
+            Info ??= LoadJson(IsDebug ? DebugJsonPath : Jsonurl);
             var _ = Info.Versions.FirstOrDefault(v => v.Version == input);
-            if (_ == null) return 0;
-            return _.year;
+            return _?.year ?? (ushort)0;
         }
 
-        public static void DLGameAsync(string gameVersionInput)
+        public static void DlGameAsync(string gameVersionInput)
         {
-            gameVersion = gameVersionInput;
+            _gameVersion = gameVersionInput;
             //bool faulted = false;
-            if (BuildInfo.isWindows) {
+            if (BuildInfo.IsWindows) {
                 if (!Directory.Exists(Environment.CurrentDirectory + "/Beat Saber"))
                     Directory.CreateDirectory(Environment.CurrentDirectory + "/Beat Saber");
             } else {
@@ -84,7 +75,7 @@ namespace BSLegacyUtil.Functions
 
             try { // https://steamdb.info/app/620980/history/
 
-                manifestID = getManifestFromVersion(gameVersionInput);
+                _manifestId = GetManifestFromVersion(gameVersionInput);
 
                 #region Old Switch Case
 
@@ -320,48 +311,45 @@ namespace BSLegacyUtil.Functions
                 SelectGameVersion(true);
             }
 
-            Con.Log($"Game Version: {gameVersionInput} => [{manifestID}] from year {getYearFromVersion(gameVersionInput)}");
+            Con.Log($"Game Version: {gameVersionInput} => [{_manifestId}] from year {GetYearFromVersion(gameVersionInput)}");
 
-            if (/*!faulted && */!string.IsNullOrWhiteSpace(manifestID)) {
-                inputSteamLogin();
-                try { // Program from https://github.com/SteamRE/DepotDownloader
-                    Con.Space();
-                    if (BuildInfo.isWindows) {
-                        download = Process.Start("dotnet",
-                            "Depotdownloader\\DepotDownloader.dll -app 620980 -depot 620981 -manifest " + manifestID +
-                            " -username " + steamUsername + " -password " + steamPassword +
-                            " -dir \"Beat Saber\" -validate");
-                    }
-                    else {
-                        download = Process.Start("dotnet",
-                            $"{AppDomain.CurrentDomain.BaseDirectory}Depotdownloader/DepotDownloader.dll -app 620980 -depot 620981 -manifest " +
-                            manifestID +
-                            " -username " + steamUsername + " -password " + steamPassword +
-                            " -dir \"Beat Saber\" -validate");
-                    }
-
-                    if (download != null) {
-                        download.WaitForExit();
-                        Con.Space();
-                        if (string.IsNullOrWhiteSpace(gameVersion))
-                            Con.LogSuccess("Finished downloading Beat Saber");
-                        else
-                            Con.LogSuccess($"Finished downloading Beat Saber {gameVersion}");
-
-                        Con.Space();
-                        Con.Log("Would you like to continue? [Y/N]");
-                        Con.Input();
-                        string @continue = Console.ReadLine();
-
-                        if (@continue.ToLower().Contains("yes") || @continue.ToLower().Contains("y"))
-                            BeginInputOption();
-                        else
-                            Utilities.Utilities.Kill();
-                    }
+            if (string.IsNullOrWhiteSpace(_manifestId)) return;
+            InputSteamLogin();
+            try { // Program from https://github.com/SteamRE/DepotDownloader
+                Con.Space();
+                if (BuildInfo.IsWindows) {
+                    _download = Process.Start("dotnet",
+                        "Depotdownloader\\DepotDownloader.dll -app 620980 -depot 620981 -manifest " + _manifestId +
+                        " -username " + _steamUsername + " -password " + _steamPassword +
+                        " -dir \"Beat Saber\" -validate");
                 }
-                catch (Exception downgrade) {
-                    Con.ErrorException(downgrade.StackTrace, downgrade.ToString());
+                else {
+                    _download = Process.Start("dotnet",
+                        $"{AppDomain.CurrentDomain.BaseDirectory}Depotdownloader/DepotDownloader.dll -app 620980 -depot 620981 -manifest " +
+                        _manifestId +
+                        " -username " + _steamUsername + " -password " + _steamPassword +
+                        " -dir \"Beat Saber\" -validate");
                 }
+
+                if (_download == null) return;
+                _download.WaitForExit();
+                Con.Space();
+                Con.LogSuccess(string.IsNullOrWhiteSpace(_gameVersion)
+                    ? "Finished downloading Beat Saber"
+                    : $"Finished downloading Beat Saber {_gameVersion}");
+
+                Con.Space();
+                Con.Log("Would you like to continue? [Y/N]");
+                Con.Input();
+                var @continue = Console.ReadLine();
+
+                if (@continue.ToLower().Contains("yes") || @continue.ToLower().Contains("y"))
+                    BeginInputOption();
+                else
+                    Utilities.Utilities.Kill();
+            }
+            catch (Exception downgrade) {
+                Con.ErrorException(downgrade.StackTrace, downgrade.ToString());
             }
         }
     }

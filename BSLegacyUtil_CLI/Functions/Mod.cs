@@ -10,62 +10,62 @@ using static BSLegacyUtil.Program;
 namespace BSLegacyUtil.Functions {
     class Mod {
         public static void modGame(string gameVersion) {
-            gamePath = BuildInfo.isWindows ? $"{Environment.CurrentDirectory}\\Beat Saber" : $"{AppDomain.CurrentDomain.BaseDirectory}Beat Saber";
-            string Resources = BuildInfo.isWindows ? "Resources\\" : $"{AppDomain.CurrentDomain.BaseDirectory}Resources";
+            _gamePath = BuildInfo.IsWindows ? $"{Environment.CurrentDirectory}\\Beat Saber" : $"{AppDomain.CurrentDomain.BaseDirectory}Beat Saber";
+            string Resources = BuildInfo.IsWindows ? "Resources\\" : $"{AppDomain.CurrentDomain.BaseDirectory}Resources";
 
-            if (!Directory.Exists(Resources) || !Directory.Exists(gamePath)) {
+            if (!Directory.Exists(Resources) || !Directory.Exists(_gamePath)) {
                 Con.Error("Folder does not exist, cannot mod game.");
                 Con.Space();
                 BeginInputOption();
             } else {
                 switch (gameVersion) {
                     case "0.10.0":
-                        FileSystem.CopyDirectory($"{Resources}Beat Saber 0.10.0", gamePath, true);
-                        FileSystem.CopyDirectory($"{Resources}CustomSongs", gamePath + "\\CustomSongs", true);
-                        FileSystem.CopyDirectory($"{Resources}IPA\\", gamePath, true);
-                        Process.Start(gamePath + "\\IPA.exe", gamePath + "\\Beat Saber.exe");
+                        FileSystem.CopyDirectory($"{Resources}Beat Saber 0.10.0", _gamePath, true);
+                        FileSystem.CopyDirectory($"{Resources}CustomSongs", _gamePath + "\\CustomSongs", true);
+                        FileSystem.CopyDirectory($"{Resources}IPA\\", _gamePath, true);
+                        Process.Start(_gamePath + "\\IPA.exe", _gamePath + "\\Beat Saber.exe");
                         Con.LogSuccess("Finished modding game");
                         break;
                     case "0.10.1":
-                        FileSystem.CopyDirectory($"{Resources}Beat Saber 0.10.0", gamePath, true);
-                        FileSystem.CopyDirectory($"{Resources}CustomSongs", gamePath + "\\CustomSongs", true);
-                        FileSystem.CopyDirectory($"{Resources}IPA\\", gamePath, true);
-                        Process.Start(gamePath + "\\IPA.exe", gamePath + "\\Beat Saber.exe");
+                        FileSystem.CopyDirectory($"{Resources}Beat Saber 0.10.0", _gamePath, true);
+                        FileSystem.CopyDirectory($"{Resources}CustomSongs", _gamePath + "\\CustomSongs", true);
+                        FileSystem.CopyDirectory($"{Resources}IPA\\", _gamePath, true);
+                        Process.Start(_gamePath + "\\IPA.exe", _gamePath + "\\Beat Saber.exe");
                         Con.LogSuccess("Finished modding game");
                         break;
                     case "0.10.2":
-                        FileSystem.CopyDirectory($"{Resources}Beat Saber 0.10.0", gamePath, true);
-                        FileSystem.CopyDirectory($"{Resources}CustomSongs", gamePath + "\\CustomSongs", true);
-                        FileSystem.CopyDirectory($"{Resources}IPA\\", gamePath, true);
-                        Process.Start(gamePath + "\\IPA.exe", gamePath + "\\Beat Saber.exe");
+                        FileSystem.CopyDirectory($"{Resources}Beat Saber 0.10.0", _gamePath, true);
+                        FileSystem.CopyDirectory($"{Resources}CustomSongs", _gamePath + "\\CustomSongs", true);
+                        FileSystem.CopyDirectory($"{Resources}IPA\\", _gamePath, true);
+                        Process.Start(_gamePath + "\\IPA.exe", _gamePath + "\\Beat Saber.exe");
                         Con.LogSuccess("Finished modding game");
                         break;
                     case "0.10.2p2":
-                        FileSystem.CopyDirectory($"{Resources}Beat Saber 0.10.0", gamePath, true);
-                        FileSystem.CopyDirectory($"{Resources}CustomSongs", gamePath + "\\CustomSongs", true);
-                        FileSystem.CopyDirectory($"{Resources}IPA\\", gamePath, true);
-                        Process.Start(gamePath + "\\IPA.exe", gamePath + "\\Beat Saber.exe");
+                        FileSystem.CopyDirectory($"{Resources}Beat Saber 0.10.0", _gamePath, true);
+                        FileSystem.CopyDirectory($"{Resources}CustomSongs", _gamePath + "\\CustomSongs", true);
+                        FileSystem.CopyDirectory($"{Resources}IPA\\", _gamePath, true);
+                        Process.Start(_gamePath + "\\IPA.exe", _gamePath + "\\Beat Saber.exe");
                         Con.LogSuccess("Finished modding game");
                         break;
                     case "0.11.1":
-                        FileSystem.CopyDirectory($"{Resources}Beat Saber 0.11.1", gamePath, true);
-                        FileSystem.CopyDirectory($"{Resources}CustomSongs", gamePath + "\\CustomSongs", true);
-                        FileSystem.CopyDirectory($"{Resources}IPA\\", gamePath, true);
-                        Process.Start(gamePath + "\\IPA.exe", gamePath + "\\Beat Saber.exe");
+                        FileSystem.CopyDirectory($"{Resources}Beat Saber 0.11.1", _gamePath, true);
+                        FileSystem.CopyDirectory($"{Resources}CustomSongs", _gamePath + "\\CustomSongs", true);
+                        FileSystem.CopyDirectory($"{Resources}IPA\\", _gamePath, true);
+                        Process.Start(_gamePath + "\\IPA.exe", _gamePath + "\\Beat Saber.exe");
                         Con.LogSuccess("Finished modding game");
                         break;
                     case "0.11.2":
-                        FileSystem.CopyDirectory($"{Resources}Beat Saber 0.11.2", gamePath, true);
-                        FileSystem.CopyDirectory($"{Resources}CustomSongs", gamePath + "\\CustomSongs", true);
-                        FileSystem.CopyDirectory($"{Resources}IPA\\", gamePath, true);
-                        Process.Start(gamePath + "\\IPA.exe", gamePath + "\\Beat Saber.exe");
+                        FileSystem.CopyDirectory($"{Resources}Beat Saber 0.11.2", _gamePath, true);
+                        FileSystem.CopyDirectory($"{Resources}CustomSongs", _gamePath + "\\CustomSongs", true);
+                        FileSystem.CopyDirectory($"{Resources}IPA\\", _gamePath, true);
+                        Process.Start(_gamePath + "\\IPA.exe", _gamePath + "\\Beat Saber.exe");
                         Con.LogSuccess("Finished modding game");
                         break;
                     case "0.12.2":
-                        FileSystem.CopyDirectory($"{Resources}Beat Saber 0.12.2", gamePath, true);
-                        FileSystem.CopyDirectory($"{Resources}CustomSongs", gamePath + "\\CustomSongs", true);
-                        FileSystem.CopyDirectory($"{Resources}IPA\\", gamePath, true);
-                        Process.Start(gamePath + "\\IPA.exe", gamePath + "\\Beat Saber.exe");
+                        FileSystem.CopyDirectory($"{Resources}Beat Saber 0.12.2", _gamePath, true);
+                        FileSystem.CopyDirectory($"{Resources}CustomSongs", _gamePath + "\\CustomSongs", true);
+                        FileSystem.CopyDirectory($"{Resources}IPA\\", _gamePath, true);
+                        Process.Start(_gamePath + "\\IPA.exe", _gamePath + "\\Beat Saber.exe");
                         Con.LogSuccess("Finished modding game");
                         break;
                     default:

@@ -33,7 +33,7 @@ namespace BSLegacyUtil.Functions
                 try
                 {
                     FileSystem.CopyDirectory("Beat Saber", "Beat Saber - Copy");
-                    FileSystem.MoveDirectory("Beat Saber", gamePath, true);
+                    FileSystem.MoveDirectory("Beat Saber", _gamePath, true);
                     Con.Space();
                     Con.LogSuccess("Finished moving Files");
                     Con.Space();
@@ -71,11 +71,11 @@ namespace BSLegacyUtil.Functions
                 {
                     FolderSelect.InitialFolder = PathLogic.NotFoundHandler();
                     FolderSelect.ShowDialog();
-                    gamePath = FolderSelect.Folder;
+                    _gamePath = FolderSelect.Folder;
                 }
                 catch { Con.Error("Select Folder Failed"); BeginInputOption(); }
             }
-            else gamePath = PathLogic.NotFoundHandler();
+            else _gamePath = PathLogic.NotFoundHandler();
         }
     }
 }
