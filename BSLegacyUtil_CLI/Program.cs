@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -12,7 +13,7 @@ using Convert = BSLegacyUtil.Functions.Convert;
 namespace BSLegacyUtil {
     public class BuildInfo {
         public const string Name = "BSLegacyUtil";
-        public const string Version = "2.12.0";
+        public const string Version = "2.12.1";
         public const string Author = "MintLily";
         public static bool IsWindows; // Linux will be maintained by EllyVR, but I will keep this here to help her just a bit.
 
@@ -58,7 +59,7 @@ namespace BSLegacyUtil {
                 Con.Log($"Debug: IsWindows = {BuildInfo.IsWindows}");
             }
 
-            if (!IsDebug) UpdateCheck.CheckForUpdates();
+            else UpdateCheck.CheckForUpdates();
 
             var showError = false;
             if (BuildInfo.IsWindows) {
@@ -67,6 +68,16 @@ namespace BSLegacyUtil {
             } else {
                 if (!Directory.Exists($"{AppDomain.CurrentDomain.BaseDirectory}Resources") || !Directory.Exists($"{AppDomain.CurrentDomain.BaseDirectory}Depotdownloader"))
                     showError = true;
+            }
+
+            if (!IsDebug) {
+                var http = new HttpClient();
+                http.DefaultRequestHeaders.Add("User-Agent", BuildInfo.Name);
+                var contents = http.GetStringAsync("https://bslegacy.com/assets/motd.txt").GetAwaiter().GetResult();
+                Con.Space();
+                Con.WriteLineCentered(contents);
+                Con.Space();
+                http.Dispose();
             }
 
             if (showError) {
@@ -133,7 +144,7 @@ namespace BSLegacyUtil {
                     SelectGameVersion(false);
                     break;
                 case "4":
-                    Convert.convertSongs();
+                    Convert.ConvertSongs();
                     break;
                 case "5":
                     PlayGame.Play();
@@ -200,7 +211,7 @@ namespace BSLegacyUtil {
             if (dlGame)
                 Download.DlGameAsync(_versionInput);
             else
-                Mod.modGame(_versionInput);
+                Mod.ModGame(_versionInput);
         }
 
         public static void InputSteamLogin() {
