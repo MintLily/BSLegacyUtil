@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using static BSLegacyUtil.BuildInfo;
 
 namespace BSLegacyUtil.Utilities {
-    internal class UpdateCheck {
+    public class UpdateCheck {
         private static readonly string LazyTag = "\"tag_name\": \"" + Version + "\"";
         private static readonly string GitHub = "https://api.github.com/repos/" + Author + "/BSLegacyUtil/releases";
 

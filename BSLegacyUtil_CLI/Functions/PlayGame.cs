@@ -37,7 +37,7 @@ namespace BSLegacyUtil.Functions
     }*/
 
     //Came from https://github.com/RiskiVR/BSLegacyLauncher/blob/master/Assets/Scripts/LaunchBS.cs
-    internal class PlayGame
+    public class PlayGame
     {
         //static Values get = JSONSetup.get();
 

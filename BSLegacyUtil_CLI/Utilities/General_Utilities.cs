@@ -10,7 +10,7 @@ using System.Text;
 
 namespace BSLegacyUtil.Utilities
 {
-    class Utilities
+    public class Utilities
     {
         public static void Kill() => Process.GetCurrentProcess().Kill();
 

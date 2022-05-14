@@ -9,9 +9,9 @@ using static BSLegacyUtil.Program;
 
 namespace BSLegacyUtil.Functions
 {
-    class Convert
+    public class Convert
     {
-        public static void convertSongs()
+        public static void ConvertSongs()
         {
             string temp = BuildInfo.IsWindows ? $"{Environment.CurrentDirectory}\\Beat Saber" : $"{AppDomain.CurrentDomain.BaseDirectory}Beat Saber";
             if (_gamePath != temp)

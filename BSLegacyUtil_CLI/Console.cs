@@ -12,9 +12,8 @@ using System.Windows.Forms;
 
 namespace BSLegacyUtil
 {
-    class Con
+    public class Con
     {
-
 		private static int errorCount = 0;
 		private static StreamWriter log;
 		private static readonly string fileprefix = BuildInfo.Name + "_";
@@ -477,8 +476,7 @@ namespace BSLegacyUtil
 				WriteLineCentered(line, longestLine);
 		}
 
-		private static void WriteLineCentered(string line, int referenceLength = -1)
-		{
+		public static void WriteLineCentered(string line, int referenceLength = -1) {
 			if (referenceLength < 0)
 				referenceLength = line.Length;
 

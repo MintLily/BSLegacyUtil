@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using System.Windows.Forms;
 using BSLegacyUtil.Utilities;
 using Microsoft.VisualBasic.FileIO;
 using static BSLegacyUtil.Program;
 
 namespace BSLegacyUtil.Functions
 {
-    class Install
+    public class Install
     {
         public static void InstallGame()
         {
@@ -60,7 +61,7 @@ namespace BSLegacyUtil.Functions
         public static void AskForPath()
         {
             Con.Space();
-            Con.Log("Current game path is ", PathLogic.NotFoundHandler(), ConsoleColor.Yellow);
+            Con.Log("Current game path is ", NotFoundHandler(), ConsoleColor.Yellow);
             Con.Log("Would you like to change this?", " [Y/N]", ConsoleColor.Yellow);
             Con.Input();
             string changeLocalation = Console.ReadLine();
@@ -69,13 +70,37 @@ namespace BSLegacyUtil.Functions
             {
                 try
                 {
-                    FolderSelect.InitialFolder = PathLogic.NotFoundHandler();
-                    FolderSelect.ShowDialog();
+                    FolderSelect.InitialFolder = NotFoundHandler();
+                    var dialogResult = FolderSelect.ShowDialog();
                     _gamePath = FolderSelect.Folder;
                 }
                 catch { Con.Error("Select Folder Failed"); BeginInputOption(); }
             }
-            else _gamePath = PathLogic.NotFoundHandler();
+            else _gamePath = NotFoundHandler();
+        }
+
+        public static string NotFoundHandler() {
+            bool found = false;
+            while (found == false) {
+                using (var folderDialog = new OpenFileDialog()) {
+                    folderDialog.Title = "Select Beat Saber.exe";
+                    folderDialog.FileName = "Beat Saber.exe";
+                    folderDialog.Filter = "Beat Saber Executable|Beat Saber.exe";
+                    if (folderDialog.ShowDialog() == DialogResult.OK) {
+                        string path = folderDialog.FileName;
+                        if (path.Contains("Beat Saber.exe")) {
+                            string pathedited = path.Replace(@"\Beat Saber.exe", "");
+                            PathLogic.installPath = pathedited;
+                            return pathedited;
+                        } else {
+                            MessageBox.Show("The directory you selected doesn't contain Beat Saber.exe! please try again!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    } else {
+                        return null;
+                    }
+                }
+            }
+            return string.Empty;
         }
     }
 }

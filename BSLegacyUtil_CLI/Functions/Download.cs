@@ -19,7 +19,7 @@ namespace BSLegacyUtil.Functions {
     }
 
 
-    internal class Download
+    public class Download
     {
         private static readonly string Jsonurl = "https://raw.githubusercontent.com/MintLily/BSLegacyUtil/main/BSLegacyUtil_CLI/Resources/Versions.json";
         private static readonly string DebugJsonPath = $"{Environment.CurrentDirectory}{Path.DirectorySeparatorChar}Versions.json";

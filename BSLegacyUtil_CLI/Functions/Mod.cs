@@ -8,8 +8,8 @@ using Microsoft.VisualBasic.FileIO;
 using static BSLegacyUtil.Program;
 
 namespace BSLegacyUtil.Functions {
-    class Mod {
-        public static void modGame(string gameVersion) {
+    public class Mod {
+        public static void ModGame(string gameVersion) {
             _gamePath = BuildInfo.IsWindows ? $"{Environment.CurrentDirectory}\\Beat Saber" : $"{AppDomain.CurrentDomain.BaseDirectory}Beat Saber";
             string Resources = BuildInfo.IsWindows ? "Resources\\" : $"{AppDomain.CurrentDomain.BaseDirectory}Resources";
 
