@@ -38,6 +38,7 @@ To open the exe: [.NET Core Desktop Runtime v6.0.3+](https://link.bslegacy.com/d
 | 1.21.0 |
 | 1.22.0 | 1.22.1    |
 | 1.23.0 |
+| 1.24.0 |
 
 # Contributors / Credits
 This project contains code from the following Users and Their projects: _(All rights and credit goes to them)_
