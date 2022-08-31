@@ -5,7 +5,7 @@ Converted from windows batch to C# | Beat Saber Legacy Group's Beat Saber Downgr
 Issues, Bug Reports, Support? [Go here](https://github.com/MintLily/BSLegacyUtil/issues) and create an issue.<br>
 Need to Download Utility? [Go here](https://github.com/MintLily/BSLegacyUtil/releases/latest) and download the latest version<br><br>
 You'll need to install the following:<br>
-To open the exe: [.NET Core Desktop Runtime v6.0.3+](https://link.bslegacy.com/dotNET_6-0-3)
+To open the exe: [.NET Core Desktop Runtime v6.0.8+](https://link.bslegacy.com/dotNET_6-0-3)
 
 ## Available Downgrades
 |        |           |          |          |          |
@@ -38,8 +38,7 @@ To open the exe: [.NET Core Desktop Runtime v6.0.3+](https://link.bslegacy.com/d
 | 1.21.0 |
 | 1.22.0 | 1.22.1    |
 | 1.23.0 |
-| 1.24.0 |
-| 1.25.0 |
+| 1.24.0 | 1.24.1    |
 
 # Contributors / Credits
 This project contains code from the following Users and Their projects: _(All rights and credit goes to them)_
