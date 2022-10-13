@@ -96,8 +96,7 @@ namespace BSLegacyUtil {
             if (!(sys.Major == tar.Major && sys.Minor == tar.Minor && sys.Build >= tar.Build)) {
                 if (BuildInfo.IsWindows) {
                     MessageBox.Show("Make sure you have the required packages installed on your machine\n" +
-                                    ".NET Desktop Runtime v6.0.0+: https://link.bslegacy.com/dotNET_6-0-3 \n" +
-                                    //"For DepotDownloader: .NET Runtime v5.0.10+: https://link.bslegacy.com/dotNET_5-0-16 \n\n" +
+                                    ".NET Desktop Runtime v6.0.0+: https://link.bslegacy.com/dotNET_6-0-8 \n" +
                                     "This MUST be installed in order to use this app properly.\n\n" +
                                     "If you already have just installed these, Press \"OK\" and ignore this message.",
                         "Required Libraries Needed", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation);
