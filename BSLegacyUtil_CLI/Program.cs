@@ -75,7 +75,7 @@ namespace BSLegacyUtil {
                 http.DefaultRequestHeaders.Add("User-Agent", BuildInfo.Name);
                 var contents = http.GetStringAsync("https://bslegacy.com/assets/motd.txt").GetAwaiter().GetResult();
                 Con.Space();
-                Con.WriteLineCentered(contents);
+                Con.WriteLineCentered(contents.Replace("<br>", "\n"));
                 Con.Space();
                 http.Dispose();
             }
@@ -204,7 +204,7 @@ namespace BSLegacyUtil {
             Con.ResetColors();
             Con.Space();
 
-            if (_versionInput.ToLower() == "cancel" || _versionInput.ToLower() == "c")
+            if (_versionInput.ToLower().Contains('c'))
                 BeginInputOption();
 
             if (dlGame)
