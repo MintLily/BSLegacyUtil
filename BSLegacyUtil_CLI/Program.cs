@@ -13,7 +13,7 @@ using Convert = BSLegacyUtil.Functions.Convert;
 namespace BSLegacyUtil {
     public class BuildInfo {
         public const string Name = "BSLegacyUtil";
-        public const string Version = "2.12.1";
+        public const string Version = "2.12.2";
         public const string Author = "MintLily";
         public static bool IsWindows; // Linux will be maintained by EllyVR, but I will keep this here to help her just a bit.
 
