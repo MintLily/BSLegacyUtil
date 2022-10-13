@@ -55,10 +55,10 @@ namespace BSLegacyUtil.Functions {
             return _ == null ? "" : _.manifestID;
         }
 
-        public static ushort GetYearFromVersion(string input) {
+        private static ushort GetYearFromVersion(string input) {
             Info ??= LoadJson(IsDebug ? DebugJsonPath : Jsonurl);
             var _ = Info.Versions.FirstOrDefault(v => v.Version == input);
-            return _?.year ?? (ushort)0;
+            return _?.year ?? (ushort)1970;
         }
 
         public static void DlGameAsync(string gameVersionInput)
@@ -319,16 +319,13 @@ namespace BSLegacyUtil.Functions {
                 Con.Space();
                 if (BuildInfo.IsWindows) {
                     _download = Process.Start("dotnet",
-                        "Depotdownloader\\DepotDownloader.dll -app 620980 -depot 620981 -manifest " + _manifestId +
-                        " -username " + _steamUsername + " -password " + _steamPassword +
-                        " -dir \"Beat Saber\" -validate");
+                        $"{Environment.CurrentDirectory}Depotdownloader{Path.DirectorySeparatorChar}DepotDownloader.dll -app 620980 -depot 620981 -manifest {_manifestId}" +
+                        $" -username {_steamUsername} -password {_steamPassword} -dir \"Beat Saber\" -validate");
                 }
                 else {
                     _download = Process.Start("dotnet",
-                        $"{AppDomain.CurrentDomain.BaseDirectory}Depotdownloader/DepotDownloader.dll -app 620980 -depot 620981 -manifest " +
-                        _manifestId +
-                        " -username " + _steamUsername + " -password " + _steamPassword +
-                        " -dir \"Beat Saber\" -validate");
+                        $"{AppDomain.CurrentDomain.BaseDirectory}Depotdownloader/DepotDownloader.dll -app 620980 -depot 620981 -manifest {_manifestId}" +
+                        $" -username {_steamUsername} -password {_steamPassword} -dir \"Beat Saber\" -validate");
                 }
 
                 if (_download == null) return;
