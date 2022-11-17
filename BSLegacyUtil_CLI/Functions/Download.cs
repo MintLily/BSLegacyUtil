@@ -319,12 +319,12 @@ namespace BSLegacyUtil.Functions {
                 Con.Space();
                 if (BuildInfo.IsWindows) {
                     _download = Process.Start("dotnet",
-                        $"{Environment.CurrentDirectory}Depotdownloader{Path.DirectorySeparatorChar}DepotDownloader.dll -app 620980 -depot 620981 -manifest {_manifestId}" +
+                        $" \"{Environment.CurrentDirectory}{Path.DirectorySeparatorChar}Depotdownloader{Path.DirectorySeparatorChar}DepotDownloader.dll\" -app 620980 -depot 620981 -manifest {_manifestId}" +
                         $" -username {_steamUsername} -password {_steamPassword} -dir \"Beat Saber\" -validate");
                 }
                 else {
                     _download = Process.Start("dotnet",
-                        $"{AppDomain.CurrentDomain.BaseDirectory}Depotdownloader/DepotDownloader.dll -app 620980 -depot 620981 -manifest {_manifestId}" +
+                        $" \"{AppDomain.CurrentDomain.BaseDirectory}/Depotdownloader/DepotDownloader.dll\" -app 620980 -depot 620981 -manifest {_manifestId}" +
                         $" -username {_steamUsername} -password {_steamPassword} -dir \"Beat Saber\" -validate");
                 }
 

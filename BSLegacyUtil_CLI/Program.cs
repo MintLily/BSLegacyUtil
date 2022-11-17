@@ -13,11 +13,9 @@ using Convert = BSLegacyUtil.Functions.Convert;
 namespace BSLegacyUtil {
     public class BuildInfo {
         public const string Name = "BSLegacyUtil";
-        public const string Version = "2.12.2";
+        public const string Version = "2.12.3";
         public const string Author = "MintLily";
-        public static bool IsWindows; // Linux will be maintained by EllyVR, but I will keep this here to help her just a bit.
-
-        //public static Version DepotDLTargetDotNETVer = new("5.0.10");
+        public static bool IsWindows;
         public static Version TargetDotNetVer = new("6.0.0");
     }
 
@@ -96,7 +94,7 @@ namespace BSLegacyUtil {
             if (!(sys.Major == tar.Major && sys.Minor == tar.Minor && sys.Build >= tar.Build)) {
                 if (BuildInfo.IsWindows) {
                     MessageBox.Show("Make sure you have the required packages installed on your machine\n" +
-                                    ".NET Desktop Runtime v6.0.0+: https://link.bslegacy.com/dotNET_6-0-8 \n" +
+                                    ".NET Desktop Runtime v6.0.0+: https://link.bslegacy.com/dotNET_6-0-11 \n" +
                                     "This MUST be installed in order to use this app properly.\n\n" +
                                     "If you already have just installed these, Press \"OK\" and ignore this message.",
                         "Required Libraries Needed", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation);
