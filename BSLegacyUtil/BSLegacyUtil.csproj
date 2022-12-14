@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <TargetFramework>net7.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <ApplicationIcon>..\Resources\icon.ico</ApplicationIcon>
+        <Company>Beat Saber Legacy Group, Minty Labs</Company>
+        <Product>BSLegacyUtil (Console Application)</Product>
+        <AssemblyVersion>3.0.0.0</AssemblyVersion>
+        <FileVersion>3.0.0.0</FileVersion>
+        <NeutralLanguage>en</NeutralLanguage>
+        <SignAssembly>true</SignAssembly>
+        <AssemblyOriginatorKeyFile>BSLegacyUtil-jJFuGnKR8h5Q5DRME7VY8EdL.snk</AssemblyOriginatorKeyFile>
+        <PublicSign>true</PublicSign>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
+      <PackageReference Include="Pastel" Version="4.0.2" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Include="..\Resources\icon.ico">
+        <Link>icon.ico</Link>
+      </None>
+    </ItemGroup>
+
+</Project>

@@ -1,13 +1,7 @@
 # folders
 .vs/
 .idea/
-BSLegacyUtil_CLI/bin/
-BSLegacyUtil_CLI/obj/
-BSLegacyUtil_CLI/VS_SignPass.txt
-BSLegacyUtil_CLI/BSLegacyUtil.pfx
-BSLegacyUtil_CLI/Properties/
-BSLegacyUtil_CLI/Libs/
-
-# These projects is not ready, but here's a sneak peek of a name
-BSLegacyUtil_GUI/
-BSLegacyUtil_MAUI/
+BSLegacyUtil/bin/
+BSLegacyUtil/obj/
+BSLegacyUtil/BSLegacyUtil-j*
+Build/
