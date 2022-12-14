@@ -5,7 +5,7 @@ Converted from windows batch to C# | Beat Saber Legacy Group's Beat Saber Downgr
 Issues, Bug Reports, Support? [Go here](https://github.com/MintLily/BSLegacyUtil/issues) and create an issue.<br>
 Need to Download Utility? [Go here](https://github.com/MintLily/BSLegacyUtil/releases/latest) and download the latest version<br><br>
 You'll need to install the following:<br>
-To open the exe: [.NET Core Desktop Runtime v6.0.8+](https://link.bslegacy.com/dotNET_6-0-3)
+To open the exe: [.NET Core Desktop Runtime v7.0.1+](https://cdn.bslegacy.com/dotNET-7)
 
 ## Available Downgrades
 |        |           |          |          |          |
@@ -46,19 +46,26 @@ To open the exe: [.NET Core Desktop Runtime v6.0.8+](https://link.bslegacy.com/d
 # Contributors / Credits
 This project contains code from the following Users and Their projects: _(All rights and credit goes to them)_
 * Steam - [DepotDownloader](https://github.com/SteamRE/DepotDownloader)
-* Slaynash - [VRCModInstaller](https://github.com/Slaynash/VRChatModInstaller)
-* exectails - [Yggdrasil](https://github.com/exectails/Yggdrasil)
-* Teuflum - [songe-unconverter](https://github.com/Teuflum/songe-unconverter)
-* BSMG - [IPA](https://github.com/bsmg/BeatSaber-IPA-Reloaded)
+* RiskiVR & ComputerElite & DDAkebono - [BSLegacyLauncher](https://github.com/RiskiVR/BSLegacyLauncher)
+* BSMG (nike4613) - [BSIPA](https://github.com/bsmg/BeatSaber-IPA-Reloaded)
 
-### App Version Logic
+# Developers
+Want to compile this yourself? You'll need to install the following:
+- .NET 7.0.1+ SDK (https://dotnet.microsoft.com/download/dotnet/7.0)
+- [JetBrains Rider](https://www.jetbrains.com/rider/) (2022.3+) or [Visual Studio 2022](https://visualstudio.microsoft.com/vs/) (17.4.3+)
+- - *I use Rider to develop the current version*
+
+# App Version Logic
 ```
-1.2.3.4 - b 123 t beta
-Major.Minor.Revision{.Hotfix} [build] [type]
-v1.2.3.4 build 123 type beta
-if Hotfix blank, then there is no hotfix
+1.2.3.4 - 123 beta
+Major.Minor.Revision.Hotfix [build] [type]
+v1.2.3.4 build:123 type:Release|Beta|Alpha
 ```
+
 **Current Version**
 ```
-v2.12.3 - build 264 type Release
+v3.0.0.0 - 438 Release
+SHA256 Checksums:
+ZIP: a6d06c639c97835c693abb351bfd720e538f4d88d4c4a59b389828379589de67
+EXE: 66152bdecc4ba3d080b647b85818b97a4c639380ead1cc3551d43dff439d4db1
 ```
