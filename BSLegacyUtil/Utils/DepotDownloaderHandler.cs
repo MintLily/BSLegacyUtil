@@ -46,15 +46,15 @@ public class DepotDownloaderHandler {
         restart:
         Console.Log($"Game Version: {LocalJsonModel.TheConfig!.RememberedVersion} => [{RemoteJsonModel.GetManifestFromVersion(LocalJsonModel.TheConfig.RememberedVersion!)}] from year {RemoteJsonModel.GetYearFromVersion(LocalJsonModel.TheConfig.RememberedVersion!)}");
         Console.Space();
-        Console.Log("=== STEAM LOGIN ===");
+        Console.Log("===== STEAM LOGIN =====".Pastel("#FFD700"));
         if (string.IsNullOrWhiteSpace(LocalJsonModel.TheConfig!.RememberedSteamUserName)) {
-            System.Console.Write("Username: ".Pastel("#00FF00"));
+            System.Console.Write("Username".Pastel("#00FF00") + ": ");
             LocalJsonModel.TheConfig!.RememberedSteamUserName = System.Console.ReadLine();
         }
         else 
-            Console.Log("Username: " + LocalJsonModel.TheConfig!.RememberedSteamUserName);
+            Console.Log("Username: " + LocalJsonModel.TheConfig.RememberedSteamUserName.Pastel("#3498DB"));
         
-        System.Console.Write("Password: ".Pastel("#00FF00"));
+        System.Console.Write("Password".Pastel("#00FF00") + ": ");
         var steamPassword = System.Console.ReadLine();
         if (string.IsNullOrWhiteSpace(steamPassword)) {
             Console.Warning("Password cannot be empty!");
@@ -125,7 +125,7 @@ public class DepotDownloaderHandler {
         
         if (line.Contains("Connection to Steam failed")) {
             _steamLoginResponse = SteamLoginResponse.CONNECTIONFAILED;
-            try { _ddProcess.Kill(); }
+            try { _ddProcess!.Kill(); }
             catch (Exception ex) { Console.Error(ex); }
             Console.Warning("Connection to Steam failed");
             return;

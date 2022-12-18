@@ -76,7 +76,7 @@ public abstract class Program {
         if (!(sys.Major == tar.Major && sys.Minor == tar.Minor && sys.Build >= tar.Build)) {
             if (Vars.IsWindows) {
                 Warning("Make sure you have the required packages installed on your machine\n" +
-                                ".NET Desktop Runtime v6.0.0+: https://link.bslegacy.com/dotNET-7 \n" +
+                                ".NET Desktop Runtime v7.0.0+: https://link.bslegacy.com/dotNET-7 \n" +
                                 "This MUST be installed in order to use this app properly.\n\n" +
                                 "If you already have just installed these, Press \"OK\" and ignore this message.");
                 System.Console.ReadLine();
@@ -116,6 +116,7 @@ public abstract class Program {
         Space();
         Log("\t6".Pastel("#E37640") + "   Exit Program");
         Space();
+        System.Console.Write("Select an option above: \t");
         var input = System.Console.ReadLine();
         Space();
 
@@ -153,6 +154,7 @@ public abstract class Program {
                     Log(stringBuilder.ToString().Replace("[", "").Replace(",", "").Replace("]", ""));
                 Space();
                 
+                System.Console.Write("Select a version above: \t");
                 var versionInput = System.Console.ReadLine();
                 LocalJsonModel.TheConfig.RememberedVersion = versionInput.Contains('c') || versionInput.Contains("cancel") ? LocalJsonModel.TheConfig.RememberedVersion : versionInput;
                 LocalJsonModel.Save();
