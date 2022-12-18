@@ -1,0 +1,32 @@
+﻿using Newtonsoft.Json;
+
+namespace BSLegacyUtil.Data;
+
+public class ProgramData {
+    [JsonProperty("Expected Version")] public string? ExpectedVersion { get; set; }
+    [JsonProperty("Expected SHA256")] public string? ExpectedSha256 { get; set; }
+}
+
+public abstract class ProgramJsonModel {
+    private const string JsonUrl = "https://raw.githubusercontent.com/MintLily/BSLegacyUtil/main/Resources/ProgramData.json";
+    // private static readonly string JsonFile = $"{Vars.BaseDirectory}ProgramData.json";
+
+    public static ProgramData TheProgramData { get; /*internal set;*/ } = GetProgramData(/*Vars.IsDebug ? JsonFile : */JsonUrl);
+    
+    private static ProgramData GetProgramData(string file) {
+        try {
+            var data = "";
+            var client = new HttpClient();
+            /*if (!Vars.IsDebug) */
+                data = client.GetStringAsync(file).GetAwaiter().GetResult();
+            var json = JsonConvert.DeserializeObject<ProgramData>(/*Vars.IsDebug ? File.ReadAllText(JsonFile) : */data);
+            client.Dispose();
+            if (json is null) throw new Exception();
+            return json;
+        }
+        catch (Exception ex) {
+            Console.Error(ex);
+            return new ProgramData();
+        }
+    }
+}
