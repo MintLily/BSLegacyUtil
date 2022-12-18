@@ -8,8 +8,8 @@
         <ApplicationIcon>..\Resources\icon.ico</ApplicationIcon>
         <Company>Beat Saber Legacy Group, Minty Labs</Company>
         <Product>BSLegacyUtil (Console Application)</Product>
-        <AssemblyVersion>3.0.0.0</AssemblyVersion>
-        <FileVersion>3.0.0.0</FileVersion>
+        <AssemblyVersion>3.1.0.0</AssemblyVersion>
+        <FileVersion>3.1.0.0</FileVersion>
         <NeutralLanguage>en</NeutralLanguage>
         <SignAssembly>true</SignAssembly>
         <AssemblyOriginatorKeyFile>BSLegacyUtil-jJFuGnKR8h5Q5DRME7VY8EdL.snk</AssemblyOriginatorKeyFile>
