@@ -8,7 +8,7 @@ public class Config {
 }
 
 public class LocalJsonModel {
-    public static Config? TheConfig { get; internal set; }
+    public static Config? TheConfig { get; private set; }
     
     public static void Start() {
         if (!File.Exists($"{Vars.BaseDirectory}Config.json")) {
