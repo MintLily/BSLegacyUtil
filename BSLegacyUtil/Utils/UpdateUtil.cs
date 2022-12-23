@@ -37,7 +37,8 @@ public static class UpdateUtil {
         }
 
         if ((ProgramJsonModel.TheProgramData.ExpectedVersion == Vars.Version &&
-             ProgramJsonModel.TheProgramData.ExpectedSha256 != Vars.InternalSha256) || justSkipAndShowFailedMessage) {
+             (ProgramJsonModel.TheProgramData.ExpectedSha256 != Vars.InternalSha256 || 
+              ProgramJsonModel.TheProgramData.OldProgramData!.Any(x => x.ExpectedSha256 == Vars.InternalSha256)) || justSkipAndShowFailedMessage)) {
             Vars.FileIntegrityFailed = true;
             Console.CenterLog("File integrity check failed.".Pastel("#ff0000"));
             Console.CenterLog("This could be from a modified and potentially malicious and dangerous version of the program.".Pastel("#ABAAA9"));

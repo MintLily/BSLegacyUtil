@@ -1,4 +1,10 @@
 {
-  "Expected Version": "3.1.0.0",
-  "Expected SHA256": "cc0dbe7d8c9697b65de3a150897fac58a0cc9bfa94efca2676a7fe7eac00ebb3"
+  "Expected Version": "3.2.0.0",
+  "Expected SHA256": "b64e4f31c46e4a758b3c6303af71c3c50b181e56b75beb9e98074de8116e994a",
+  "OldProgramData": [
+    {
+      "Expected Version": "3.1.0.0",
+      "Expected SHA256": "f7722c2ad10acf34ece1bd0f71dd3971983e43815018930c16b2744556e3ca3f"
+    }
+  ]
 }

@@ -5,6 +5,12 @@ namespace BSLegacyUtil.Data;
 public class ProgramData {
     [JsonProperty("Expected Version")] public string? ExpectedVersion { get; set; }
     [JsonProperty("Expected SHA256")] public string? ExpectedSha256 { get; set; }
+    public List<OldProgramData>? OldProgramData { get; set; }
+}
+
+public class OldProgramData {
+    public string? ExpectedVersion { get; set; }
+    public string? ExpectedSha256 { get; set; }
 }
 
 public abstract class ProgramJsonModel {
