@@ -12,6 +12,7 @@ public abstract class Program {
     [STAThread]
     private static void Main(string[] args) {
         LocalJsonModel.Start();
+        RemoteJsonModel.LoadJsonData();
         var bsDir = Path.Combine(Vars.BaseDirectory, "Installed Versions", $"Beat Saber {LocalJsonModel.TheConfig!.RememberedVersion}");
         if ((Environment.CommandLine.Length >= 1 || args.Length >= 1) && Environment.CommandLine.Contains("--autostart")) {
             if (Directory.Exists(bsDir)) {
@@ -125,12 +126,12 @@ public abstract class Program {
                 // Select Game Version
                 Log("Select which version you'd like to use " + "- Type \'cancel\' to go back".Pastel("#DA4A80"));
 
-                Dictionary<ushort, StringBuilder> sb = new();
+                Dictionary<string, StringBuilder> sb = new();
                 string lastMajor = "Elly is cute!~", lastMinor = "I love you Elly~! <3"; // Can you tell I really love her?
 
-                foreach (var v in RemoteJsonModel.Versions.Versions) {
-                    var s = $"  {v.Version}";
-                    var tVer = v.Version.Split('.');
+                foreach (var v in RemoteJsonModel.BsVersions) {
+                    var s = $"  {v.BsVersion}";
+                    var tVer = v.BsVersion.Split('.');
 
                     if (tVer.Length != 3)
                         continue;

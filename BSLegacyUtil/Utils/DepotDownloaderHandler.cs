@@ -30,7 +30,7 @@ public class DepotDownloaderHandler {
     private static ProcessStartInfo ddInfo = new () {
         FileName = Vars.BaseDirectory + "Resources\\DepotDownloader\\DepotDownloader.exe",
         Arguments = $"-username \"{LocalJsonModel.TheConfig!.RememberedSteamUserName}\" -password \"{Vars.SteamPassword.Replace("\"", "\\\"")}\" " +
-                    $"-manifest {RemoteJsonModel.GetManifestFromVersion(LocalJsonModel.TheConfig.RememberedVersion!)} -depot {Vars.GameDeoptId} -app {Vars.GameAppId} " +
+                    $"-manifest {RemoteJsonModel.GetManifestId(LocalJsonModel.TheConfig.RememberedVersion!)} -depot {Vars.GameDeoptId} -app {Vars.GameAppId} " +
                     $"-dir \"{Path.Combine(Vars.BaseDirectory, "Installed Versions", $"Beat Saber {LocalJsonModel.TheConfig.RememberedVersion}")}\" -validate -remember-password",
         RedirectStandardOutput = true,
         RedirectStandardInput = true,
@@ -44,7 +44,8 @@ public class DepotDownloaderHandler {
     
     public static void StartDownload() {
         restart:
-        Console.Log($"Game Version: {LocalJsonModel.TheConfig!.RememberedVersion} => [{RemoteJsonModel.GetManifestFromVersion(LocalJsonModel.TheConfig.RememberedVersion!)}] from year {RemoteJsonModel.GetYearFromVersion(LocalJsonModel.TheConfig.RememberedVersion!)}");
+        Console.Log($"Game Version: {LocalJsonModel.TheConfig!.RememberedVersion} => [{RemoteJsonModel.GetManifestId(LocalJsonModel.TheConfig.RememberedVersion!)}] from year {RemoteJsonModel.GetYear(LocalJsonModel.TheConfig.RememberedVersion!)}");
+        Console.Log("Release URL: " + RemoteJsonModel.GetReleaseUrl(LocalJsonModel.TheConfig.RememberedVersion!));
         Console.Space();
         Console.Log("===== STEAM LOGIN =====".Pastel("#FFD700"));
         if (string.IsNullOrWhiteSpace(LocalJsonModel.TheConfig!.RememberedSteamUserName)) {
