@@ -48,11 +48,11 @@ public class DepotDownloaderHandler {
         Console.Log("Release URL: " + RemoteJsonModel.GetReleaseUrl(LocalJsonModel.TheConfig.RememberedVersion!));
         Console.Space();
         Console.Log("===== STEAM LOGIN =====".Pastel("#FFD700"));
-        if (string.IsNullOrWhiteSpace(LocalJsonModel.TheConfig!.RememberedSteamUserName)) {
+        if (string.IsNullOrWhiteSpace(LocalJsonModel.TheConfig.RememberedSteamUserName)) {
             System.Console.Write("Username".Pastel("#00FF00") + ": ");
-            LocalJsonModel.TheConfig!.RememberedSteamUserName = System.Console.ReadLine();
-        }
-        else 
+            LocalJsonModel.TheConfig.RememberedSteamUserName = System.Console.ReadLine();
+            LocalJsonModel.Save();
+        } else 
             Console.Log("Username: " + LocalJsonModel.TheConfig.RememberedSteamUserName.Pastel("#3498DB"));
         
         System.Console.Write("Password".Pastel("#00FF00") + ": ");

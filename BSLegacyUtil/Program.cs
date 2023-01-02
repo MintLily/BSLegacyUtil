@@ -114,8 +114,9 @@ public abstract class Program {
         Log("\t3".Pastel("#E37640") + "   Mod selected version");
         Log("\t4".Pastel("#E37640") + "   Play Game (On Steam in Normal Mode)");
         Log("\t5".Pastel("#E37640") + "   Play Game (On Steam in Oculus Mode)");
+        Log("\t6".Pastel("#E37640") + "   Change Steam Account User Name");
         Space();
-        Log("\t6".Pastel("#E37640") + "   Exit Program");
+        Log("\t7".Pastel("#E37640") + "   Exit Program");
         Space();
         System.Console.Write("Select an option above: \t");
         var input = System.Console.ReadLine();
@@ -198,6 +199,13 @@ public abstract class Program {
             case "5":
                 // Play Game (Oculus Mode)
                 PlayGame(true);
+                break;
+            case "6":
+                Log("Enter your Steam Account User Name: ");
+                var newUserName = System.Console.ReadLine();
+                LocalJsonModel.TheConfig.RememberedSteamUserName = newUserName;
+                LocalJsonModel.Save();
+                Start();
                 break;
             case "c":
             case "x":
