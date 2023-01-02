@@ -27,11 +27,15 @@ public class DepotDownloaderHandler {
     
     private static SteamLoginResponse _steamLoginResponse = SteamLoginResponse.NONE;
     
-    private static ProcessStartInfo ddInfo = new () {
-        FileName = Vars.BaseDirectory + "Resources\\DepotDownloader\\DepotDownloader.exe",
-        Arguments = $"-username \"{LocalJsonModel.TheConfig!.RememberedSteamUserName}\" -password \"{Vars.SteamPassword.Replace("\"", "\\\"")}\" " +
-                    $"-manifest {RemoteJsonModel.GetManifestId(LocalJsonModel.TheConfig.RememberedVersion!)} -depot {Vars.GameDeoptId} -app {Vars.GameAppId} " +
-                    $"-dir \"{Path.Combine(Vars.BaseDirectory, "Installed Versions", $"Beat Saber {LocalJsonModel.TheConfig.RememberedVersion}")}\" -validate -remember-password",
+    private static ProcessStartInfo _ddInfo = new () {
+        // FileName =  Path.Combine(Vars.BaseDirectory, "DepotDownloader", "DepotDownloader.exe"),
+        FileName = "dotnet",
+        WorkingDirectory = Vars.BaseDirectory,
+        Arguments = $"\"{Path.Combine(Vars.BaseDirectory, "DepotDownloader", "DepotDownloader.dll")}\" " +
+            $"-username \"{LocalJsonModel.TheConfig!.RememberedSteamUserName}\" -password \"{Vars.SteamPassword.Replace("\"", "\\\"")}\" " +
+            $"-manifest {RemoteJsonModel.GetManifestId(LocalJsonModel.TheConfig.RememberedVersion!)} -depot {Vars.GameDeoptId} -app {Vars.GameAppId} " +
+            $"-dir \"{Path.Combine(Vars.BaseDirectory, "Installed Versions", $"Beat Saber {LocalJsonModel.TheConfig.RememberedVersion}")}\" -validate",
+        WindowStyle = ProcessWindowStyle.Hidden,
         RedirectStandardOutput = true,
         RedirectStandardInput = true,
         RedirectStandardError = true,
