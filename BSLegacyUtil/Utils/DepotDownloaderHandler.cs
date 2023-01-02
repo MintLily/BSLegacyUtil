@@ -1,5 +1,4 @@
-﻿using System.Data.Common;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using BSLegacyUtil.Data;
 using Pastel;
 
@@ -43,13 +42,12 @@ public class DepotDownloaderHandler {
         CreateNoWindow = true
     };
     
-    private static Thread? _ddThread;
-    private static Process? _ddProcess;
-    
     public static void StartDownload() {
         restart:
-        Console.Log($"Game Version: {LocalJsonModel.TheConfig!.RememberedVersion} => [{RemoteJsonModel.GetManifestId(LocalJsonModel.TheConfig.RememberedVersion!)}] from year {RemoteJsonModel.GetYear(LocalJsonModel.TheConfig.RememberedVersion!)}");
-        Console.Log("Release URL: " + RemoteJsonModel.GetReleaseUrl(LocalJsonModel.TheConfig.RememberedVersion!));
+        Console.Log("Game Version: " + $"{LocalJsonModel.TheConfig!.RememberedVersion}".Pastel("#3498DB"));
+        Console.Log("Manifest ID: " + $"{RemoteJsonModel.GetManifestId(LocalJsonModel.TheConfig.RememberedVersion!)}".Pastel("#3498DB"));
+        Console.Log("Year: " + $"{RemoteJsonModel.GetYear(LocalJsonModel.TheConfig.RememberedVersion!)}".Pastel("#3498DB"));
+        Console.Log("Release URL: " + RemoteJsonModel.GetReleaseUrl(LocalJsonModel.TheConfig.RememberedVersion!).Pastel("#3498DB"));
         Console.Space();
         Console.Log("===== STEAM LOGIN =====".Pastel("#FFD700"));
         if (string.IsNullOrWhiteSpace(LocalJsonModel.TheConfig.RememberedSteamUserName)) {
@@ -58,110 +56,188 @@ public class DepotDownloaderHandler {
             LocalJsonModel.Save();
         } else 
             Console.Log("Username: " + LocalJsonModel.TheConfig.RememberedSteamUserName.Pastel("#3498DB"));
-        
-        System.Console.Write("Password".Pastel("#00FF00") + ": ");
-        var steamPassword = System.Console.ReadLine();
-        if (string.IsNullOrWhiteSpace(steamPassword)) {
-            Console.Warning("Password cannot be empty!");
-            goto restart;
-        }
-        Vars.SteamPassword = steamPassword;
-        LocalJsonModel.Save();
-        
-        _ddThread = new Thread(() => {
-            try {
-                var line = "";
-                var lines = 0;
-                _ddProcess = Process.Start(ddInfo);
-                while (!_ddProcess!.StandardOutput.EndOfStream && !_ddProcess.HasExited) {
-                    if (line.EndsWith(Environment.NewLine) || line.Contains(" code ")) {
-                        PeekAtLine(line);
-                        lines++;
-                    }
 
-                    if (lines > 0) continue;
-                    _steamLoginResponse = SteamLoginResponse.NETNOTINSTALLED;
-                    Console.Warning("You don't have .NET installed! Opening Microsoft's webpage to download it...");
-                    if (Vars.IsWindows) {
-                        Process.Start("cmd", "/c start https://cdn.bslegacy.com/dotNET-7");
-                        return;
-                    }
-                    // elseif isLinux
-                    Process.Start("https://dotnet.microsoft.com/en-us/download/dotnet/7.0");
-                }
+        if (string.IsNullOrWhiteSpace(Vars.SteamPassword)) {
+            System.Console.Write("Password".Pastel("#00FF00") + ": ");
+            var steamPassword = System.Console.ReadLine();
+            if (string.IsNullOrWhiteSpace(steamPassword)) {
+                Console.Warning("Password cannot be empty!");
+                goto restart;
             }
-            catch (Exception ex) {
-                _steamLoginResponse = SteamLoginResponse.EXCEPTION;
-                Console.Error($"[DepotDownloader.StartDownload] {ex.Message}");
-            }
-        });
-        _ddThread.Start();
-        Program.BeginInput();
+            Vars.SteamPassword = steamPassword;
+        } else
+            Console.Log("Password: " + "********".Pastel("#3498DB"));
+
+        var process = Process.Start("dotnet", _ddInfo.Arguments);
+        process.WaitForExit();
+        
+        Console.Space();
+        Console.Log("Would you like to continue? (y/n)");
+        var @continue = System.Console.ReadLine();
+        if (@continue!.ToLower().Contains('y'))
+            Program.Start();
+        else
+            Environment.Exit(0);
+
+        /*using var process = Process.Start(_ddInfo);
+        var lines = 0;
+        if (process == null) {
+            Console.Error("Failed to start DepotDownloader!");
+            Console.Log("Press enter to restart BSLegacyUtil...");
+            System.Console.Read();
+            Program.Start();
+        }
+        var errors = process!.StandardError.ReadToEnd();
+        var output = process.StandardOutput.ReadToEnd();
+        
+        Console.Log(output);
+        if (output.EndsWith(Environment.NewLine) || output.Contains(" code ")) {
+            PeekAtLine(output, process);
+            lines++;
+        }
+
+        // Console.Log(output);
+        Console.Log(errors);
+            
+        if (lines > 0) return;
+        _steamLoginResponse = SteamLoginResponse.NETNOTINSTALLED;
+        Console.Warning("You don't have .NET installed! Opening Microsoft's webpage to download it... ");
+        if (Vars.IsWindows) {
+            if (!Vars.IsDebug)
+                Process.Start("cmd", "/c start https://link.bslegacy.com/dotnet7");
+            return;
+        }
+        // elseif isLinux
+        Process.Start("https://dotnet.microsoft.com/en-us/download/dotnet/7.0");
+        Program.Start();
     }
 
-    private static void PeekAtLine(string line) {
-        if (line.Contains("This account is protected")) {
+    private static void PeekAtLine(string line, Process? process) {
+        Console.Log(line);
+        if (line.Contains("This account is protected") || line.ToLower().Contains("guard")) {
             _steamLoginResponse = SteamLoginResponse.STEAMGUARD;
-            return;
+            System.Console.Write("SteamGuard/2FA".Pastel("#00FF00") + ": ");
+            var steamGuardCode = System.Console.ReadLine();
+            if (string.IsNullOrWhiteSpace(steamGuardCode)) {
+                Console.Warning("SteamGuard/2FA cannot be empty!");
+                process!.Close();
+                StartDownload();
+            }
+            process!.StandardInput.WriteLine(steamGuardCode);
         }
 
         if (line.ContainsMultiple("requires a username and password to be set", "Unset")) {
             _steamLoginResponse = SteamLoginResponse.PASSWORDUNSET;
-            return;
+            Console.Warning("Password cannot be empty, try again!");
+            process!.Close();
+            Console.Space();
+            StartDownload();
         }
 
         if (line.Contains("InvalidPassword")) {
             _steamLoginResponse = SteamLoginResponse.INVALIDPASSWORD;
-            return;
+            Console.Warning("Invalid password, try again!");
+            process!.Close();
+            Console.Space();
+            StartDownload();
         }
 
         if (line.ContainsMultiple("404 for depot manifest", "App", "is not available from this account")) {
             _steamLoginResponse = SteamLoginResponse.BEATSABERNOTOWNED;
-            return;
+            Console.Warning("Beat Saber is not owned by this account!");
+            process!.Close();
+            Console.Space();
+            Console.Log("Press enter to restart BSLegacyUtil...");
+            System.Console.Read();
+            Program.Start();
         }
 
         if (line.Contains("401 for depot manifest")) {
             _steamLoginResponse = SteamLoginResponse.UNAUTHORIZED;
-            return;
+            Console.Warning("Unauthorized!");
+            process!.Close();
+            Console.Space();
+            Console.Log("Press enter to restart BSLegacyUtil...");
+            System.Console.Read();
+            Program.Start();
         }
-
-        // if (line.Contains("Got depot key"))
-        //     _steamLoginResponse = 
         
         if (line.Contains("Connection to Steam failed")) {
             _steamLoginResponse = SteamLoginResponse.CONNECTIONFAILED;
-            try { _ddProcess!.Kill(); }
+            try { process!.Kill(); }
             catch (Exception ex) { Console.Error(ex); }
             Console.Warning("Connection to Steam failed");
-            return;
+            Console.Space();
+            Console.Log("Press enter to restart BSLegacyUtil...");
+            System.Console.Read();
+            Program.Start();
         }
 
         if (line.Contains("RateLimitExceeded")) {
             _steamLoginResponse = SteamLoginResponse.RATELIMIT;
             Console.Warning("Rate limit exceeded, please try again in 30 minutes");
-            return;
+            process!.Close();
+            Console.Space();
+            Console.Log("Press enter to restart BSLegacyUtil...");
+            System.Console.Read();
+            Program.Start();
         }
         
         if (line.Contains("InvalidLoginAuthCode")) {
             _steamLoginResponse = SteamLoginResponse.INVALIDLOGINAUTHCODE;
             Console.Warning("Invalid login auth code, please try again in 30 seconds");
-            return;
+            process!.Close();
+            Console.Space();
+            StartDownload();
         }
 
         if (line.Contains("ExpiredLoginAuthCode")) {
             _steamLoginResponse = SteamLoginResponse.EXPIREDLOGINAUTHCODE;
             Console.Warning("Expired login auth code, please try again in 30 seconds");
-            return;
+            process!.Close();
+            Console.Space();
+            StartDownload();
         }
 
         if (line.Contains("There is not enough space")) {
             _steamLoginResponse = SteamLoginResponse.NOTENOUGHSPACE;
             Console.Warning("There is not enough space on the disk");
-            return;
+            process!.Close();
+            Console.Space();
+            Console.Log("Press enter to restart BSLegacyUtil...");
+            System.Console.Read();
+            Program.Start();
+        }
+
+        if (line.Contains("Got session token")) {
+            Console.Log("Successfully logged in!");
+            Console.Log("One moment while we download Beat Saber v" + LocalJsonModel.TheConfig!.RememberedVersion.Pastel("#3498DB") + " ...");
+        }
+        
+        if (line.Contains("Total downloaded:")) {
+            Console.Log("Download Finished!");
+            process!.Close();
+            Console.Space();
+            Console.Log("Press enter to restart BSLegacyUtil...");
+            System.Console.Read();
+            Program.Start();
+        }
+        
+        if (line.Contains('%')) {
+            var percentage = float.Parse(line.Split("%")[0]);
+            var finalPercentage = $"{percentage:0.0}";
+            Console.Log("Download Progress: " + finalPercentage.Pastel("#3498DB") + "%");
+            if (finalPercentage.Contains("32.4")) 
+                Console.Warning("This may take a while, please be patient");
         }
 
         if (!line.Contains("Access to the path is denied")) return;
         _steamLoginResponse = SteamLoginResponse.PATHDENIED;
-        Console.Warning("Access to the path is denied");
+        Console.Warning("Access to the path is denied, try moving the BSLegacyUtil folder to another location");
+        process!.Close();
+        Console.Space();
+        Console.Log("Press enter to restart BSLegacyUtil...");
+        System.Console.Read();
+        Program.Start();*/
     }
 }
