@@ -1,9 +1,7 @@
-﻿using System.Reflection;
-using System.Security.Cryptography;
+﻿using System.Security.Cryptography;
 using System.Text;
 using BSLegacyUtil.Data;
 using Pastel;
-
 
 namespace BSLegacyUtil.Utils; 
 
@@ -32,13 +30,15 @@ public static class UpdateUtil {
     public static void VerifyFileIntegrity(bool justSkipAndShowFailedMessage = false) {
         Vars.FileIntegrityFailed = false;
         if (ProgramJsonModel.TheProgramData.ExpectedVersion != Vars.Version) {
+            var foreColor = System.Console.ForegroundColor;
+            System.Console.ForegroundColor = ConsoleColor.Green;
             Console.CenterLog("Version mismatch, please update the program.");
+            System.Console.ForegroundColor = foreColor;
             return;
         }
 
         if ((ProgramJsonModel.TheProgramData.ExpectedVersion == Vars.Version &&
-             (ProgramJsonModel.TheProgramData.ExpectedSha256 != Vars.InternalSha256 || 
-              ProgramJsonModel.TheProgramData.OldProgramData!.Any(x => x.ExpectedSha256 == Vars.InternalSha256)) || justSkipAndShowFailedMessage)) {
+             ProgramJsonModel.TheProgramData.ExpectedSha256 != Vars.InternalSha256) || justSkipAndShowFailedMessage) {
             Vars.FileIntegrityFailed = true;
             Console.CenterLog("File integrity check failed.".Pastel("#ff0000"));
             Console.CenterLog("This could be from a modified and potentially malicious and dangerous version of the program.".Pastel("#ABAAA9"));
