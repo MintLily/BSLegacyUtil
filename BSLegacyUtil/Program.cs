@@ -8,7 +8,6 @@ using static BSLegacyUtil.Console;
 namespace BSLegacyUtil;
 
 public abstract class Program {
-
     [STAThread]
     private static void Main(string[] args) {
         LocalJsonModel.Start();
@@ -20,7 +19,7 @@ public abstract class Program {
                 Task.Delay(1000);
                 Process.GetCurrentProcess().Kill();
             }
-            Warning("Game Not installed, running program like normal.");
+            Warning($"Game (version {LocalJsonModel.TheConfig.RememberedVersion}) not installed, running program like normal.");
         }
         
         Vars.IsWindows = Environment.OSVersion.ToString().ToLower().Contains("windows");
@@ -85,7 +84,7 @@ public abstract class Program {
             }
             else {
                 try {
-                    var s = File.ReadAllLines($"{AppDomain.CurrentDomain.BaseDirectory}_INSTALL THIS FIRST.txt");
+                    var s = File.ReadAllLines($"{Vars.BaseDirectory}_INSTALL THIS FIRST.txt");
                     foreach (var s1 in s) {
                         Log(s1);
                     }
@@ -104,7 +103,7 @@ public abstract class Program {
         BeginInput();
     }
 
-    public static void BeginInput() {
+    private static void BeginInput() {
         beginInput:
         UpdateUtil.VerifyFileIntegrity(Vars.FileIntegrityFailed);
         Space();
@@ -131,6 +130,7 @@ public abstract class Program {
             }
             Space();
         }
+
         switch (input) {
             case "1":
                 // Select Game Version
@@ -218,17 +218,22 @@ public abstract class Program {
                 break;
             case "c":
             case "x":
+            case "q":
+            case "e":
+            case "s":
+            case "quit":
+            case "exit":
+            case "stop":
             case "0":
-            case "6":
+            case "7":
                 // Exit Program
                 Environment.Exit(0);
                 break;
             case "reboot":
-                System.Console.Clear();
-                Main(null);
+                Start();
                 break;
             default:
-                Error("Invalid input, please select 1 - 6");
+                Error("Invalid input, please select 1 - 7");
                 goto beginInput;
         }
     }
@@ -249,5 +254,10 @@ public abstract class Program {
             Error("Failed to start game, please try again.");
             Error(e.Message);
         }
+    }
+
+    public static void Start() {
+        System.Console.Clear();
+        Main(null);
     }
 }

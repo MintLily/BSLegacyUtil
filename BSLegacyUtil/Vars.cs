@@ -2,7 +2,7 @@
 
 public static class Vars {
     public const string Name = "BSLegacyUtil";
-    public const string Version = "3.2.0.0";
+    public const string Version = "3.3.0.0";
     internal static string InternalSha256 = "0x0";
     internal static bool FileIntegrityFailed = true;
     public const string Author = "MintLily";
@@ -17,7 +17,7 @@ public static class Vars {
     
     /*===============================================*/
     public static string SteamPassword { get; internal set; } = "";
-    // public static string SteamGuardCode { get; internal set; } = "";
+    // public static string SteamGuardCode { get; internal set; } = ""; // Thanks Copilot, but I don't need this
     public static string GameManifestId { get; internal set; } = "";
     public const string GameDeoptId = "620981";
     public const string GameAppId = "620980";

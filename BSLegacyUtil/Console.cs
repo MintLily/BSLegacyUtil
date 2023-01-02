@@ -16,7 +16,7 @@ public static class Console {
             WriteLineCentered(line, longestLine);
     }
     
-    public static void WriteLineCentered(string line, int referenceLength = -1) {
+    private static void WriteLineCentered(string line, int referenceLength = -1) {
         if (referenceLength < 0)
             referenceLength = line.Length;
         System.Console.WriteLine(line.PadLeft(line.Length + System.Console.WindowWidth / 2 - referenceLength / 2));
@@ -42,7 +42,7 @@ public static class Console {
     
     private static void WriteHeader(IList<string> logo, IList<string> credits) {
         //var foreColor = System.Console.ForegroundColor;
-        System.Console.Title = Vars.Name + " (Console App) " + " v" + Vars.Version + " - Built by " + Vars.Author;
+        System.Console.Title = Vars.Name + " (Console App) " + "v" + Vars.Version + " - Built by " + Vars.Author;
         //System.Console.ForegroundColor = logoColor;
         WriteLinesCentered(logo);
         System.Console.WriteLine();
