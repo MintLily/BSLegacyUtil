@@ -40,7 +40,7 @@ public abstract class Program {
             if (!str.Contains($"\"tag_name\": \"{Vars.Version}\"")) {
                 WriteSeparator(ConsoleColor.Red);
                 CenterLog($"A newer version of {Vars.Name} is available!".Pastel("#ff0000"));
-                UpdateUtil.VerifyFileIntegrity();
+                // UpdateUtil.VerifyFileIntegrity();
                 WriteSeparator(ConsoleColor.Red);
                 Space();
                 Process.Start(Vars.IsWindows ? "cmd.exe" : "https://github.com/MintLily/BSLegacyUtil/releases",
@@ -105,7 +105,7 @@ public abstract class Program {
 
     private static void BeginInput() {
         beginInput:
-        UpdateUtil.VerifyFileIntegrity(Vars.FileIntegrityFailed);
+        // UpdateUtil.VerifyFileIntegrity(Vars.FileIntegrityFailed);
         Space();
         Log("\tSelect an option below: \t\t Current Version Selected: " + LocalJsonModel.TheConfig.RememberedVersion.Pastel("#3498DB") + " - Steam Account: " + $"{(string.IsNullOrWhiteSpace(LocalJsonModel.TheConfig.RememberedSteamUserName) ? "{{ UNSET }}" : LocalJsonModel.TheConfig.RememberedSteamUserName)}".Pastel("#3498DB"));
         Log("\t1".Pastel("#E37640") + "   Select Game Version");

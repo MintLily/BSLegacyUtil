@@ -64,7 +64,7 @@ v1.2.3.4 build:123 type:Release|Beta|Alpha
 
 **Current Version**
 ```
-v3.3.0.0 - 497 Release
+v3.3.1.0 - 498 Release
 SHA256 Checksums:
 ZIP: 6cefb0fa42cf050928b655c8c2ebc30c48863189f931fe07f1118dae179ef596
 EXE: e543298354100b61b6aa15d991fa312533cb5ef5d368d636e6a7f094f28898da
