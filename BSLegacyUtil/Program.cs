@@ -239,7 +239,31 @@ public abstract class Program {
     }
 
     private static void PlayGame(bool oculus = false) {
-        var p = new Process();
+        var path = Path.Combine(Vars.BaseDirectory, "Installed Versions", $"Beat Saber {LocalJsonModel.TheConfig!.RememberedVersion}");
+        var process = new Process {
+            StartInfo = new ProcessStartInfo {
+                FileName = Path.Combine(path, "Beat Saber.exe"),
+                Arguments = oculus ? "-vrmode oculus" : "",
+                UseShellExecute = false,
+                WorkingDirectory = path
+            }
+        };
+
+        var steam = Process.GetProcessesByName("steam").FirstOrDefault();
+        if (steam == null || !steam.Responding) {
+            Warning("Steam is not running. Please start Steam(VR) before playing the game.");
+            Main(null!);
+        }
+
+        try {
+            process.StartInfo.Environment["SteamAppId"] = Vars.GameAppId;
+            process.Start();
+        }
+        catch (Exception ex) {
+            Error(ex);
+            Warning("Is Beat Saber installed?");
+        }
+        /*var p = new Process();
         var temp = Path.Combine(Vars.BaseDirectory, "Installed Versions", $"Beat Saber {LocalJsonModel.TheConfig!.RememberedVersion}");
         p.StartInfo = new ProcessStartInfo($"{temp}{Path.DirectorySeparatorChar}Beat Saber.exe", oculus ? "-vrmode oculus" : "") {
             UseShellExecute = false,
@@ -253,11 +277,11 @@ public abstract class Program {
         catch (Exception e) {
             Error("Failed to start game, please try again.");
             Error(e.Message);
-        }
+        }*/
     }
 
     public static void Start() {
         System.Console.Clear();
-        Main(null);
+        Main(null!);
     }
 }
