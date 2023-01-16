@@ -13,7 +13,7 @@ public static class Vars {
 #else
     public static bool IsDebug { get; set; }
 #endif
-    public static string BaseDirectory { get; internal set; } = IsWindows ? Environment.CurrentDirectory + Path.PathSeparator : AppDomain.CurrentDomain.BaseDirectory;
+    public static string BaseDirectory { get; internal set; } = IsWindows ? Environment.CurrentDirectory + Path.DirectorySeparatorChar : AppDomain.CurrentDomain.BaseDirectory;
     
     /*===============================================*/
     public static string SteamPassword { get; internal set; } = "";
