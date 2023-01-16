@@ -191,7 +191,7 @@ public abstract class Program {
                 
                 Process.Start(new ProcessStartInfo {
                     WorkingDirectory = bsDir,
-                    FileName = $"{bsDir}{Path.PathSeparator}IPA.exe"
+                    FileName = $"{bsDir}{Path.DirectorySeparatorChar}IPA.exe"
                 });
                 
                 if (!isOldSelected) {
@@ -241,7 +241,7 @@ public abstract class Program {
     private static void PlayGame(bool oculus = false) {
         var p = new Process();
         var temp = Path.Combine(Vars.BaseDirectory, "Installed Versions", $"Beat Saber {LocalJsonModel.TheConfig!.RememberedVersion}");
-        p.StartInfo = new ProcessStartInfo($"{temp}{Path.PathSeparator}Beat Saber.exe", oculus ? "-vrmode oculus" : "") {
+        p.StartInfo = new ProcessStartInfo($"{temp}{Path.DirectorySeparatorChar}Beat Saber.exe", oculus ? "-vrmode oculus" : "") {
             UseShellExecute = false,
             WorkingDirectory = temp
         };
