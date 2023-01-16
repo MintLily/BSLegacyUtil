@@ -7,7 +7,7 @@ public class Config {
     public string? RememberedSteamUserName { get; set; }
 }
 
-public class LocalJsonModel {
+public abstract class LocalJsonModel {
     public static Config? TheConfig { get; private set; }
     
     public static void Start() {
