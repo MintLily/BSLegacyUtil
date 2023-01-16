@@ -48,6 +48,7 @@ This project contains code from the following Users and Their projects: _(All ri
 * Steam - [DepotDownloader](https://github.com/SteamRE/DepotDownloader)
 * RiskiVR & ComputerElite & DDAkebono - [BSLegacyLauncher](https://github.com/RiskiVR/BSLegacyLauncher)
 * BSMG (nike4613) - [BSIPA](https://github.com/bsmg/BeatSaber-IPA-Reloaded)
+* kasperstyre - [Pull Request #9](https://github.com/MintLily/BSLegacyUtil/pull/9)
 
 # Developers
 Want to compile this yourself? You'll need to install the following:
@@ -64,8 +65,8 @@ v1.2.3.4 build:123 type:Release|Beta|Alpha
 
 **Current Version**
 ```
-v3.3.1.0 - 498 Release
+v3.3.2.0 - 502 Release
 SHA256 Checksums:
-ZIP: 6cefb0fa42cf050928b655c8c2ebc30c48863189f931fe07f1118dae179ef596
-EXE: e543298354100b61b6aa15d991fa312533cb5ef5d368d636e6a7f094f28898da
+ZIP: 52629a8c1dd8592d2e733264d6da4d3f0bce916af43bc9402017e7a832efd6fd
+EXE: 88093a86156c50a4992e0920b3d4fd837111068725477448bd145c9b3e59e63e
 ```
