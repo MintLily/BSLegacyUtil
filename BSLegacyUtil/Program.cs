@@ -179,7 +179,7 @@ public abstract class Program {
                 var nonMaVersions = new List<string> { "0.10.1", "0.10.2", "0.10.2p1", "0.11.0", "0.11.1", "0.11.2", "0.12.0",
                     "0.12.0p1", "0.12.1", "0.12.2", "0.13.0", "0.13.0p1", "0.13.1" };
                 var bsDir = Path.Combine(Vars.BaseDirectory, "Installed Versions", $"Beat Saber {LocalJsonModel.TheConfig.RememberedVersion}");
-                var isOldSelected = !nonMaVersions.Any(x => x.Equals(LocalJsonModel.TheConfig.RememberedVersion));
+                var isOldSelected = nonMaVersions.Any(x => x.Equals(LocalJsonModel.TheConfig.RememberedVersion));
                 try {
                     CustomDirectory.DirectoryCopy($"{Vars.BaseDirectory}Resources\\BSIPA-{(isOldSelected ? "Legacy" : "4.2.2")}", bsDir, true);
                     Log($"IPA {(isOldSelected ? "Legacy" : "4.2.2")} successfully installed!");
