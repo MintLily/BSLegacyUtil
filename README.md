@@ -2,10 +2,10 @@
 Converted from windows batch to C# | Beat Saber Legacy Group's Beat Saber Downgrade utility that is using [Steam's DepotDownloader](https://github.com/SteamRE/DepotDownloader)
 
 ## Quick Links
-Issues, Bug Reports, Support? [Go here](https://github.com/MintLily/BSLegacyUtil/issues) and create an issue.<br>
-Need to Download Utility? [Go here](https://github.com/MintLily/BSLegacyUtil/releases/latest) and download the latest version<br><br>
+Issues, Bug Reports, Support? [Go here](https://github.com/BeatSaberLegacyGroup/BSLegacyUtil/issues) and create an issue.<br>
+Need to Download Utility? [Go here](https://github.com/BeatSaberLegacyGroup/BSLegacyUtil/releases/latest) and download the latest version<br><br>
 You'll need to install the following:<br>
-To open the exe: [.NET Core Desktop Runtime v7.0.1+](https://link.bslegacy.com/dotnet7)
+To open the exe: [.NET Core Desktop Runtime v7.0.2+](https://link.bslegacy.com/dotnet7)
 
 ## Available Downgrades
 | Major  | Patch -- | -------- | ------ | -----> |
@@ -48,11 +48,11 @@ This project contains code from the following Users and Their projects: _(All ri
 * Steam - [DepotDownloader](https://github.com/SteamRE/DepotDownloader)
 * RiskiVR & ComputerElite & DDAkebono - [BSLegacyLauncher](https://github.com/RiskiVR/BSLegacyLauncher)
 * BSMG (nike4613) - [BSIPA](https://github.com/bsmg/BeatSaber-IPA-Reloaded)
-* kasperstyre - [Pull Request #9](https://github.com/MintLily/BSLegacyUtil/pull/9)
+* kasperstyre - [Pull Request #9](https://github.com/BeatSaberLegacyGroup/BSLegacyUtil/pull/9)
 
 # Developers
 Want to compile this yourself? You'll need to install the following:
-- .NET 7.0.1+ SDK (https://dotnet.microsoft.com/download/dotnet/7.0)
+- .NET 7.0.2+ SDK (https://dotnet.microsoft.com/download/dotnet/7.0)
 - [JetBrains Rider](https://www.jetbrains.com/rider/) (2022.3+) or [Visual Studio 2022](https://visualstudio.microsoft.com/vs/) (17.4.3+)
 - - *I use Rider to develop the current version*
 
