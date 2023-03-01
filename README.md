@@ -58,14 +58,14 @@ Want to compile this yourself? You'll need to install the following:
 
 # App Version Logic
 ```
-1.2.3.4 - 123 beta
-Major.Minor.Revision.Hotfix [build] [type]
-v1.2.3.4 build:123 type:Release|Beta|Alpha
+1970.1.2r3 - 123 Release
+Year.Month.Major[Revision] [build] [type]
+v1970.1.2r3 build:123 type:Release|Beta|Alpha
 ```
 
 **Current Version**
 ```
-v3.3.2.1 - 503 Release
+v2023.1.2r3 - 504 Release
 SHA256 Checksums:
 ZIP: f3f4d0889b8225046676d6693fa2a5efffe8ff75b59c85f4eb95b1806305a1ba
 EXE: 163dc833a948975720f3f79db906d1dee7cb99c09536ad9cc6d0f6e3ec411b36

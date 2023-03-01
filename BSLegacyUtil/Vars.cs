@@ -2,7 +2,7 @@
 
 public static class Vars {
     public const string Name = "BSLegacyUtil";
-    public const string Version = "3.3.2.1";
+    public const string Version = "2023.1.2r3";
     internal static string InternalSha256 = "0x0";
     // internal static bool FileIntegrityFailed = false;
     public const string Author = "MintLily";
