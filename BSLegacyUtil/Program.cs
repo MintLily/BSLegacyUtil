@@ -34,7 +34,7 @@ public abstract class Program {
         if (!Vars.IsDebug) {
             var update = new HttpClient();
             update.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:87.0) Gecko/20100101 Firefox/87.0");
-            var str = update.GetStringAsync("https://api.github.com/repos/MintLily/BSLegacyUtil/releases").GetAwaiter().GetResult();
+            var str = update.GetStringAsync("https://api.github.com/repos/BeatSaberLegacyGroup/BSLegacyUtil/releases").GetAwaiter().GetResult();
             update.Dispose();
             
             if (!str.Contains($"\"tag_name\": \"{Vars.Version}\"")) {
@@ -43,8 +43,8 @@ public abstract class Program {
                 // UpdateUtil.VerifyFileIntegrity();
                 WriteSeparator(ConsoleColor.Red);
                 Space();
-                Process.Start(Vars.IsWindows ? "cmd.exe" : "https://github.com/MintLily/BSLegacyUtil/releases",
-                    Vars.IsWindows ? "/c start https://github.com/MintLily/BSLegacyUtil/releases" : "");
+                Process.Start(Vars.IsWindows ? "cmd.exe" : "https://github.com/BeatSaberLegacyGroup/BSLegacyUtil/releases",
+                    Vars.IsWindows ? "/c start https://github.com/BeatSaberLegacyGroup/BSLegacyUtil/releases" : "");
             }
         } else {
             UpdateUtil.PrintSha256ForDebug();
