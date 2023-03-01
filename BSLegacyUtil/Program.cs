@@ -48,7 +48,7 @@ public abstract class Program {
             }
         } else {
             UpdateUtil.PrintSha256ForDebug();
-            UpdateUtil.VerifyFileIntegrity(); // Got to test everything
+            // UpdateUtil.VerifyFileIntegrity(); // Got to test everything
             Space();
         }
         
@@ -121,7 +121,7 @@ public abstract class Program {
         var input = System.Console.ReadLine();
         Space();
 
-        if (Vars.FileIntegrityFailed) {
+        /*if (Vars.FileIntegrityFailed) {
             System.Console.Write("File integrity check failed, are you sure you would like to continue? (Y/N): ");
             var tempPrompt = System.Console.ReadLine();
             if (!tempPrompt.ToLower().Contains('y')) {
@@ -129,7 +129,7 @@ public abstract class Program {
                 return;
             }
             Space();
-        }
+        }*/
 
         switch (input) {
             case "1":

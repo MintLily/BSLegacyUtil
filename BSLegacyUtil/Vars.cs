@@ -4,7 +4,7 @@ public static class Vars {
     public const string Name = "BSLegacyUtil";
     public const string Version = "3.3.2.1";
     internal static string InternalSha256 = "0x0";
-    internal static bool FileIntegrityFailed = false;
+    // internal static bool FileIntegrityFailed = false;
     public const string Author = "MintLily";
     public static bool IsWindows;
     public static readonly Version TargetDotNetVer = new("7.0.0");

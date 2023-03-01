@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+﻿/*using Newtonsoft.Json;
 
 namespace BSLegacyUtil.Data;
 
@@ -14,18 +14,18 @@ public class OldProgramData {
 }
 
 public abstract class ProgramJsonModel {
-    private const string JsonUrl = "https://raw.githubusercontent.com/MintLily/BSLegacyUtil/main/Resources/ProgramData.json";
+    private const string JsonUrl = "https://raw.githubusercontent.com/BeatSaberLegacyGroup/BSLegacyUtil/main/Resources/ProgramData.json";
     // private static readonly string JsonFile = $"{Vars.BaseDirectory}ProgramData.json";
 
-    public static ProgramData TheProgramData { get; /*internal set;*/ } = GetProgramData(/*Vars.IsDebug ? JsonFile : */JsonUrl);
+    public static ProgramData TheProgramData { get; } = GetProgramData(JsonUrl);//Vars.IsDebug ? JsonFile : JsonUrl);
     
     private static ProgramData GetProgramData(string file) {
         try {
             var data = "";
             var client = new HttpClient();
-            /*if (!Vars.IsDebug) */
+            /*if (!Vars.IsDebug) #1#
                 data = client.GetStringAsync(file).GetAwaiter().GetResult();
-            var json = JsonConvert.DeserializeObject<ProgramData>(/*Vars.IsDebug ? File.ReadAllText(JsonFile) : */data);
+                var json = JsonConvert.DeserializeObject<ProgramData>(data);//Vars.IsDebug ? File.ReadAllText(JsonFile) : data);
             client.Dispose();
             if (json is null) throw new Exception();
             return json;
@@ -35,4 +35,4 @@ public abstract class ProgramJsonModel {
             return new ProgramData();
         }
     }
-}
+}*/

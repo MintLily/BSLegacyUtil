@@ -27,7 +27,7 @@ public static class UpdateUtil {
         return stringBuilder.ToString();
     }
 
-    public static void VerifyFileIntegrity(bool justSkipAndShowFailedMessage = false) {
+    /*public static void VerifyFileIntegrity(bool justSkipAndShowFailedMessage = false) {
         Vars.FileIntegrityFailed = false;
         if (ProgramJsonModel.TheProgramData.ExpectedVersion != Vars.Version) {
             var foreColor = System.Console.ForegroundColor;
@@ -45,5 +45,5 @@ public static class UpdateUtil {
             Console.Space();
             Console.WriteSeparator(ConsoleColor.Red);
         }
-    }
+    }*/
 }
