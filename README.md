@@ -42,6 +42,7 @@ To open the exe: [.NET Core Desktop Runtime v7.0.2+](https://link.bslegacy.com/d
 | 1.25.0 | 1.25.1   |
 | 1.26.0 |
 | 1.27.0 |
+| 1.28.0 |
 
 # Contributors / Credits
 This project contains code from the following Users and Their projects: _(All rights and credit goes to them)_
@@ -67,6 +68,8 @@ v1970.1.2r3 build:123 type:Release|Beta|Alpha
 ```
 v2023.1.2r3 - 504 Release
 SHA256 Checksums:
-ZIP: f3f4d0889b8225046676d6693fa2a5efffe8ff75b59c85f4eb95b1806305a1ba
-EXE: 163dc833a948975720f3f79db906d1dee7cb99c09536ad9cc6d0f6e3ec411b36
+FD-ZIP: a95dde89e08d2db9681050538f2e2d18972995e5743304989061442b44d736de
+FD-EXE: 6c0b18db7b3298a002eff2f0186fcdbb2ec567142853f8943a4a63197b4b9a81
+SC-ZIP: cbab4172c3dd5458798dbef5ed83969425ae8d1c0443ed5222c6a37318a877fb
+SC-EXE: 0bad0ab7a8dc4fe85b69659d6078a65d43b59bb34839add5c82893ed916b5e46
 ```
