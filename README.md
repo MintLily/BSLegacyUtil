@@ -5,7 +5,7 @@ Converted from windows batch to C# | Beat Saber Legacy Group's Beat Saber Downgr
 Issues, Bug Reports, Support? [Go here](https://github.com/BeatSaberLegacyGroup/BSLegacyUtil/issues) and create an issue.<br>
 Need to Download Utility? [Go here](https://github.com/BeatSaberLegacyGroup/BSLegacyUtil/releases/latest) and download the latest version<br><br>
 You'll need to install the following:<br>
-To open the exe: [.NET Core Desktop Runtime v7.0.2+](https://link.bslegacy.com/dotnet7)
+To open the exe: [.NET Core Desktop Runtime v7.0.3+](https://link.bslegacy.com/dotnet7)
 
 ## Available Downgrades
 | Major  | Patch -- | -------- | ------ | -----> |
@@ -53,7 +53,7 @@ This project contains code from the following Users and Their projects: _(All ri
 
 # Developers
 Want to compile this yourself? You'll need to install the following:
-- .NET 7.0.2+ SDK (https://dotnet.microsoft.com/download/dotnet/7.0)
+- .NET 7.0.3+ SDK (https://dotnet.microsoft.com/download/dotnet/7.0)
 - [JetBrains Rider](https://www.jetbrains.com/rider/) (2022.3+) or [Visual Studio 2022](https://visualstudio.microsoft.com/vs/) (17.4.3+)
 - - *I use Rider to develop the current version*
 
