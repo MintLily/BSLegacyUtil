@@ -43,6 +43,7 @@ To open the exe: [.NET Core Desktop Runtime v7.0.3+](https://link.bslegacy.com/d
 | 1.26.0 |
 | 1.27.0 |
 | 1.28.0 |
+| 1.29.0 | 1.29.1   |
 
 # Contributors / Credits
 This project contains code from the following Users and Their projects: _(All rights and credit goes to them)_
@@ -60,16 +61,16 @@ Want to compile this yourself? You'll need to install the following:
 # App Version Logic
 ```
 1970.1.2r3 - 123 Release
-Year.Month.Major[Revision] [build] [type]
-v1970.1.2r3 build:123 type:Release|Beta|Alpha
+Year.Major.Revision[.BugFix] - [build] [type]
+v1970.1.2.3 build:123 type:Release|Beta|Alpha
 ```
 
 **Current Version**
 ```
-v2023.1.2r3 - 504 Release
+v2023.1.3 - 505 Release
 SHA256 Checksums:
-FD-ZIP: a95dde89e08d2db9681050538f2e2d18972995e5743304989061442b44d736de
-FD-EXE: 6c0b18db7b3298a002eff2f0186fcdbb2ec567142853f8943a4a63197b4b9a81
-SC-ZIP: cbab4172c3dd5458798dbef5ed83969425ae8d1c0443ed5222c6a37318a877fb
-SC-EXE: 0bad0ab7a8dc4fe85b69659d6078a65d43b59bb34839add5c82893ed916b5e46
+W-ZIP: b6bea4a6b148f837178b912b8d60d0df47371c6f8a53183e2cc56f29a66685b4
+W-EXE: 5ec73ccfe3a9cb49da09eb1f3ac64384e8c6f10bf1fc80be6d21afedcae8c4dc
+L-ZIP: 92fec704323f0144c45b00f6232beabeed4556bc1f7f6929a869fadbcde9ea5b
+L-EXF: 707716d43cd5c4433ef9c21b92a9e41a06ce5ed89548f2daaf205b21cefffe1c
 ```

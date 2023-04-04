@@ -263,21 +263,6 @@ public abstract class Program {
             Error(ex);
             Warning("Is Beat Saber installed?");
         }
-        /*var p = new Process();
-        var temp = Path.Combine(Vars.BaseDirectory, "Installed Versions", $"Beat Saber {LocalJsonModel.TheConfig!.RememberedVersion}");
-        p.StartInfo = new ProcessStartInfo($"{temp}{Path.DirectorySeparatorChar}Beat Saber.exe", oculus ? "-vrmode oculus" : "") {
-            UseShellExecute = false,
-            WorkingDirectory = temp
-        };
-
-        try {
-            p.StartInfo.Environment["SteamAppId"] = Vars.GameAppId;
-            p.Start();
-        }
-        catch (Exception e) {
-            Error("Failed to start game, please try again.");
-            Error(e.Message);
-        }*/
     }
 
     public static void Start() {
