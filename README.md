@@ -43,7 +43,7 @@ To open the exe: [.NET Core Desktop Runtime v7.0.3+](https://link.bslegacy.com/d
 | 1.26.0 |
 | 1.27.0 |
 | 1.28.0 |
-| 1.29.0 | 1.29.1   |
+| 1.29.0 | 1.29.1   |          |        | 1.29.4
 
 # Contributors / Credits
 This project contains code from the following Users and Their projects: _(All rights and credit goes to them)_
