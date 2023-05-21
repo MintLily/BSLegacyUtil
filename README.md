@@ -1,9 +1,12 @@
-# BSLegacyUtil
-Converted from windows batch to C# | Beat Saber Legacy Group's Beat Saber Downgrade utility that is using [Steam's DepotDownloader](https://github.com/SteamRE/DepotDownloader)
+# BSLegacyUtil (End of life: 21 May 2023)
+Converted from windows batch to C# | Beat Saber Legacy Group's Beat Saber Downgrade utility that is using [Steam's DepotDownloader](https://github.com/SteamRE/DepotDownloader)<br>
+his project is considered deprecated and will no longer be updated. A new tool may eventually be in the works, but no promises on that.<br>
+**THIS DOES NOT MEAN THE CURRENT STATE OF THE TOOL IS NOT WORKING.** It will work fine, it will just no longer receive any new updates from this point on.<br>
+If you would like to support the creator, please consider it: https://ko-fi.com/MintLily
 
 ## Quick Links
-Issues, Bug Reports, Support? [Go here](https://github.com/BeatSaberLegacyGroup/BSLegacyUtil/issues) and create an issue.<br>
-Need to Download Utility? [Go here](https://github.com/BeatSaberLegacyGroup/BSLegacyUtil/releases/latest) and download the latest version<br><br>
+Issues, Bug Reports, Support? [Go here](https://github.com/MintLily/BSLegacyUtil/issues) and create an issue.<br>
+Need to Download Utility? [Go here](https://github.com/MintLily/BSLegacyUtil/releases/latest) and download the latest version<br><br>
 You'll need to install the following:<br>
 To open the exe: [.NET Core Desktop Runtime v7.0.3+](https://link.bslegacy.com/dotnet7)
 
@@ -50,12 +53,12 @@ This project contains code from the following Users and Their projects: _(All ri
 * Steam - [DepotDownloader](https://github.com/SteamRE/DepotDownloader)
 * RiskiVR & ComputerElite & DDAkebono - [BSLegacyLauncher](https://github.com/RiskiVR/BSLegacyLauncher)
 * BSMG (nike4613) - [BSIPA](https://github.com/bsmg/BeatSaber-IPA-Reloaded)
-* kasperstyre - [Pull Request #9](https://github.com/BeatSaberLegacyGroup/BSLegacyUtil/pull/9)
+* kasperstyre - [Pull Request #9](https://github.com/MintLily/BSLegacyUtil/pull/9)
 
 # Developers
 Want to compile this yourself? You'll need to install the following:
 - .NET 7.0.3+ SDK (https://dotnet.microsoft.com/download/dotnet/7.0)
-- [JetBrains Rider](https://www.jetbrains.com/rider/) (2022.3+) or [Visual Studio 2022](https://visualstudio.microsoft.com/vs/) (17.4.3+)
+- [JetBrains Rider](https://www.jetbrains.com/rider/) (2023.1+) or [Visual Studio 2022](https://visualstudio.microsoft.com/vs/) (17.4.3+)
 - - *I use Rider to develop the current version*
 
 # App Version Logic
@@ -67,10 +70,10 @@ v1970.1.2.3 build:123 type:Release|Beta|Alpha
 
 **Current Version**
 ```
-v2023.1.3 - 505 Release
+v2023.1.4 - 506 Release
 SHA256 Checksums:
-W-ZIP: b6bea4a6b148f837178b912b8d60d0df47371c6f8a53183e2cc56f29a66685b4
-W-EXE: 5ec73ccfe3a9cb49da09eb1f3ac64384e8c6f10bf1fc80be6d21afedcae8c4dc
-L-ZIP: 92fec704323f0144c45b00f6232beabeed4556bc1f7f6929a869fadbcde9ea5b
-L-EXF: 707716d43cd5c4433ef9c21b92a9e41a06ce5ed89548f2daaf205b21cefffe1c
+W-ZIP: 0bc8327ba1521d6bcc3458b2c9d99bd1fa14e08c31ccd5e98fb6db8be0bac5a1
+W-EXE: 9da7869d5b51aa87b7ce4df7b89835088182cc7984b1e207a3542e02253b513d
+L-ZIP: cc21a0f5ee94d0365f1cc964e8939f0a82becb16e61f2438b06703cea515a114
+L-EXF: cdadca94567517bc40092e4962924eb5909f110f19e303722d8f911f51447be6
 ```
