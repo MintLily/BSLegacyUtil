@@ -1,6 +1,6 @@
 # BSLegacyUtil (End of life: 21 May 2023)
-Converted from windows batch to C# | Beat Saber Legacy Group's Beat Saber Downgrade utility that is using [Steam's DepotDownloader](https://github.com/SteamRE/DepotDownloader)<br>
-his project is considered deprecated and will no longer be updated. A new tool may eventually be in the works, but no promises on that.<br>
+Converted from windows batch to C# | Beat Saber Legacy Group's Beat Saber Downgrade utility that is using [Steam's DepotDownloader](https://github.com/SteamRE/DepotDownloader)<br><br>
+This project is considered deprecated and will no longer be updated. A new tool may eventually be in the works, but no promises on that.<br>
 **THIS DOES NOT MEAN THE CURRENT STATE OF THE TOOL IS NOT WORKING.** It will work fine, it will just no longer receive any new updates from this point on.<br>
 If you would like to support the creator, please consider it: https://ko-fi.com/MintLily
 
