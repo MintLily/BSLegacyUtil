@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using static BSLegacyUtil.Console;
 
 namespace BSLegacyUtil.Data;
 
@@ -29,8 +30,19 @@ public abstract class RemoteJsonModel {
     public static void LoadJsonData() {
         var data = "";
         var client = new HttpClient();
-        if (!Vars.IsDebug) 
+        //if (!Vars.IsDebug) 
+        try {
             data = client.GetStringAsync(JsonUrl).GetAwaiter().GetResult();
+        }
+        catch {
+            try {
+                data = client.GetStringAsync("https://raw.githubusercontent.com/MintLily/BSLegacyUtil/master/Resources/BackupBSVersions.json").GetAwaiter().GetResult();
+                /* The contents on this JSON will never be updated */
+            }
+            catch {
+                Error("Failed to load remote JSON data twice. Project is EOL.");
+            }
+        }
         BsVersions = JsonConvert.DeserializeObject<List<Version>>(data);
         client.Dispose();
     }

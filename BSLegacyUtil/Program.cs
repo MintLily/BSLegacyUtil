@@ -31,33 +31,36 @@ public abstract class Program {
         Space();
         
         // TODO: Include auto updater (maybe)
-        if (!Vars.IsDebug) {
-            var update = new HttpClient();
-            update.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:87.0) Gecko/20100101 Firefox/87.0");
-            var str = update.GetStringAsync("https://api.github.com/repos/BeatSaberLegacyGroup/BSLegacyUtil/releases").GetAwaiter().GetResult();
-            update.Dispose();
-            
-            if (!str.Contains($"\"tag_name\": \"{Vars.Version}\"")) {
-                WriteSeparator(ConsoleColor.Red);
-                CenterLog($"A newer version of {Vars.Name} is available!".Pastel("#ff0000"));
-                // UpdateUtil.VerifyFileIntegrity();
-                WriteSeparator(ConsoleColor.Red);
-                Space();
-                Process.Start(Vars.IsWindows ? "cmd.exe" : "https://github.com/BeatSaberLegacyGroup/BSLegacyUtil/releases",
-                    Vars.IsWindows ? "/c start https://github.com/BeatSaberLegacyGroup/BSLegacyUtil/releases" : "");
-            }
-        } else {
-            UpdateUtil.PrintSha256ForDebug();
-            // UpdateUtil.VerifyFileIntegrity(); // Got to test everything
-            Space();
-        }
+        // if (!Vars.IsDebug) {
+        //     var update = new HttpClient();
+        //     update.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:87.0) Gecko/20100101 Firefox/87.0");
+        //     var str = update.GetStringAsync("https://api.github.com/repos/MintLily/BSLegacyUtil/releases").GetAwaiter().GetResult();
+        //     update.Dispose();
+        //     
+        //     if (!str.Contains($"\"tag_name\": \"{Vars.Version}\"")) {
+        //         WriteSeparator(ConsoleColor.Red);
+        //         CenterLog($"A newer version of {Vars.Name} is available!".Pastel("#ff0000"));
+        //         // UpdateUtil.VerifyFileIntegrity();
+        //         WriteSeparator(ConsoleColor.Red);
+        //         Space();
+        //         Process.Start(Vars.IsWindows ? "cmd.exe" : "https://github.com/MintLily/BSLegacyUtil/releases",
+        //             Vars.IsWindows ? "/c start https://github.com/BeatSaberLegacyGroup/BSLegacyUtil/releases" : "");
+        //     }
+        // } else {
+        //     UpdateUtil.PrintSha256ForDebug();
+        //     // UpdateUtil.VerifyFileIntegrity(); // Got to test everything
+        //     Space();
+        // }
         
-        var http = new HttpClient();
-        http.DefaultRequestHeaders.Add("User-Agent", Vars.Name);
-        var contents = http.GetStringAsync("https://bslegacy.com/assets/motd.txt").GetAwaiter().GetResult();
-        CenterLog(contents.Replace("<br>", "\n"));
-        Space();
-        http.Dispose();
+        // var http = new HttpClient();
+        // http.DefaultRequestHeaders.Add("User-Agent", Vars.Name);
+        // var contents = http.GetStringAsync("https://bslegacy.com/assets/motd.txt").GetAwaiter().GetResult();
+        // CenterLog(contents.Replace("<br>", "\n"));
+        // Space();
+        // http.Dispose();
+        CenterLog("This project is considered deprecated and will no longer be updated. (End of life: 21 May 2023)\n" +
+                  "A new tool may eventually be in the works, but no promises on that.\n" +
+                  "If you would like to support the creator, please consider it: https://ko-fi.com/MintLily");
         
         var showError = !Directory.Exists($"{Vars.BaseDirectory}Resources") || !Directory.Exists($"{Vars.BaseDirectory}DepotDownloader");
         
@@ -76,7 +79,7 @@ public abstract class Program {
         if (!(sys.Major == tar.Major && sys.Minor == tar.Minor && sys.Build >= tar.Build)) {
             if (Vars.IsWindows) {
                 Warning("Make sure you have the required packages installed on your machine\n" +
-                                ".NET Desktop Runtime v7.0.0+: https://link.bslegacy.com/dotnet7 \n" +
+                                ".NET Desktop Runtime v7.0.3+: https://link.bslegacy.com/dotnet7 \n" +
                                 "This MUST be installed in order to use this app properly.\n\n" +
                                 "If you already have just installed these, Press \"OK\" and ignore this message.");
                 System.Console.ReadLine();
@@ -93,7 +96,8 @@ public abstract class Program {
                     Error("_INSTALL THIS FIRST.txt is null");
                     Space();
                     Log("Follow the instructions on the opened webpage: https://bslegacy.com/dl/CA-Utility/LinuxInstallGuide");
-                    Process.Start("https://bslegacy.com/dl/CA-Utility/LinuxInstallGuide");
+                    Error("Webpage not opening, please press enter to exit.");
+                    // Process.Start("https://bslegacy.com/dl/CA-Utility/LinuxInstallGuide");
                     System.Console.ReadLine();
                     Environment.Exit(0);
                 }
@@ -216,19 +220,11 @@ public abstract class Program {
                 LocalJsonModel.Save();
                 Start();
                 break;
-            case "c":
-            case "x":
-            case "q":
-            case "e":
-            case "s":
-            case "quit":
-            case "exit":
-            case "stop":
-            case "0":
-            case "7":
+            case "c": case "x": case "q": case "e": case "s": case "quit": case "exit": case "stop": case "0": case "7":
                 // Exit Program
                 Environment.Exit(0);
                 break;
+            case "restart":
             case "reboot":
                 Start();
                 break;
@@ -250,7 +246,7 @@ public abstract class Program {
         };
 
         var steam = Process.GetProcessesByName("steam").FirstOrDefault();
-        if (steam == null || !steam.Responding) {
+        if (steam is not { Responding: true }) {
             Warning("Steam is not running. Please start Steam(VR) before playing the game.");
             Main(null!);
         }
