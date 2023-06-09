@@ -44,7 +44,7 @@ public abstract class Program {
         //         WriteSeparator(ConsoleColor.Red);
         //         Space();
         //         Process.Start(Vars.IsWindows ? "cmd.exe" : "https://github.com/MintLily/BSLegacyUtil/releases",
-        //             Vars.IsWindows ? "/c start https://github.com/BeatSaberLegacyGroup/BSLegacyUtil/releases" : "");
+        //             Vars.IsWindows ? "/c start https://github.com/MintLily/BSLegacyUtil/releases" : "");
         //     }
         // } else {
         //     UpdateUtil.PrintSha256ForDebug();

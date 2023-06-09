@@ -4,11 +4,14 @@ This project is considered deprecated and will no longer be updated. A new tool 
 **THIS DOES NOT MEAN THE CURRENT STATE OF THE TOOL IS NOT WORKING.** It will work fine, it will just no longer receive any new updates from this point on.<br>
 If you would like to support the creator, please consider it: https://ko-fi.com/MintLily
 
+## Small EOL Notice
+The links inside the application will lead to dead results. This `README.md` document will have the links you need that the program had. The most notable link is the .NET Core 7.0 linked below.
+
 ## Quick Links
 Issues, Bug Reports, Support? [Go here](https://github.com/MintLily/BSLegacyUtil/issues) and create an issue.<br>
 Need to Download Utility? [Go here](https://github.com/MintLily/BSLegacyUtil/releases/latest) and download the latest version<br><br>
 You'll need to install the following:<br>
-To open the exe: [.NET Core Desktop Runtime v7.0.3+](https://link.bslegacy.com/dotnet7)
+To open the exe: [.NET Core Desktop Runtime v7.0.5+](https://dotnet.microsoft.com/en-us/download/dotnet/thank-you/runtime-desktop-7.0.5-windows-x64-installer)
 
 ## Available Downgrades
 | Major  | Patch -- | -------- | ------ | -----> |
@@ -57,7 +60,7 @@ This project contains code from the following Users and Their projects: _(All ri
 
 # Developers
 Want to compile this yourself? You'll need to install the following:
-- .NET 7.0.3+ SDK (https://dotnet.microsoft.com/download/dotnet/7.0)
+- .NET 7.0.5+ SDK (https://dotnet.microsoft.com/download/dotnet/7.0)
 - [JetBrains Rider](https://www.jetbrains.com/rider/) (2023.1+) or [Visual Studio 2022](https://visualstudio.microsoft.com/vs/) (17.4.3+)
 - - *I use Rider to develop the current version*
 
